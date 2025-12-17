@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>build_002 | assistive tech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .report-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .report-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .report-section {
+            margin-bottom: 3rem;
+        }
+
+        .report-section h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="mathCanvas"></canvas>
+
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../axioms.html">Axioms</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section class="section blog-post">
+
+        <header class="report-header">
+            <div class="report-meta">REF: BUILD_002 // STATUS: DEPLOYED</div>
+            <h1 style="margin-bottom: 0.5rem;">Assistive Tech @ Saksham</h1>
+            <p style="font-style: italic; color: var(--text-secondary);">An exercise in sensor fusion and accessible
+                design.</p>
+        </header>
+
+        <div class="report-section">
+            <h3>I. Hypothesis</h3>
+            <p>
+                The problem of navigation for the visually impaired is typically treated as a clear-path problem.
+                However, the greater challenge is context awareness. A cane can detect a wall, but it cannot read a sign
+                or detect a silent gesture. The hypothesis was that a multimodal system (Vision + Sonar) could offer a
+                "semantic cane" experience.
+            </p>
+        </div>
+
+        <div class="report-section">
+            <h3>II. Apparatus</h3>
+            <ul>
+                <li><strong>Vision</strong>: Custom Sign Language Recognition model (CNN)</li>
+                <li><strong>Distance</strong>: Ultrasonic sensors (HC-SR04) with haptic feedback correlation.</li>
+                <li><strong>Compute</strong>: Raspberry Pi 4 (Edge Inference).</li>
+                <li><strong>Cost Constraint</strong>: < ₹5,000 per unit for scalability.</li>
+            </ul>
+        </div>
+
+        <div class="report-section">
+            <h3>III. Observation</h3>
+            <p>
+                The ultrasonic walking stick proved robust, providing reliable < 2m obstacle detection. However, the
+                    Smart Cap (Vision) faced significant latency issues on the Pi 4 when running simultaneous object
+                    detection and OCR. </p>
+                    <p>
+                        We optimized the model using quantization, reducing inference time by 40%. The final system
+                        achieved 85% accuracy in real-time sign language translation under controlled lighting.
+                    </p>
+                    <figure style="margin: 2rem 0; text-align: center;">
+                        <div
+                            style="background: #eee; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; color: #888; font-family: var(--font-mono);">
+                            [ ARCHIVAL IMAGE: PROTOTYPE V1 ]
+                        </div>
+                        <figcaption class="hero-image-caption">Fig 1. Wiring harness and sensor array.</figcaption>
+                    </figure>
+        </div>
+
+        <div class="report-section">
+            <h3>IV. Conclusion</h3>
+            <p>
+                The project successfully secured ₹335,000 in funding, validating the market need. The "semantic" layer
+                is viable but requires dedicated AI accelerators (like a Coral stick) for true real-time comfort.
+            </p>
+        </div>
+
+        <div class="back-link">
+            <a href="../index.html#makers">← return to log</a>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aryaman chandra | axioms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .axiom-list {
+            max-width: 800px;
+            margin: 0 auto;
+            counter-reset: axiom-counter;
+        }
+
+        .axiom-item {
+            margin-bottom: 4rem;
+            position: relative;
+            padding-left: 2rem;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .axiom-item::before {
+            counter-increment: axiom-counter;
+            content: "Axiom " counter(axiom-counter) ".";
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .axiom-statement {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .axiom-corollary {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-style: italic;
+            padding-left: 1rem;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .axiom-proof {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="mathCanvas"></canvas>
+
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="index.html#about">About</a>
+            <a href="index.html#makers">Makers</a>
+            <a href="index.html#research">Research</a>
+            <a href="blog.html">Blog</a>
+            <a href="library.html">Library</a>
+            <a href="axioms.html">Axioms</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section class="section">
+        <div class="section-header">
+            <span class="section-number">A</span>
+            <h2>axioms</h2>
+        </div>
+
+        <div class="axiom-list">
+            <div class="axiom-item">
+                <div class="axiom-statement">Simplicity is not the absence of complexity, but its resolution.</div>
+                <div class="axiom-corollary">Corollary: A system that hides its complexity is user-friendly; a system
+                    that resolves it is elegant.</div>
+            </div>
+
+            <div class="axiom-item">
+                <div class="axiom-statement">If it cannot be measured, it cannot be improved. If it cannot be defined,
+                    it cannot be measured.</div>
+                <div class="axiom-proof">
+                    Most engineering failures are semantic failures disguised as technical ones. We build the wrong
+                    thing because we defined the problem in words that allowed for ambiguity. Code does not forgive
+                    ambiguity.
+                </div>
+            </div>
+
+            <div class="axiom-item">
+                <div class="axiom-statement">$\lim_{t \to \infty} P(\text{entropy}) = 1$</div>
+                <div class="axiom-corollary">Systems naturally degrade. Maintenance is not a chore; it is the act of
+                    fighting thermodynamics.</div>
+            </div>
+
+            <div class="axiom-item">
+                <div class="axiom-statement">The tool shapes the hand.</div>
+                <div class="axiom-proof">
+                    We tend to think we choose our tools based on the problem. In reality, the problem is often reframed
+                    to fit the tools we know. To think new thoughts, one must occasionally build new tools.
+                </div>
+            </div>
+
+            <div class="axiom-item">
+                <div class="axiom-statement">Beauty is a signal of truth.</div>
+                <div class="axiom-corollary">Not all true things are beautiful, but in mathematics and code, ugliness is
+                    almost always a sign of error.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

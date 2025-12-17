@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aryaman chandra | library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="mathCanvas"></canvas>
+
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="index.html#about">About</a>
+            <a href="index.html#makers">Makers</a>
+            <a href="index.html#research">Research</a>
+            <a href="blog.html">Blog</a>
+            <a href="library.html">Library</a>
+            <a href="axioms.html">Axioms</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <section id="library" class="section library">
+        <div class="section-header">
+            <span class="section-number">L</span>
+            <h2>library</h2>
+        </div>
+        <div class="research-content">
+            <div class="research-intro">
+                <p>A collection of inputs. Books, papers, and essays that have structured my thinking.</p>
+            </div>
+
+            <div class="makers-grid">
+                <article class="maker-card">
+                    <div class="maker-index">Math</div>
+                    <h3>A Mathematician's Apology</h3>
+                    <p class="maker-description">
+                        <i>G.H. Hardy</i>. The definition of the aesthetic I strive for. Unapologetic in its defense of
+                        mathematics as an art form.
+                    </p>
+                    <div class="maker-tags">
+                        <span class="tag">Internalized</span>
+                    </div>
+                </article>
+
+                <article class="maker-card">
+                    <div class="maker-index">Sci-Fi</div>
+                    <h3>The Hitchhiker's Guide to the Galaxy</h3>
+                    <p class="maker-description">
+                        <i>Douglas Adams</i>. A reminder that the universe is absurd and shouldn't be taken too
+                        seriously.
+                    </p>
+                    <div class="maker-tags">
+                        <span class="tag">Re-reading</span>
+                    </div>
+                </article>
+
+                <article class="maker-card">
+                    <div class="maker-index">Philosophy</div>
+                    <h3>Gödel, Escher, Bach</h3>
+                    <p class="maker-description">
+                        <i>Douglas Hofstadter</i>. A strange loop of a book. Essential for understanding how meaning
+                        emerges from meaningless symbols.
+                    </p>
+                    <div class="maker-tags">
+                        <span class="tag">Reference</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

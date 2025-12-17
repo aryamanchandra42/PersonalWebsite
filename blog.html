@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aryaman chandra | blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <canvas id="mathCanvas"></canvas>
+
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="index.html#about">About</a>
+            <a href="index.html#makers">Makers</a>
+            <a href="index.html#research">Research</a>
+            <a href="blog.html">Blog</a>
+            <a href="library.html">Library</a>
+            <a href="axioms.html">Axioms</a>
+            <a href="index.html#contact">Contact</a>
+            <a href="resume.pdf" target="_blank" class="resume-link">[ Curriculum Vitae ]</a>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div> <!-- Spacer for fixed nav -->
+
+    <section id="blog" class="section blog">
+        <div class="section-header">
+            <span class="section-number">B</span>
+            <h2>blog</h2>
+        </div>
+        <div class="blog-content">
+            <div class="blog-intro">
+                <p>Thoughts, tutorials, and ramblings on mathematics, code, and design.</p>
+            </div>
+
+            <div class="makers-grid"> <!-- Reusing makers-grid for card layout -->
+
+                <article class="maker-card">
+                    <div class="maker-index">2025.12.17</div>
+                    <h3>On Recording Patterns</h3>
+                    <p class="maker-description">
+                        "mathematics is not an artistic overlay placed upon reality, but the grammar through which
+                        reality permits itself to be analysed at all."
+                    </p>
+                    <div class="maker-tags">
+                        <span class="tag">Philosophy</span>
+                        <span class="tag">Math</span>
+                    </div>
+                    <div class="maker-links">
+                        <a href="posts/grammar-of-reality.html" class="maker-link">Read</a>
+                    </div>
+                </article>
+
+                <!-- 
+                    HOW TO ADD A NEW BLOG POST:
+                    Copy the following block and paste it inside <div class="makers-grid">
+                    
+                    <article class="maker-card">
+                        <div class="maker-index">YYYY.MM.DD</div>
+                        <h3>Your Title Here</h3>
+                        <p class="maker-description">
+                            Your short description or summary here.
+                        </p>
+                        <div class="maker-tags">
+                            <span class="tag">Tag1</span>
+                            <span class="tag">Tag2</span>
+                        </div>
+                        <div class="maker-links">
+                            <a href="posts/your-post-file.html" class="maker-link">Read More</a>
+                        </div>
+                    </article>
+                -->
+
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

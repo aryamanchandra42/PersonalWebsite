@@ -1,7 +1,13 @@
 :root {
-    --bg-primary: #ffffff;
-    --text-primary: #000000;
-    --text-secondary: #888888;
+    --bg-primary: #f9f8f4;
+    /* Warm paper */
+    --text-primary: #1a1a1a;
+    /* Ink black */
+    --text-secondary: #555555;
+    /* Pencil gray */
+    --accent: #2c3e50;
+    /* Muted blue ink */
+    --border-color: #dcdbd5;
     --font-sans: 'EB Garamond', Georgia, serif;
     --font-mono: 'EB Garamond', Georgia, serif;
 }
@@ -20,11 +26,14 @@ body {
     font-family: var(--font-sans);
     background: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.8;
-    font-size: 18px;
-    text-transform: lowercase;
+    line-height: 1.6;
+    /* Slightly tighter for that book feel */
+    font-size: 19px;
+    text-transform: none;
+    /* Remove lowercase enforcement for a more formal feel */
     user-select: none;
     overflow-x: hidden;
+    letter-spacing: -0.01em;
 }
 
 #mathCanvas {
@@ -34,7 +43,7 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: auto;
-    opacity: 0.25;
+    opacity: 0.8;
     z-index: 0;
     cursor: default;
 }
@@ -59,12 +68,15 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    padding: 2rem 3rem;
+    padding: 1.5rem 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 100;
-    background: var(--bg-primary);
+    background: rgba(249, 248, 244, 0.95);
+    /* Matches new bg with slight transparency */
+    border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(5px);
 }
 
 .nav-logo {
@@ -81,7 +93,7 @@ body {
 
 .nav-logo:hover {
     color: var(--text-secondary);
-    background: rgba(0,0,0,0.02);
+    background: rgba(0, 0, 0, 0.02);
     transform: scale(1.05);
 }
 
@@ -96,7 +108,7 @@ body {
 }
 
 .nav-dropdown.open {
-    max-height: 200px;
+    max-height: 400px;
     padding-top: 1rem;
 }
 
@@ -115,7 +127,7 @@ body {
 
 .nav-dropdown a:hover {
     color: var(--text-primary);
-    background: rgba(0,0,0,0.02);
+    background: rgba(0, 0, 0, 0.02);
     transform: translateX(5px);
 }
 
@@ -129,18 +141,20 @@ body {
 .resume-button {
     display: inline-block;
     margin-top: 2.5rem;
-    padding: 1rem 2.5rem;
+    padding: 0.8rem 2rem;
     font-family: var(--font-mono);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-primary);
     text-decoration: none;
-    border: 2px solid var(--text-primary);
-    border-radius: 4px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    letter-spacing: 1px;
+    border: 1px solid var(--text-primary);
+    border-radius: 2px;
+    /* Sharper corners */
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
     animation: fadeInUp 1s ease 0.4s both;
     position: relative;
     overflow: hidden;
+    background: transparent;
 }
 
 .resume-button::before {
@@ -158,7 +172,7 @@ body {
 .resume-button:hover {
     color: var(--bg-primary);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .resume-button:hover::before {
@@ -196,8 +210,13 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .hero-content {
@@ -216,15 +235,46 @@ body {
 .hero-image {
     width: 100%;
     max-width: 450px;
-    transition: all 0.5s ease;
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    animation: floatImage 6s ease-in-out infinite;
+    transition: all 0.8s ease;
+    /* Slower transition for "developing photo" effect */
+    border-radius: 0;
+    /* Sharp corners for archival look */
+    border: 12px solid #fff;
+    /* Wide museum mount border */
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+    /* Archival Ink Filter: Grayscale, Sepia, High Contrast, slightly dim */
+    filter: grayscale(100%) sepia(20%) contrast(110%) brightness(95%);
+}
+
+.hero-image:hover {
+    /* Reveal: Full color, normal contrast */
+    filter: grayscale(0%) sepia(0%) contrast(100%) brightness(100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+/* Caption style for "Fig 1.1" feel */
+.hero-image-caption {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.8rem;
+    text-align: center;
+    font-style: italic;
 }
 
 @keyframes floatImage {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 .quote-source {
@@ -281,6 +331,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -354,8 +405,17 @@ a.scroll-indicator {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); opacity: 0.5; }
-    50% { transform: translateY(8px); opacity: 1; }
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(8px);
+        opacity: 1;
+    }
 }
 
 /* Divider - removed for image background */
@@ -429,15 +489,18 @@ a.scroll-indicator {
     color: var(--text-primary);
     margin-top: 2.5rem;
     padding: 1.5rem;
-    background: rgba(0,0,0,0.02);
+    background: transparent;
+    border: 1px solid var(--border-color);
     border-left: 3px solid var(--text-primary);
-    border-radius: 4px;
+    border-radius: 0;
     transition: all 0.3s ease;
 }
 
 .proof-box:hover {
-    background: rgba(0,0,0,0.04);
-    transform: translateX(5px);
+    background: rgba(0, 0, 0, 0.02);
+    transform: none;
+    /* No movement */
+    box-shadow: none;
 }
 
 .proof-qed {
@@ -465,36 +528,34 @@ a.scroll-indicator {
 .project-card {
     background: transparent;
     padding: 2.5rem;
-    border: none;
-    border-left: 3px solid transparent;
-    border-radius: 8px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border-color);
+    text-align: left;
+    /* Align text left for academic feel */
+    border-radius: 2px;
+    transition: all 0.4s ease;
     margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
+    background: #fff;
+    /* Distinct card background */
 }
 
 .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.05) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
+    display: none;
+    /* Remove gradient overlay */
 }
 
 .project-card:hover {
     border-left-color: var(--text-primary);
-    transform: translateX(10px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transform: none;
+    /* No movement */
+    box-shadow: none;
+    background: #fff;
+    border: 1px solid var(--text-primary);
 }
 
 .project-card:hover::before {
-    opacity: 1;
+    opacity: 0;
 }
 
 .project-index {
@@ -653,38 +714,29 @@ a.scroll-indicator {
 }
 
 .maker-card {
-    background: rgba(0,0,0,0.01);
+    background: #fff;
     padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
 .maker-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--text-primary);
-    transform: scaleY(0);
-    transition: transform 0.4s ease;
-    transform-origin: bottom;
+    display: none;
 }
 
 .maker-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-    border-color: rgba(0,0,0,0.1);
-    background: rgba(0,0,0,0.02);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* Minimal shadow */
+    border-color: var(--text-primary);
+    background: #fff;
 }
 
 .maker-card:hover::before {
-    transform: scaleY(1);
-    transform-origin: top;
+    display: none;
 }
 
 .maker-index {
@@ -718,7 +770,7 @@ a.scroll-indicator {
     border-radius: 6px;
     margin-bottom: 1.5rem;
     transition: transform 0.3s ease;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .maker-card:hover .maker-image {
@@ -748,7 +800,7 @@ a.scroll-indicator {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     padding: 0.3rem 0.8rem;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
     color: var(--text-secondary);
     transition: all 0.3s ease;
@@ -756,7 +808,7 @@ a.scroll-indicator {
 }
 
 .maker-card:hover .tag {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     color: var(--text-primary);
 }
 
@@ -764,7 +816,7 @@ a.scroll-indicator {
     display: flex;
     gap: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .maker-link {
@@ -803,7 +855,7 @@ a.scroll-indicator {
 
 .research-entry {
     padding: 2.5rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -902,7 +954,7 @@ a.scroll-indicator {
     position: relative;
     border-radius: 8px;
     overflow: hidden;
-    background: rgba(0,0,0,0.02);
+    background: rgba(0, 0, 0, 0.02);
 }
 
 .carousel-container {
@@ -932,7 +984,7 @@ a.scroll-indicator {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .carousel-btn {
@@ -1013,8 +1065,8 @@ a.scroll-indicator {
 
 .contact-item:hover {
     color: var(--text-primary);
-    background: rgba(0,0,0,0.02);
-    border-color: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.1);
     transform: translateX(5px);
 }
 
@@ -1042,7 +1094,8 @@ a.scroll-indicator {
     margin-bottom: 0.5rem;
 }
 
-.heart, .coffee {
+.heart,
+.coffee {
     color: var(--text-secondary);
 }
 
@@ -1055,7 +1108,8 @@ a.scroll-indicator {
 }
 
 .footer-math {
-    display: none;
+    font-size: 1rem;
+    color: var(--text-secondary);
 }
 
 /* Responsive */
@@ -1063,15 +1117,15 @@ a.scroll-indicator {
     .nav {
         padding: 1.5rem;
     }
-    
+
     .nav-links {
         gap: 1.5rem;
     }
-    
+
     .section {
         padding: 4rem 1.5rem;
     }
-    
+
     .typing-quote {
         font-size: 1rem;
         white-space: normal;
@@ -1079,9 +1133,139 @@ a.scroll-indicator {
         border-right: none;
         animation: fadeIn 1s ease;
     }
-    
+
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 }
+
+
+/* Sidenotes for Tufte-style layout */
+.sidenote {
+    float: right;
+    clear: right;
+    margin-right: -45%;
+    width: 35%;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    vertical-align: baseline;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.sidenote-number {
+    counter-increment: sidenote-counter;
+}
+
+.sidenote-number:after {
+    content: counter(sidenote-counter);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 0.1rem;
+    color: var(--accent);
+}
+
+.sidenote:before {
+    content: counter(sidenote-counter) " ";
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    vertical-align: super;
+    line-height: 0;
+    margin-right: 0.2rem;
+    color: var(--accent);
+}
+
+body {
+    counter-reset: sidenote-counter;
+}
+
+@media (max-width: 1300px) {
+    .sidenote {
+        float: none;
+        display: block;
+        margin: 1rem 0;
+        width: 100%;
+        margin-right: 0;
+        padding-left: 1rem;
+        border-left: 1px solid var(--border-color);
+    }
+}
+
+/* Mobile Interaction Class */
+.hero-image.hover-effect,
+.archival-img.hover-effect {
+    filter: grayscale(0%) sepia(0%) contrast(100%) brightness(100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+/* Print Styles */
+@media print {
+
+    .nav,
+    .footer-math,
+    #mathCanvas,
+    .hero-image-caption,
+    .maker-tags,
+    .maker-links,
+    #navToggle {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    .section {
+        padding: 0;
+        margin: 2rem 0;
+        border: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    /* Expand links to show URL */
+    main a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-family: var(--font-mono);
+    }
+
+    .hero-image {
+        border: 2px solid #ccc;
+        box-shadow: none;
+        filter: none !important;
+        /* Always show clear image in print */
+        max-width: 300px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        page-break-after: avoid;
+        color: black;
+    }
+
+    .maker-card,
+    .project-card {
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
 }

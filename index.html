@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aryaman chandra | portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
     <canvas id="mathCanvas"></canvas>
-    
+
     <nav class="nav">
         <div class="nav-logo" id="navToggle">aryaman chandra</div>
         <div class="nav-dropdown" id="navDropdown">
             <a href="#about">About</a>
             <a href="#makers">Makers</a>
             <a href="#research">Research</a>
-            <a href="#achievements">Achievements</a>
+            <a href="blog.html">Blog</a>
+            <a href="library.html">Library</a>
+            <a href="axioms.html">Axioms</a>
             <a href="#contact">Contact</a>
-            <a href="resume.pdf" target="_blank" class="resume-link">[ Curriculum Vitae ]</a>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
             <div class="hero-image-container">
-                <img src="" alt="" class="hero-image" id="heroImage">
+                <img src="header_images/x+y.jpg" alt="Aryaman Chandra" class="hero-image" id="heroImage">
+                <div class="hero-image-caption">Fig 1.1: The Observer (approx. 2024)</div>
             </div>
             <div class="typing-quote">Bound by nothing</div>
-            <a href="resume.pdf" target="_blank" class="resume-button">[ Curriculum Vitae ]</a>
+
             <h1 class="hero-title">
                 Your Name
             </h1>
@@ -54,19 +68,29 @@
         </div>
         <div class="about-content">
             <div class="about-text">
-                <p class="theorem">
-                    <span class="theorem-label">Theorem 1.1:</span> 
-                    “If I could prove by logic that you would die in five minutes, I should be sorry you were going to die, but my sorrow would be very much mitigated by pleasure in the proof.”<br>
-                    <span style="font-size: 0.85em;">— g.h. hardy</span>
+                <p>
+                    I am Aryaman. I build systems, largely to see whether the universe objects.
                 </p>
                 <p>
-                    Hi, I'm Aryaman. I build things. Sometimes they work, sometimes they explode into interesting lessons.
+                    This site is a catalogue of those negotiations. Experiments in mathematics, hardware, and code,
+                    undertaken not because they are especially useful, but because they seem just barely permissible.
+                    Each project begins with a set of rules, proceeds under the assumption that those rules are
+                    incomplete, and ends either in success or in a clearer understanding of why success was never on the
+                    table.
                 </p>
                 <p>
-                    This is a log of experiments, hacks, and research detours—equal parts mathematics, code, hardware, and caffeine. If it doesn’t exist, I’ll probably try to make it (and then debug it at 3am). Unofficial motto: lim (curiosity → ∞) = ∂/∂t (builds + coffee).
+                    It is, in practice, a register of minor improbabilities. A record of occasions on which logic
+                    behaves impeccably, reality cooperates reluctantly, and precision is achieved in spite of
+                    everything. The aim is not to impose order, which would be unreasonable, but to locate pockets of
+                    clarity and examine them before they collapse back into noise.
+                </p>
+                <p>
+                    The work is guided by a simple curiosity: why, in a universe so committed to disorder, anything
+                    works at all.
                 </p>
                 <div class="proof-box">
-                    <span class="proof-qed">current status</span> — actively building. last updated: <span id="lastUpdated"></span>
+                    <span class="proof-qed">current status</span> — actively building. last updated: <span
+                        id="lastUpdated"></span>
                 </div>
             </div>
             <div class="about-stats">
@@ -113,8 +137,10 @@
             <article class="maker-card">
                 <div class="maker-index">build_001</div>
                 <h3>HeyArya!</h3>
-                <img src="makers/heyarya.jpg" alt="HeyArya! project" class="maker-image" onerror="this.style.display='none'">
-                <p class="maker-description">AI-driven educational platform. Adaptive learning algorithms, interactive math tutoring. 9k+ views, 100 active users across 9 countries.</p>
+                <img src="makers/heyarya.jpg" alt="HeyArya! project" class="maker-image"
+                    onerror="this.style.display='none'">
+                <p class="maker-description">AI-driven educational platform. Adaptive learning algorithms, interactive
+                    math tutoring. 9k+ views, 100 active users across 9 countries.</p>
                 <div class="maker-tags">
                     <span class="tag">AI/ML</span>
                     <span class="tag">NLP</span>
@@ -125,26 +151,30 @@
                     <a href="#" class="maker-link">demo</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_002</div>
-                <h3>Assistive Tech @ Saksham</h3>
-                <p class="maker-description">AI-powered cap (lip reading, object detection, sign language) + ultrasonic walking stick. Raised ₹335k total funding.</p>
+                <h3><a href="projects/assistive-tech.html" style="text-decoration: none; color: inherit;"></a>Assistive
+                    Tech @ Saksham</a></h3>
+                <p class="maker-description">AI-powered cap (lip reading, object detection, sign language) + ultrasonic
+                    walking stick. Raised ₹335k total funding.</p>
                 <div class="maker-tags">
                     <span class="tag">Hardware</span>
                     <span class="tag">CV</span>
                     <span class="tag">Embedded</span>
                 </div>
                 <div class="maker-links">
+                    <a href="projects/assistive-tech.html" class="maker-link">view_log</a>
                     <a href="#" class="maker-link">github</a>
                     <a href="#" class="maker-link">docs</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_003</div>
                 <h3>CNN Waste Segregation</h3>
-                <p class="maker-description">Raspberry Pi 4 + CNN for biodegradable/non-biodegradable classification. 2nd place @ IIT Kharagpur (17k+ participants, ₹230k prize).</p>
+                <p class="maker-description">Raspberry Pi 4 + CNN for biodegradable/non-biodegradable classification.
+                    2nd place @ IIT Kharagpur (17k+ participants, ₹230k prize).</p>
                 <div class="maker-tags">
                     <span class="tag">ML</span>
                     <span class="tag">Raspberry Pi</span>
@@ -155,11 +185,12 @@
                     <a href="#" class="maker-link">demo</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_004</div>
                 <h3>CAS Guide (9 Modules)</h3>
-                <p class="maker-description">Nine-module guide integrating IBDP, NEP 2020, Socratic learning. Deployed across 5+ schools.</p>
+                <p class="maker-description">Nine-module guide integrating IBDP, NEP 2020, Socratic learning. Deployed
+                    across 5+ schools.</p>
                 <div class="maker-tags">
                     <span class="tag">Education</span>
                     <span class="tag">Design</span>
@@ -168,11 +199,12 @@
                     <a href="#" class="maker-link">docs</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_005</div>
                 <h3>Breast Cancer CNN</h3>
-                <p class="maker-description">CNN for malignant vs benign tumor classification. Medical image analysis using deep learning.</p>
+                <p class="maker-description">CNN for malignant vs benign tumor classification. Medical image analysis
+                    using deep learning.</p>
                 <div class="maker-tags">
                     <span class="tag">ML</span>
                     <span class="tag">CV</span>
@@ -183,11 +215,12 @@
                     <a href="#" class="maker-link">notebook</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_006</div>
                 <h3>Criminal Justice NLP Bias Analysis</h3>
-                <p class="maker-description">Explored bias in criminal justice system using NLP models. Fairness analysis and algorithmic accountability.</p>
+                <p class="maker-description">Explored bias in criminal justice system using NLP models. Fairness
+                    analysis and algorithmic accountability.</p>
                 <div class="maker-tags">
                     <span class="tag">NLP</span>
                     <span class="tag">Fairness</span>
@@ -198,11 +231,12 @@
                     <a href="#" class="maker-link">report</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_007</div>
                 <h3>Sentiment-Based Stock Analysis</h3>
-                <p class="maker-description">Analyzed stock market behavior using sentiment patterns from tweets. NLP-driven financial modeling.</p>
+                <p class="maker-description">Analyzed stock market behavior using sentiment patterns from tweets.
+                    NLP-driven financial modeling.</p>
                 <div class="maker-tags">
                     <span class="tag">NLP</span>
                     <span class="tag">Finance</span>
@@ -213,11 +247,12 @@
                     <a href="#" class="maker-link">notebook</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_008</div>
                 <h3>Piezoelectric Gym Startup</h3>
-                <p class="maker-description">Piezoelectric-powered gym concept converting kinetic energy to electricity. Developed @ Hero MotoCorp Innovation Cell.</p>
+                <p class="maker-description">Piezoelectric-powered gym concept converting kinetic energy to electricity.
+                    Developed @ Hero MotoCorp Innovation Cell.</p>
                 <div class="maker-tags">
                     <span class="tag">Hardware</span>
                     <span class="tag">Energy</span>
@@ -227,11 +262,12 @@
                     <a href="#" class="maker-link">prototype</a>
                 </div>
             </article>
-            
+
             <article class="maker-card">
                 <div class="maker-index">build_009</div>
                 <h3>Game Development Projects</h3>
-                <p class="maker-description">Original games designed and presented to review board (Harvard/MIT/IIT alumni). Combinatorics & number theory applications.</p>
+                <p class="maker-description">Original games designed and presented to review board (Harvard/MIT/IIT
+                    alumni). Combinatorics & number theory applications.</p>
                 <div class="maker-tags">
                     <span class="tag">Games</span>
                     <span class="tag">Math</span>
@@ -259,7 +295,9 @@
                         <span class="research-year">2024</span>
                     </div>
                     <p class="research-authors">Aryaman Chandra</p>
-                    <p class="research-abstract">Independent research on Hausdorff dimensions and fractal geometry. Expository paper extending the work to Brownian motion and stochastic processes. Presented to 30+ peers at Euler Circle.</p>
+                    <p class="research-abstract">Independent research on Hausdorff dimensions and fractal geometry.
+                        Expository paper extending the work to Brownian motion and stochastic processes. Presented to
+                        30+ peers at Euler Circle.</p>
                     <div class="research-meta">
                         <span class="research-venue">euler circle</span>
                         <span class="research-type">expository paper</span>
@@ -273,38 +311,7 @@
         </div>
     </section>
 
-    <section id="achievements" class="section achievements">
-        <div class="section-header">
-            <span class="section-number">04</span>
-            <h2>achievements</h2>
-        </div>
-        <div class="achievements-content">
-            <div class="achievement-item">
-                <span class="achievement-year">2025</span>
-                <span class="achievement-text">Horizon Academic Essay Excellence Prize — $1000 scholarship</span>
-            </div>
-            <div class="achievement-item">
-                <span class="achievement-year">2024</span>
-                <span class="achievement-text">IIT Kharagpur AI competition — 2nd place among 17,000+ participants (₹230k prize)</span>
-            </div>
-            <div class="achievement-item">
-                <span class="achievement-year">2024</span>
-                <span class="achievement-text">RSL Guitar Grade 8 Award (highest qualification)</span>
-            </div>
-            <div class="achievement-item">
-                <span class="achievement-year">2024</span>
-                <span class="achievement-text">AP Scholar Award</span>
-            </div>
-            <div class="achievement-item">
-                <span class="achievement-year">2023</span>
-                <span class="achievement-text">FIDE-rated chess — 3rd (Gurgaon u-19) & 2nd (State u-19)</span>
-            </div>
-            <div class="achievement-item">
-                <span class="achievement-year">2023</span>
-                <span class="achievement-text">MUNs — Best Delegate (x2), High Commendation (x3), Special Mention (x1)</span>
-            </div>
-        </div>
-    </section>
+
 
     <section id="contact" class="section contact">
         <div class="section-header">
@@ -331,12 +338,11 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <p>fueled by redbull <img src="redbull_icon.png" alt="" class="energy-icon"></p>
             <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>
