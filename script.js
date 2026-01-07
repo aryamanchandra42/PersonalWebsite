@@ -1,20 +1,3 @@
-// Hero image slideshow
-const heroImages = [
-    'header_images/beautiful mind.jpg',
-    'header_images/gwh.jpg',
-    'header_images/oppenheimer.jpg',
-    'header_images/x+y.jpg'
-];
-
-const heroImage = document.getElementById('heroImage');
-
-// Random image on each refresh
-// Random image on each refresh
-if (heroImage) {
-    const randomIndex = Math.floor(Math.random() * heroImages.length);
-    heroImage.src = heroImages[randomIndex];
-}
-
 // Last updated date
 const lastUpdated = document.getElementById('lastUpdated');
 if (lastUpdated) {

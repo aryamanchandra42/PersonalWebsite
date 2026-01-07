@@ -74,7 +74,6 @@ body {
     align-items: center;
     z-index: 100;
     background: rgba(249, 248, 244, 0.95);
-    /* Matches new bg with slight transparency */
     border-bottom: 1px solid var(--border-color);
     backdrop-filter: blur(5px);
 }
@@ -229,21 +228,18 @@ body {
 .hero-image-container {
     position: relative;
     display: inline-block;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .hero-image {
-    width: 100%;
-    max-width: 450px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
     transition: all 0.8s ease;
-    /* Slower transition for "developing photo" effect */
-    border-radius: 0;
-    /* Sharp corners for archival look */
-    border: 12px solid #fff;
-    /* Wide museum mount border */
+    border-radius: 50%;
+    border: 8px solid #fff;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     /* Archival Ink Filter: Grayscale, Sepia, High Contrast, slightly dim */
     filter: grayscale(100%) sepia(20%) contrast(110%) brightness(95%);
 }
@@ -251,8 +247,8 @@ body {
 .hero-image:hover {
     /* Reveal: Full color, normal contrast */
     filter: grayscale(0%) sepia(0%) contrast(100%) brightness(100%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
 }
 
 /* Caption style for "Fig 1.1" feel */
@@ -367,14 +363,52 @@ body {
 }
 
 .hero-title {
-    display: none;
-}
-
-.math-accent {
-    display: none;
+    font-family: var(--font-sans);
+    font-size: 3rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+    animation: fadeInUp 1s ease 0.3s both;
 }
 
 .hero-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.hero-affiliations {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease 0.5s both;
+}
+
+.affiliation {
+    display: inline;
+}
+
+.affiliation-divider {
+    margin: 0 0.5rem;
+    opacity: 0.5;
+}
+
+.hero-motto {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-top: 2.5rem;
+    opacity: 0.8;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+.math-accent {
     display: none;
 }
 
@@ -459,7 +493,42 @@ a.scroll-indicator {
 /* About */
 .about-content {
     display: block;
+    text-align: left;
+    overflow: hidden;
+    /* Clear floats */
+}
+
+/* About Section Profile Image */
+.about-image-container {
+    float: left;
+    margin-right: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-image {
+    width: 220px;
+    transition: all 0.8s ease;
+    border-radius: 0;
+    border: 10px solid #fff;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    /* Archival Ink Filter */
+    filter: grayscale(100%) sepia(20%) contrast(110%) brightness(95%);
+}
+
+.about-image:hover {
+    filter: grayscale(0%) sepia(0%) contrast(100%) brightness(100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+.about-image-caption {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.8rem;
     text-align: center;
+    font-style: italic;
 }
 
 .theorem {
@@ -927,6 +996,45 @@ a.scroll-indicator {
     font-style: italic;
 }
 
+.research-institutions {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.institutions-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.institutions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.institution-badge {
+    padding: 0.25rem 0.7rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 2px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    text-transform: lowercase;
+}
+
+.institution-badge:hover {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
 .research-links {
     display: flex;
     gap: 1.5rem;
@@ -945,6 +1053,120 @@ a.scroll-indicator {
 
 .research-link:hover {
     border-bottom-color: var(--text-primary);
+    color: var(--text-secondary);
+}
+
+/* Research Page - Institutional Banner */
+.research-institutions-banner {
+    margin-bottom: 4rem;
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--text-primary);
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.research-institutions-banner .banner-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.research-institutions-banner .banner-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.research-institutions-banner .banner-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.1);
+    opacity: 0.6;
+}
+
+/* Research Sections */
+.research-section {
+    margin-bottom: 4rem;
+}
+
+.research-section-title {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-transform: lowercase;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Research Interests */
+.research-interests {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.interest-item {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Ongoing Work Status */
+.research-entry.ongoing {
+    border-left: 3px solid var(--text-primary);
+    padding-left: 1.5rem;
+}
+
+.research-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.3rem 0.8rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+/* Collaborations */
+.collaborations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.collaboration-item {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.collaboration-name {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.collaboration-role {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
     color: var(--text-secondary);
 }
 
@@ -1112,6 +1334,39 @@ a.scroll-indicator {
     color: var(--text-secondary);
 }
 
+/* Footer Institutions */
+.footer-institutions {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.footer-institutions-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.footer-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.1);
+    opacity: 0.5;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .nav {
@@ -1132,6 +1387,46 @@ a.scroll-indicator {
         width: auto;
         border-right: none;
         animation: fadeIn 1s ease;
+    }
+
+    /* Mobile styles for footer institutions */
+    .footer-logos {
+        gap: 1.2rem;
+    }
+
+    .footer-logo {
+        height: 26px;
+    }
+
+    /* Mobile styles for research page */
+    .research-institutions-banner {
+        padding: 1.5rem 1rem;
+    }
+
+    .research-institutions-banner .banner-label {
+        font-size: 0.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .research-institutions-banner .banner-logos {
+        gap: 1.5rem;
+    }
+
+    .research-institutions-banner .banner-logo {
+        height: 30px;
+    }
+
+    .research-interests {
+        gap: 1rem;
+    }
+
+    .interest-item {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .collaboration-item {
+        padding: 1rem;
     }
 
     @keyframes fadeIn {
@@ -1200,6 +1495,82 @@ body {
         border-left: 1px solid var(--border-color);
     }
 }
+
+@media (max-width: 768px) {
+    .about-image-container {
+        float: none;
+        display: block;
+        text-align: center;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+
+    .about-content {
+        text-align: center;
+    }
+}
+
+/* Library Visual Inspirations */
+.library-subsection {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.subsection-title {
+    font-family: var(--font-sans);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.subsection-intro {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.visual-inspirations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.inspiration-item {
+    text-align: center;
+}
+
+.archival-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border: 10px solid #fff;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.8s ease;
+    /* Archival Ink Filter */
+    filter: grayscale(100%) sepia(20%) contrast(110%) brightness(95%);
+}
+
+.archival-img:hover {
+    filter: grayscale(0%) sepia(0%) contrast(100%) brightness(100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+}
+
+.inspiration-caption {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    font-style: italic;
+}
+
 
 /* Mobile Interaction Class */
 .hero-image.hover-effect,
