@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>isospectral shapes | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Isospectral Shapes</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · geometry · analysis</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>today i want to explain isospectral shapes. the question at the heart of this is one of the most charming in mathematics: can you hear the shape of a drum?</p>
+
+            <p>start with a thin metal plate. clamp its edge so it cannot move. tap it. the plate vibrates and produces sound. the sound is not random. it is built from a collection of basic vibrations, each with its own frequency. together these frequencies form the spectrum of the plate. change the shape of the plate, change the boundary, and you change how waves reflect inside it. this usually changes the spectrum.</p>
+
+            <p>different shapes, different sounds. this leads to a natural assumption: if two shapes produce exactly the same spectrum, they must be the same shape.</p>
+
+            <p>that assumption is wrong.</p>
+
+            <p>there exist geometrically distinct shapes that produce exactly the same set of vibration frequencies. these are called isospectral shapes. iso means same, spectral refers to the spectrum of frequencies. the shapes look different, feel different, and yet a physicist with a perfect microphone, listening to both being struck, could not tell them apart.</p>
+
+            <p>mark kac asked this question precisely in his 1966 paper "can one hear the shape of a drum?", and for almost thirty years it remained open. the answer, when it finally came, was no.</p>
+
+            <p>in 1992, carolyn gordon, david webb, and scott wolpert constructed an explicit pair of isospectral domains. they are both flat polygons, built by assembling right triangles, and they look like this:</p>
+
+            <figure>
+                <img src="images/gordon-webb-wolpert-iso-pair.png" alt="Gordon-Webb-Wolpert isospectral pair">
+            </figure>
+
+            <p>they are clearly not congruent. you cannot rotate or reflect one to get the other. and yet they produce identical spectra.</p>
+
+            <p>how do you prove two shapes are isospectral without computing every frequency and checking them one by one? the answer is a technique called transplantation, and it is the genuinely clever part of the story.</p>
+
+            <p>the idea is to show that any vibration pattern on one shape can be systematically converted into a vibration pattern on the other shape with the same frequency. if you can do this, and if the conversion is invertible, then the two shapes must share their entire spectrum.</p>
+
+            <p>the gordon-webb-wolpert shapes are both assembled from seven copies of the same right triangle. label the triangles on the first shape $1$ through $7$. each triangle on the first shape maps to a combination of triangles on the second shape according to a fixed rule, a matrix of $+1$, $-1$, and $0$ entries that encodes how pieces of the vibration are copied, reflected, and cancelled across the two domains. the rule is constructed so that whenever a wave on the first shape satisfies the boundary condition at an edge, the transplanted wave on the second shape automatically satisfies its own boundary condition at the corresponding edge. the frequency is unchanged because the transplantation is local: it only rearranges and reflects pieces of the wave, never stretching or compressing them.</p>
+
+            <p>this is why the spectrum is preserved. the frequencies are determined by how waves fit the boundary, and the transplantation is precisely a certificate that both boundaries enforce the same fitting conditions, just arranged differently in space.</p>
+
+            <p>it is worth pausing on what this means mechanically. when a wave moves across the plate, it only reacts to the boundary locally, at the moment of reflection. it has no global memory of the shape. two different boundaries can enforce reflections that are locally distinct but globally equivalent in their effect on which patterns survive. the spectrum is a global invariant, but it is assembled from purely local interactions, and local interactions can be rearranged without changing the result.</p>
+
+            <p>so the spectrum does not determine the shape. but it is not useless either. weyl's law tells us that the spectrum does determine the area of the drum, its perimeter, and the number of holes. you can hear quite a lot. just not everything.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

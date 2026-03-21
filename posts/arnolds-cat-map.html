@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arnold's cat map | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../index.html#research">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Arnold's Cat Map</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · analysis · algebra</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>each day i want to take one mathematical idea and explain it as simply as i can, starting from something concrete. today: arnold's cat map.</p>
+
+            <p>start with a square sheet of pizza dough. poke small holes in it. each hole is a point, and the pattern of holes is a picture.</p>
+
+            <p>stretch the dough. holes higher up move more sideways than holes lower down. holes further right move more upward than holes on the left. then fold: anything that escapes the square on the right wraps back in from the left, anything that escapes at the top wraps back in from the bottom. every hole ends up somewhere inside the square, and no two holes land in the same place.</p>
+
+            <p>the precise rule is this. a point $(x, y)$ moves to:</p>
+
+            $$\begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} \pmod{1}$$
+
+            <p>the matrix stretches. the $\pmod{1}$ folds. the determinant is $2 \cdot 1 - 1 \cdot 1 = 1$, so the transformation preserves area exactly. no dough is lost, none is gained.</p>
+
+            <p>what does the stretching actually do? the matrix has two eigenvalues, $\lambda_+ = \frac{3 + \sqrt{5}}{2} \approx 2.618$ and $\lambda_- = \frac{3 - \sqrt{5}}{2} \approx 0.382$. notice that $\lambda_+ \cdot \lambda_- = 1$, which is just the determinant again. the eigenvectors point in two special directions: one direction gets stretched by a factor of $\lambda_+$ at every step, the other gets compressed by the same factor. the stretching direction tilts at an irrational angle to the square's sides, which is precisely why the folding mixes things so thoroughly. if the angle were rational, the stretched filaments would line up neatly and the mixing would be poor. the irrationality is doing real work.</p>
+
+            <p>repeat the stretch and fold. very quickly, the original pattern looks scrambled, holes spread into thin layers across the dough. but nothing random happened. every hole followed a precise rule.</p>
+
+            <figure>
+                <img src="images/arnolds-cat-map.png" alt="Step 0, step 2, and step 150 of Arnold's cat map applied to a photograph">
+            </figure>
+
+            <p>this is the right moment to say what chaos actually means here, because the word is often used loosely. the cat map is chaotic in a precise sense: it has sensitive dependence on initial conditions. take two holes that start extremely close together, say at distance $\varepsilon$ apart. after $n$ steps, their separation grows like $\lambda_+^n \cdot \varepsilon$. since $\lambda_+ > 1$, this grows exponentially. after enough steps, two holes that started arbitrarily close are spread arbitrarily far apart, modulo the folding. this is not a metaphor or an approximation. it is a theorem. the quantity $\log \lambda_+ = \log \frac{3 + \sqrt{5}}{2}$ is called the lyapunov exponent of the map, and it measures exactly how fast nearby points diverge.</p>
+
+            <p>and yet, because the rule is invertible and area-preserving, repeating it long enough eventually returns the picture exactly to where it started. this is not obvious, and it deserves an argument.</p>
+
+            <p>the map acts on rational points $\left(\frac{p}{n}, \frac{q}{n}\right)$ inside the unit square. for a fixed $n$, there are exactly $n^2$ such points. the map sends distinct points to distinct points, since the matrix is invertible. so it is a bijection on a finite set. any bijection on a finite set must eventually cycle: apply it enough times and you return to the start. the picture is just such a finite set of points, so it too must return.</p>
+
+            <p>the period depends on $n$. for $n = 2$ the picture returns after 3 steps. for $n = 3$ it takes 4. for larger $n$ the period grows, but it is always finite.</p>
+
+            <p>so the cat map is simultaneously two things that feel contradictory: a system so sensitive that arbitrarily close points eventually end up far apart, and a system so rigid that every configuration eventually retraces its steps exactly. these are not in tension. they are both consequences of the same linear algebra. the exponential stretching and the finite periodicity are two sides of the same coin, one describes what happens in the short run, the other in the very long run.</p>
+
+            <p>vladimir arnold introduced this map in the 1960s using an actual photograph of a cat, which is where the name comes from. it became a standard example in the study of dynamical systems: a transformation that is perfectly deterministic and reversible, yet produces behaviour that looks, for all practical purposes, like chaos.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

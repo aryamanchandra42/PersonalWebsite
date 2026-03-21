@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the lady, or the tiger? | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">The lady, or the tiger?</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · analysis</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>a man is about to live or die, and the person who loves him most knows exactly which door leads to which fate. math says he should still not trust her.</p>
+
+            <p>many of us first meet frank stockton's the lady, or the tiger? as a story about trust. a man stands in an arena facing two doors. behind one is death. behind the other is life. the princess knows which door is which and gives him a signal. the story ends before we see what happens.</p>
+
+            <p>that ending often feels frustrating. yet the brilliance of the story is that the situation itself makes a justified ending impossible.</p>
+
+            <p>to see why, imagine what is happening before the signal.</p>
+
+            <p>the princess's decision does not appear suddenly at the final moment. her feelings change over time. let $L(t)$ denote her love for the man and $J(t)$ her jealousy at time $t$. these are not independent. her love can weaken as she imagines him married to another woman. her jealousy can soften as she imagines his death. each feeling shapes the other, and both are driven by forces beneath the surface: fear, pride, the pressure of the crowd. a simple model might look like:</p>
+
+            $$\frac{dL}{dt} = -\alpha J, \qquad \frac{dJ}{dt} = \beta L$$
+
+            <p>the exact equations do not matter. what matters is that this is a continuous dynamical system. there are infinitely many possible trajectories $(L(t), J(t))$ depending on the initial conditions and the precise values of $\alpha$ and $\beta$. all of them are consistent with what the man can observe.</p>
+
+            <p>now comes the crucial moment.</p>
+
+            <p>at a single instant $t = T$, the entire evolving process is compressed into one action. the princess points to a door. a long, continuous emotional history is reduced to a single binary signal: left or right.</p>
+
+            <p>from the man's point of view, this is a precise mathematical problem. he observes the output but not the process that produced it. he is trying to reason backward from what he sees to what caused it. in mathematics, this is called an inverse problem.</p>
+
+            <p>a problem is well-posed in the sense of hadamard if it satisfies three conditions: a solution exists, the solution is unique, and the solution depends continuously on the data. the princess problem fails the second condition catastrophically. many different emotional trajectories, some dominated by love, some by jealousy, some evenly balanced, all produce the same final signal. the output does not determine the input.</p>
+
+            <p>this failure of uniqueness is what mathematicians call ill-posedness. the signal throws away the information needed to distinguish between causes. no amount of careful observation of the final gesture recovers what produced it.</p>
+
+            <p>how do mathematicians handle ill-posed problems in practice? the standard tool is tikhonov regularization. instead of solving the original problem exactly, you add a penalty term that favors solutions which are in some sense simpler or smoother. formally, instead of minimizing $\|\mathcal{L}u - f\|^2$ (the residual), you minimize:</p>
+
+            $$\|\mathcal{L}u - f\|^2 + \lambda \|u\|^2$$
+
+            <p>the parameter $\lambda > 0$ controls how much you penalize complexity. a large $\lambda$ forces the solution to be simple even at the cost of fitting the data poorly. a small $\lambda$ fits the data closely but may amplify noise. the regularization does not solve the ill-posedness. it manages it, by committing to a particular class of solutions and accepting that the answer is an informed guess rather than a derived truth.</p>
+
+            <p>applied to the arena: the man could regularize by assuming the princess acts on whichever feeling is currently stronger. this gives a definite answer. but it is an assumption, not a deduction.</p>
+
+            <p>so what should the man do?</p>
+
+            <p>suppose he assigns probability $p$ to the signal being truthful (love dominated) and $1-p$ to it being a trap (jealousy dominated). if he follows the signal and it is truthful, he lives. if he follows it and it is a trap, he dies. if he ignores the signal and picks randomly, he survives with probability $\frac{1}{2}$ regardless of the princess's state.</p>
+
+            <p>the expected outcomes are:</p>
+
+            <p>- follow the signal: survive with probability $p$, die with probability $1-p$</p>
+
+            <p>- ignore the signal: survive with probability $\frac{1}{2}$</p>
+
+            <p>following the signal is only rational if $p > \frac{1}{2}$. but the ill-posedness of the problem means the man has no reliable way to estimate $p$. he cannot distinguish a $p = 0.9$ situation from a $p = 0.1$ situation based on the signal alone.</p>
+
+            <p>in decision theory, minimax reasoning says: choose the action that minimises the worst-case outcome. the worst case if you follow the signal is death with certainty (if $p = 0$). the worst case if you ignore it is death with probability $\frac{1}{2}$. the minimax choice is to ignore the signal.</p>
+
+            <p>this is the unsettling conclusion. it is not a statement about the princess's character or intentions. it is a statement about information. the man does not have enough of it, and no amount of trust changes that arithmetic.</p>
+
+            <p>ill-posed inverse problems appear throughout science. in medical imaging, you measure projections and reconstruct internal structure. in seismology, you measure surface vibrations and infer the composition of the earth's interior. in each case, the forward process destroys information, and recovery requires regularization, meaning it requires assumptions. the answers are always conditional on those assumptions being reasonable.</p>
+
+            <p>stockton's story, read this way, is not really about whether the princess loves the man enough. it is about whether love is the kind of thing that survives compression into a single bit of information. the mathematics suggests it is not.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

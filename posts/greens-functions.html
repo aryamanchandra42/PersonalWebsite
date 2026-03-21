@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>green's functions | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Green's Functions</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · analysis</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>put simply, a green's function tells us how a system responds to a single, sharp poke. as usual, the name comes from some person who lived a long time ago called george green.</p>
+
+            <p>imagine a calm pond. you drop one pebble at one exact place and one exact moment. ripples spread outward in circles.</p>
+
+            <p>now imagine a different pond. this one is muddy, or shallow, or has plants at the bottom. you drop the same pebble in the same way, but the ripples look different. they may spread slower, fade faster, or even distort. the pebble is the same. what changed is the pond.</p>
+
+            <p>for a given pond, that ripple pattern is its green's function. it captures how that specific system responds to a tiny, localised disturbance.</p>
+
+            <p>now suppose you have a differential equation of the form:</p>
+
+            $$\mathcal{L}\, u(x) = f(x)$$
+
+            <p>where $\mathcal{L}$ is some linear differential operator (think: something involving derivatives, like $-\frac{d^2}{dx^2}$), $f(x)$ is the forcing term (the pattern of pebbles), and $u(x)$ is the response you want to find.</p>
+
+            <p>the green's function $G(x, x')$ is defined as the solution to this equation when the forcing is a single infinitely sharp spike at position $x'$:</p>
+
+            $$\mathcal{L}\, G(x, x') = \delta(x - x')$$
+
+            <p>the $\delta(x - x')$ is the dirac delta function. it is zero everywhere except at $x = x'$, where it is infinite in just the right way so that its integral equals one. it is the mathematical idealisation of a single pebble dropped at exactly one point.</p>
+
+            <figure>
+                <img src="images/greens-function-diagram.png" alt="Green's function diagram showing delta input, G response, forcing function, and convolution solution">
+            </figure>
+
+            <p>now here is the powerful idea. if you know how the pond responds to one pebble, you know how it responds to any pattern of pebbles.</p>
+
+            <p>a complicated forcing $f(x)$ can be thought of as a continuous superposition of delta spikes, one at each point $x'$, each with weight $f(x')$:</p>
+
+            $$f(x) = \int f(x')\, \delta(x - x')\, dx'$$
+
+            <p>because $\mathcal{L}$ is linear, effects add. so the solution $u(x)$ is just the corresponding superposition of green's function responses:</p>
+
+            $$u(x) = \int G(x, x')\, f(x')\, dx'$$
+
+            <p>this is the convolution integral. it says: to find the response to any forcing, slide the green's function across every point, weight it by how hard you're poking at that point, and add everything up. the complicated problem reduces to a single integral once you know $G$.</p>
+
+            <p>to make this concrete, consider the one-dimensional heat equation on the real line. heat spreads through a rod according to:</p>
+
+            $$\frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2}$$
+
+            <p>if at time $t = 0$ all the heat is concentrated at a single point $x = 0$, meaning the initial condition is $u(x, 0) = \delta(x)$, then the solution is:</p>
+
+            $$G(x, t) = \frac{1}{\sqrt{4\pi t}}\, e^{-x^2 / 4t}$$
+
+            <p>this is a gaussian. it starts as an infinitely sharp spike and spreads outward over time, getting wider and shorter while its total area stays exactly one. that is the green's function of the heat equation: the response to a single point source of heat, showing how warmth diffuses through the rod from one localised spot.</p>
+
+            <p>once you have this, the solution for any initial temperature distribution $f(x)$ is immediately:</p>
+
+            $$u(x, t) = \int_{-\infty}^{\infty} G(x - x', t)\, f(x')\, dx' = \frac{1}{\sqrt{4\pi t}} \int_{-\infty}^{\infty} e^{-(x-x')^2/4t}\, f(x')\, dx'$$
+
+            <p>you do not need to solve the equation again. you just integrate.</p>
+
+            <p>this is what makes green's functions so useful. the hard work of understanding the system is done once, when you find $G$. after that, any forcing, any initial condition, any pattern of pebbles, becomes a matter of integration rather than solving a new differential equation from scratch.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

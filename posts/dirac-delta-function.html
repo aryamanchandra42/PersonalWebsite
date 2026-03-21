@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dirac delta function | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Dirac Delta Function</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · analysis</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>the dirac delta function is a way to describe a single, perfectly sharp tap. it is one of the stranger objects in mathematics, and also one of the most useful.</p>
+
+            <p>imagine a calm pond. you drop one pebble at one exact place and one exact moment. the pebble kisses the water for an almost absurdly short time, then disappears.</p>
+
+            <p>it is tempting to argue that because the duration is so small, the effect should be nothing at all. zero time, zero area, zero effect. an ordinary function that is nonzero for no time at all integrates to zero.</p>
+
+            <p>the pond disagrees. ripples spread outward anyway, carrying energy and structure across the surface. something that happened for almost no time at all leaves a visible, lasting pattern.</p>
+
+            <p>the delta function is the mathematical object invented to capture this. it is denoted $\delta(x)$ and defined by two properties:</p>
+
+            $$\delta(x) = 0 \quad \text{for all } x \neq 0$$
+            $$\int_{-\infty}^{\infty} \delta(x)\, dx = 1$$
+
+            <p>no ordinary function satisfies both of these simultaneously. a function that is zero everywhere except at one point has integral zero, not one. dirac introduced $\delta$ anyway, not as a function in the classical sense but as a useful fiction, a limiting object that behaves like the limit of a sequence of increasingly tall, narrow pulses whose area is always exactly one.</p>
+
+            <p>one natural sequence is gaussians. let:</p>
+
+            $$\delta_\epsilon(x) = \frac{1}{\epsilon\sqrt{\pi}}\, e^{-x^2/\epsilon^2}$$
+
+            <figure>
+                <img src="images/dirac-delta-function-sequence.png" alt="Sequence of peaked functions approximating the dirac delta">
+            </figure>
+
+            <p>as $\epsilon \to 0$, this gaussian becomes infinitely tall and infinitely narrow, but its integral stays one. the delta function is the limit of this sequence, not as a pointwise limit (that limit does not exist in the ordinary sense) but in the sense that for any reasonable function $f$:</p>
+
+            $$\lim_{\epsilon \to 0} \int_{-\infty}^{\infty} \delta_\epsilon(x)\, f(x)\, dx = f(0)$$
+
+            <p>this is the sifting property, and it is the reason the delta function is useful. it picks out the value of $f$ at exactly one point:</p>
+
+            $$\int_{-\infty}^{\infty} \delta(x - a)\, f(x)\, dx = f(a)$$
+
+            <p>the shifted delta $\delta(x - a)$ is a tap at position $a$. integrated against any function, it returns the function's value at $a$. everything else is ignored.</p>
+
+            <p>dirac introduced this object in the late 1920s from quantum mechanics. in quantum theory, a particle with a definite position $x = a$ is represented by a state concentrated entirely at that point, zero probability of being found anywhere else, and total probability one. no ordinary function captures this. the delta function does. dirac needed it to make the mathematics of position eigenstates work, and he used it without apology, leaving the rigorous justification to mathematicians.</p>
+
+            <p>that justification came in 1945, when laurent schwartz developed the theory of distributions. a distribution is not a function but a linear functional: something that takes a function as input and returns a number. the delta distribution takes $f$ and returns $f(0)$. this reframing made the delta function mathematically legitimate and earned schwartz the fields medal in 1950.</p>
+
+            <p>now here is a beautiful connection. what is the fourier transform of the delta function?</p>
+
+            <p>recall from fourier analysis that the transform of a function $f(x)$ is:</p>
+
+            $$\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i \xi x}\, dx$$
+
+            <p>apply this to $\delta(x)$:</p>
+
+            $$\hat{\delta}(\xi) = \int_{-\infty}^{\infty} \delta(x)\, e^{-2\pi i \xi x}\, dx = e^{-2\pi i \xi \cdot 0} = 1$$
+
+            <p>the fourier transform of the delta function is identically one. it contains every frequency in equal measure. this makes precise sense: a perfect instantaneous tap has no preferred timescale. it excites all frequencies simultaneously, which is exactly why striking a bell produces a rich spectrum of overtones rather than a single note. the sharper the tap, the broader the frequency content. this is a manifestation of the uncertainty principle: a signal perfectly localised in time is completely delocalised in frequency.</p>
+
+            <p>conversely, the inverse fourier transform of the constant function $1$ is the delta function. a signal that contains all frequencies in equal measure, with no preference for any timescale, is a single perfect spike in time.</p>
+
+            <p>the delta function sits at the intersection of several ideas: it is the input that green's functions are built to respond to, the object that makes fourier analysis and quantum mechanics speak the same language, and the precise mathematical description of what it means for something to happen at exactly one place and one time.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

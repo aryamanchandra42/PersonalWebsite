@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lie groups | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Lie Groups</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · geometry · algebra</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>physicists have a habit of understanding the world by looking at what stays the same when things move.</p>
+
+            <p>take a book on a table. you can slide it left or right. you can rotate it. you can rotate it a little, then rotate it a little more, and nothing particularly dramatic happens. the book keeps being a book. each move changes its position, but its shape, size, and mass do not change.</p>
+
+            <p>now stop thinking about the book and start thinking about the moves themselves. all possible rotations of the book form one family of moves. all possible slides belong to another. you can combine these moves, undo them, or make them smaller and smaller until they are almost imperceptible. this is the basic idea behind a lie group, named after sophus lie. it is a collection of symmetries that change smoothly rather than in jumps.</p>
+
+            <p>formally, a lie group is a group that is also a smooth manifold, and where the group operations (combining two moves, undoing a move) are smooth maps. the first condition says the symmetries form a consistent algebraic system. the second says the symmetries live on a surface with no sharp corners, so you can do calculus on it.</p>
+
+            <p>the simplest nontrivial example is $SO(2)$, the group of rotations of the plane. every rotation is determined by a single angle $\theta \in [0, 2\pi)$. you can add angles, take negatives, and everything is smooth. geometrically, $SO(2)$ is a circle.</p>
+
+            <p>a richer example is $SO(3)$, rotations of three-dimensional space. every rotation is determined by an axis and an angle. the group itself is a three-dimensional manifold. it is not a sphere, though it is close: it is the real projective space $\mathbb{RP}^3$, because a rotation by angle $\theta$ around axis $\hat{n}$ is the same as a rotation by $2\pi - \theta$ around $-\hat{n}$.</p>
+
+            <p>what makes lie groups tractable is that you do not need to understand the whole group at once. you only need to understand what happens near the identity, the move that does nothing. this is the lie algebra.</p>
+
+            <p>here is the precise idea. the lie algebra $\mathfrak{g}$ of a lie group $G$ is the tangent space at the identity. tangent space means: all the directions you could move away from the identity by an infinitesimally small amount. for $SO(3)$, the identity is the rotation that does nothing, and the tangent space at the identity consists of all infinitesimal rotations, which turn out to be $3 \times 3$ skew-symmetric matrices (matrices $X$ satisfying $X^T = -X$). there are three independent directions, one for each axis, which matches the fact that $SO(3)$ is three-dimensional.</p>
+
+            <p>the lie algebra is a vector space, so you can add elements and scale them. but it carries one additional piece of structure: the lie bracket $[X, Y] = XY - YX$. for matrices this is just the commutator. it measures how two infinitesimal motions fail to commute, i.e. how much difference it makes which order you apply two tiny nudges. for $SO(3)$, the lie bracket of two infinitesimal rotations is another infinitesimal rotation, and the bracket relations are exactly $[L_x, L_y] = L_z$, $[L_y, L_z] = L_x$, $[L_z, L_x] = L_y$, which physicists will recognise as the angular momentum commutation relations.</p>
+
+            <p>how do you get from the lie algebra back to the group? through the exponential map:</p>
+
+            $$\exp(X) = I + X + \frac{X^2}{2!} + \frac{X^3}{3!} + \cdots$$
+
+            <p>this is the same series as $e^x$ for real numbers, but now applied to matrices. it takes an element of the lie algebra (an infinitesimal motion) and produces an element of the group (a finite motion). for $SO(3)$, if $X$ is the matrix for an infinitesimal rotation around axis $\hat{n}$, then $\exp(\theta X)$ is the finite rotation by angle $\theta$ around $\hat{n}$. the exponential map is how a single small nudge, scaled up, becomes a full rotation.</p>
+
+            <p>this is why physicists find lie groups everywhere. the lie algebra is where the physics lives: the generators of rotations are angular momentum, the generators of time translations are energy, the generators of spatial translations are linear momentum. the fact that these quantities are conserved, noether's theorem, is precisely the statement that the corresponding lie group is a symmetry of the system. the group encodes what is allowed. the algebra encodes what is preserved.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

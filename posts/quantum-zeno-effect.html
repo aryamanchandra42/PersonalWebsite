@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quantum zeno effect | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Quantum Zeno Effect</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · physics</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>start with something familiar.</p>
+
+            <p>imagine you are learning to ride a bicycle. at first, you wobble. if no one interferes, the wobble slowly grows into either balance or a fall. now imagine someone stopping you every half second, holding the bike upright, then letting go, then stopping you again. you never fall. but you also never really ride.</p>
+
+            <p>there is an old saying that a watched pot never boils. in quantum mechanics, something surprisingly similar can actually happen.</p>
+
+            <p>the name comes from zeno of elea, a greek philosopher who lived around 450 bc. zeno argued that motion is impossible. his most famous paradox: to cross a room, you must first reach the halfway point. to reach the halfway point, you must first reach the quarter point. and so on, infinitely. an infinite number of steps, zeno concluded, can never be completed.</p>
+
+            <p>aristotle thought this was wrong, and he was right. an infinite series of steps can have a finite sum. crossing a room takes finite time. but zeno's intuition that infinite subdivision can freeze motion turns out to have a genuine echo in quantum mechanics, just not where he expected it.</p>
+
+            <p>a quantum system is a very small physical system, like an atom or an electron, whose state changes smoothly over time when left alone. an excited atom, for instance, slowly relaxes toward its ground state. this evolution is continuous and governed by the schrödinger equation.</p>
+
+            <p>but measuring a quantum system is not like glancing at a clock. it is a physical interaction that forces the system into a definite state. before measurement, the atom is in a superposition: partly excited, partly relaxed, in a precise mathematical combination. the moment you measure it, the superposition collapses. you get a definite answer, and the system restarts its evolution from that new definite state.</p>
+
+            <p>this is why frequent measurement freezes decay. immediately after a measurement that finds the atom excited, the probability that the next measurement also finds it excited is very close to one, because the system has barely had time to evolve. measure again quickly, and again the atom is almost certainly still excited. in the limit of continuous measurement, the atom never decays at all. zeno's infinite subdivision, which failed to stop a person crossing a room, actually does stop an atom from changing its state.</p>
+
+            <figure>
+                <img src="images/watched-pot-quantum-zeno.png" alt="Watched pot illustration showing blindfolded vs watching observer">
+            </figure>
+
+            <p>this is the quantum zeno effect, and it has been experimentally confirmed. cook and wineland demonstrated it in 1990 using trapped beryllium ions, showing that frequent measurements on a two-state system genuinely suppressed transitions between states.</p>
+
+            <p>now here is the twist.</p>
+
+            <p>the zeno effect assumes you are measuring frequently enough that the system is always caught near its starting state. but what if you measure at an intermediate rate, not too fast and not too slow? it turns out that for many systems, measuring at just the right frequency does not slow the decay. it speeds it up.</p>
+
+            <p>this is called the quantum anti-zeno effect, and it is the more unsettling result. the same act of measurement that freezes a system when done rapidly can accelerate its decay when done at a particular intermediate rate. the reason is resonance: if the measurement interval matches a natural timescale of the system, each interruption nudges the system toward decay rather than away from it.</p>
+
+            <p>so measurement does not simply slow things down or leave them alone. depending on how often you look, you can freeze a quantum system, leave it to evolve naturally, or push it toward its fate faster than it would have arrived on its own.</p>
+
+            <p>zeno thought observation was irrelevant to motion. in quantum mechanics, observation is part of the dynamics. how often you look is a physical parameter, as real as temperature or voltage, and it shapes what happens.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

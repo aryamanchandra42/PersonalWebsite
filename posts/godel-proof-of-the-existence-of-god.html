@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>godel's proof of the existence of god | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Godel's Proof of the Existence of God</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · algebra · philosophy</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>in the early 1940s, kurt gödel wrote down a proof of the existence of god. he kept it private for decades, apparently worried it would be mistaken for a personal theological conviction rather than what it actually was: a demonstration of what formal logic can and cannot do. it only became widely known in 1987, two years after his death, when a colleague circulated his notes.</p>
+
+            <p>today i want to explain it carefully, because it is easy to misunderstand and even easier to dismiss.</p>
+
+            <figure>
+                <img src="images/michelangelo-creation-of-adam.png" alt="Michelangelo's creation of adam">
+            </figure>
+
+            <p>the argument belongs to a tradition called the ontological argument, first formulated by anselm of canterbury in the eleventh century. the core idea, stripped to its bones, is this: god is defined as the greatest conceivable being. a being that exists is greater than one that does not. therefore god exists. this sounds like a sleight of hand, and most people's reaction is that you cannot define something into existence. gödel's version is a serious attempt to make the argument rigorous enough that the sleight of hand, if it exists, can be located precisely.</p>
+
+            <p>to understand it you need a small amount of modal logic. modal logic is the logic of possibility and necessity. it adds two operators to ordinary logic: $\Diamond$ meaning "it is possible that" and $\Box$ meaning "it is necessarily the case that". a possible world is just a consistent description of how things could be. necessity means true in every possible world. possibility means true in at least one.</p>
+
+            <p>this is not mysticism. it is the same framework philosophers and mathematicians use when they say things like "it is necessarily true that $2 + 2 = 4$" or "it is possible that there is life on europa". possible worlds are a bookkeeping device for reasoning about what could be, not a claim that parallel universes exist.</p>
+
+            <p>now, gödel's argument. he begins with a primitive notion: some properties are positive. he does not define what positive means precisely, but gives it axioms. theologically you might read positive as purely good, no evil component. logically it is just a predicate on properties satisfying certain rules.</p>
+
+            <p>his axioms are:</p>
+
+            <p>$\textbf{A1}$: if a property $P$ is positive, its negation $\neg P$ is not positive. and if $P$ is not positive, $\neg P$ is positive. positivity and its negation are exclusive and exhaustive.</p>
+
+            <p>$\textbf{A2}$: if $P$ is positive and $P$ necessarily implies $Q$ (every possible thing with $P$ also has $Q$), then $Q$ is positive.</p>
+
+            <p>$\textbf{A3}$: the property of being god-like is positive. god-like means having all positive properties.</p>
+
+            <p>$\textbf{A4}$: if a property is positive, it is necessarily positive. positivity does not vary across possible worlds.</p>
+
+            <p>$\textbf{A5}$: necessary existence is a positive property.</p>
+
+            <p>from these axioms, gödel derives three results in sequence.</p>
+
+            <p>first, a theorem: if it is possible that a god-like being exists, then a god-like being necessarily exists. this is the hinge of the argument. it uses the modal logic principle that if something is possibly necessary, it is necessary. the reasoning is: a god-like being, by definition, has all positive properties. necessary existence is a positive property by A5. so any god-like being, if it exists anywhere, exists in every possible world. possibility of existence therefore implies necessary existence.</p>
+
+            <p>second, a theorem: it is possible that a god-like being exists. this follows from A1 through A3. since being god-like is a positive property, and positive properties are consistent with each other (gödel proves this from A1 and A2), there is no contradiction in a god-like being existing somewhere.</p>
+
+            <p>third, combining both: a god-like being necessarily exists.</p>
+
+            <p>the argument is valid. if you accept the axioms, the conclusion follows by the rules of modal logic. this has been verified by computer, most famously by christoph benzmüller and bruno woltzenlogel paleo in 2013 using automated theorem provers.</p>
+
+            <p>where it gets interesting is the axioms themselves. A1 through A4 are fairly defensible. the load-bearing one is A5: that necessary existence is a positive property. this is precisely the move anselm made in the eleventh century, and it is where most philosophers push back. kant's objection was that existence is not a property at all, necessary or otherwise. if he is right, A5 is not just false but malformed. gödel was aware of this, which is part of why he was cautious about the proof.</p>
+
+            <p>there is also a known problem called modal collapse: from gödel's axioms one can derive that every true proposition is necessarily true, leaving no room for contingency in the world at all. this is not obviously wrong, but it is a strong conclusion that most people would not have signed up for.</p>
+
+            <p>gödel himself never claimed the proof was sound, only that it was an interesting formal object. the real value is not the conclusion but the precision. by formalising the ontological argument, gödel made it possible to identify exactly which assumptions are doing the work and exactly where a skeptic must object. that is what mathematics does to philosophy: it turns disagreements about intuitions into disagreements about axioms, which is a much more tractable kind of disagreement.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+

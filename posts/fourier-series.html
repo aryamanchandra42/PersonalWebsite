@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fourier series | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Fourier Series</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · analysis</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>in 1822, joseph fourier, while trying to understand how heat spreads through solid objects, proposed an idea that initially sounded implausible even to the mathematicians of his time: that any repeating pattern, no matter how jagged or irregular, could be written as a sum of smooth, perfectly regular waves layered carefully on top of one another.</p>
+
+            <p>today i want to explain this idea for a general reader. it is a subject of great interest to me, and explaining it well requires walking a narrow line between unnecessary technical detail and oversimplification.</p>
+
+            <p>consider listening to a song. the sound reaching your ear feels continuous, but it is made up of many different frequencies combined together. a low rumble, a mid-range melody, a high shimmer. your ear partially disentangles these automatically. fourier's insight was that this disentangling could be made mathematically exact: any repeating signal can be taken apart into its constituent frequencies, with each frequency carrying a precise weight.</p>
+
+            <p>formally, a periodic function $f(t)$ with period $2\pi$ can be written as:</p>
+
+            $$f(t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos(nt) + b_n \sin(nt) \right)$$
+
+            <p>each term in this sum is a pure wave oscillating at a whole-number multiple of the base frequency. the integer $n$ is called the harmonic. $n = 1$ is the fundamental frequency, $n = 2$ oscillates twice as fast, $n = 3$ three times as fast, and so on. the coefficients $a_n$ and $b_n$ tell you how much of each harmonic is present. they are computed by:</p>
+
+            $$a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt)\, dt, \qquad b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \sin(nt)\, dt$$
+
+            <p>what these integrals are doing is measuring the overlap between $f$ and each pure wave. if $f$ has a lot of a particular frequency in it, the integral is large. if $f$ has none of it, the integral is zero and that harmonic simply drops out of the sum. the constant term $\frac{a_0}{2}$ is just the average value of $f$ over one period.</p>
+
+            <p>the remarkable thing is that this works even for functions with sharp corners and discontinuities. a square wave, which jumps abruptly between two values, has no smooth features whatsoever. and yet it can be approximated by adding sine waves:</p>
+
+            $$f(t) = \frac{4}{\pi} \left( \sin(t) + \frac{\sin(3t)}{3} + \frac{\sin(5t)}{5} + \cdots \right)$$
+
+            <p>only odd harmonics appear, each one smaller than the last. as you add more terms the jagged square shape gradually emerges from the accumulation of smooth curves.</p>
+
+            <figure>
+                <img src="images/fourier-square-wave.png" alt="Square wave approximation with harmonic sum">
+            </figure>
+
+            <p>the image above shows exactly this process. the blue square wave is the target. the dotted pink curve is just the first harmonic, a single sine wave. the red curve is the sum of several harmonics. it is already close, but not quite there. add enough terms and the red curve converges to the blue one everywhere except at the jump itself, where it always overshoots slightly. this overshoot does not disappear as you add more terms. it just gets narrower. this is called the gibbs phenomenon, and it is one of the more striking things fourier analysis teaches you: some features of a function are genuinely hard for waves to capture, not because the method is approximate but because the geometry of the jump and the geometry of sinusoids are fundamentally incompatible at a single point.</p>
+
+            <p>fourier's idea did not remain confined to heat equations for long. the fourier transform extends the series to functions that do not repeat at all, replacing the discrete sum over harmonics with a continuous integral over all frequencies. this is the tool behind audio compression, image processing, medical imaging, and radio transmission. when your phone compresses a photograph, it is essentially computing which frequencies are present in the image, discarding the ones too subtle to notice, and reconstructing from what remains.</p>
+
+            <p>mathematicians of fourier's time were skeptical, not because the idea was vague but because it was too strong. the claim that an arbitrary function, even a discontinuous one, could be represented by an infinite sum of smooth waves contradicted their intuitions about what functions were and how series could behave. it took the better part of a century to make the convergence theory rigorous. fourier was right, but for reasons that required entirely new mathematics to understand.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+
