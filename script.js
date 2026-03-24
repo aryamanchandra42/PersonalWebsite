@@ -15,6 +15,45 @@ if (navToggle && navDropdown) {
     });
 }
 
+// Classic mathematician mode toggle (index page)
+const classicModeKey = 'classicMathMode';
+let classicModeToggles = document.querySelectorAll('.classic-mode-toggle');
+
+// Ensure a universal floating toggle exists on every page
+if (!document.getElementById('classicModeToggleFloating')) {
+    const universalToggle = document.createElement('button');
+    universalToggle.id = 'classicModeToggleFloating';
+    universalToggle.type = 'button';
+    universalToggle.className = 'classic-mode-toggle classic-mode-floating';
+    universalToggle.textContent = '🪄';
+    universalToggle.setAttribute('aria-label', 'Toggle classic mode');
+    universalToggle.setAttribute('title', 'Toggle classic mode');
+    document.body.appendChild(universalToggle);
+    classicModeToggles = document.querySelectorAll('.classic-mode-toggle');
+}
+
+if (classicModeToggles.length) {
+    const setClassicMode = (enabled) => {
+        document.body.classList.toggle('classic-mode', enabled);
+        classicModeToggles.forEach((toggleBtn) => {
+            toggleBtn.textContent = '🪄';
+            toggleBtn.setAttribute('aria-label', enabled ? 'Switch to aesthetic portfolio mode' : 'Switch to classic math mode');
+            toggleBtn.setAttribute('title', enabled ? 'Switch to aesthetic portfolio mode' : 'Switch to classic math mode');
+        });
+    };
+
+    const savedClassicMode = localStorage.getItem(classicModeKey) === 'on';
+    setClassicMode(savedClassicMode);
+
+    classicModeToggles.forEach((toggleBtn) => {
+        toggleBtn.addEventListener('click', () => {
+            const enabled = !document.body.classList.contains('classic-mode');
+            setClassicMode(enabled);
+            localStorage.setItem(classicModeKey, enabled ? 'on' : 'off');
+        });
+    });
+}
+
 // Carousel functionality
 function changeSlide(carouselId, direction) {
     const carousel = document.getElementById(carouselId);

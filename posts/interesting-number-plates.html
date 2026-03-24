@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>interesting number plates | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Interesting Number Plates</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · combinatorics · algebra</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>every number plate is special. some are more special than others. and the line between those two categories is stranger than you might think.</p>
+
+            <p>ever since i was a child i had a habit of staring at number plates in traffic and finding something mathematically interesting about them. four digits sitting there on a bumper, waiting. a prime factorisation, a perfect square, a number that showed up somewhere unexpected in a sequence i half-remembered from a book i had read too young to fully understand. for a while i thought i was just good at it. i thought i had some rare and completely useless talent for pattern recognition in random data.</p>
+
+            <p>recently i discovered the interesting number paradox, and i realised i was not talented. i was just right.</p>
+
+            <p>the paradox goes like this. assume, for the sake of argument, that boring numbers exist. that there is some non-empty collection of positive integers with no interesting property whatsoever. if that collection exists, it has a smallest element, because every non-empty set of positive integers has a smallest element. this is not a clever trick but a basic theorem, the well-ordering principle, and it is one of the things that makes the integers feel so solid and well-behaved as a mathematical object. but now consider what it means to be that smallest element. it is the smallest boring number. that is a distinction no other number holds. being the uniquely smallest member of any well-defined set is, by any reasonable standard, a genuinely interesting thing to be. so the number is interesting, which directly contradicts the reason it appeared on the boring list in the first place. remove it, and the next number inherits the title, and the contradiction fires again, and the list collapses forever.</p>
+
+            <p>here is the thing though. the interesting number paradox is itself a paradox about the paradox, and this is where it gets philosophically interesting. if you try to formalise the argument, to write it down in the language of mathematical logic, you immediately run into trouble. the word "interesting" is not a well-defined predicate. it cannot be captured by any finite formula in the language of arithmetic. and this means the set of interesting numbers is not a legitimate mathematical object in the formal sense, and the whole argument quietly falls apart before it even gets started.</p>
+
+            <p>this is not a disappointment. it is the point. the interesting number paradox is a close relative of berry's paradox, which asks about "the smallest positive integer not definable in fewer than thirteen words." that phrase contains fewer than thirteen words, yet it purports to define a number. the self-reference generates the contradiction. what both paradoxes reveal is that the concept of definability, of what it means for a number to be describable or characterisable, is fundamentally resistant to being made rigorous inside the system it is trying to describe. gödel's incompleteness theorems lurk nearby, sharing the same DNA. the paradox does not prove that all numbers are interesting in any deep sense. it proves that the boundary between interesting and uninteresting cannot be formalised without breaking something. which is, perhaps, even more interesting.</p>
+
+            <p>all of which is to say: i am going to describe some interesting numbers, and i am not going to pretend i have a formal definition of what makes them so.</p>
+
+            <p>take a plate, HR 26 AK 1729.</p>
+
+            <p>that last number, 1729, is perhaps the most famous supposedly unremarkable number in mathematical history. in 1917, the mathematician G. H. Hardy visited Srinivasa Ramanujan in hospital in Putney, where Ramanujan was recovering from tuberculosis, and mentioned by way of small talk that his taxi had borne the rather dull number 1729. Ramanujan, lying in a hospital bed running a fever, immediately replied that 1729 was not dull at all. it is, he said, the smallest positive integer expressible as the sum of two perfect cubes in two distinct ways. 1 cubed plus 12 cubed is 1729. 9 cubed plus 10 cubed is also 1729. no number smaller than 1729 can make that claim.</p>
+
+            <p>numbers with this property are called taxicab numbers, after the taxi, and they form a sequence that grows quickly and unpredictably. taxicab(1) is 2, which is 1 cubed plus 1 cubed. taxicab(2) is 1729. taxicab(3) is 87539319, the smallest number expressible as the sum of two cubes in three distinct ways, which was found only in 1957. taxicab(6) was computed in 2003 and has ten digits.</p>
+
+            <p>what made Ramanujan's observation remarkable was not the knowledge itself but the way he held it. for him, numbers were not symbols to be manipulated but objects with personalities, things he had spent years getting to know. the British mathematicians who worked alongside him could not always tell where deep theorem ended and sheer familiarity began. Hardy estimated Ramanujan's raw mathematical talent as among the highest he had ever encountered, but also noted, with some bewilderment, that Ramanujan had essentially no interest in proof. he saw the numbers directly, the way a musician with perfect pitch hears a note.</p>
+
+            <p>take a plate, MH 04 EF 5977.</p>
+
+            <p>factorise it: 5977 equals 43 times 139. both 43 and 139 are prime, which is a reasonable start, and then you notice something more specific. 43 divided by 4 leaves a remainder of 3. 139 divided by 4 also leaves a remainder of 3. in the language of modular arithmetic, both primes are congruent to 3 modulo 4. a product of two distinct primes each congruent to 3 mod 4 is called a Blum integer, named after the cryptographer Manuel Blum.</p>
+
+            <p>the reason Blum integers matter is rooted in the structure of the multiplicative group of integers modulo n. for a Blum integer n equals pq, the group $(\mathbb{Z}/n\mathbb{Z})^*$ has order $(p - 1)(q - 1)$, and because both p and q are congruent to 3 mod 4, both $p - 1$ and $q - 1$ are divisible by 2 but not 4. this forces a very specific symmetry on the quadratic residues modulo n: every element that has a square root at all has exactly four square roots, and precisely one of those four is itself a quadratic residue. this unique quadratic residue square root is called the principal square root, and crucially, the map that sends an element to its principal square root is a permutation on the set of quadratic residues, something that only works because of the precise structure Blum integers impose.</p>
+
+            <p>this permutation property is what makes Blum integers useful in cryptography. the Blum Blum Shub pseudorandom number generator, published in 1986, uses it to produce a sequence of bits whose security can be formally reduced to the hardness of factoring large integers, one of the foundational assumptions of modern cryptography. 5977 is far too small to be cryptographically useful, but the same structure that makes it a Blum integer at this toy scale is what protects, in suitably large form, significant portions of the world's encrypted communications.</p>
+
+            <p>take a plate, KA 07 GM 0031.</p>
+
+            <p>stop reading the letters as letters. G is the 7th letter of the alphabet. M is the 13th. 7 times 13 times 31 equals 2821. and 2821 is a Carmichael number.</p>
+
+            <p>a Carmichael number is a composite integer that passes Fermat's primality test for every possible base. Fermat's little theorem says that if p is prime and a is any integer not divisible by p, then $a^{p-1} \equiv 1 \pmod{p}$. this is a theorem about the structure of the multiplicative group $(\mathbb{Z}/p\mathbb{Z})^*$, which has order $p - 1$, so every element raised to that power returns to the identity by Lagrange's theorem. the primality test built on this is fast, probabilistic, and in ordinary usage remarkably reliable. Carmichael numbers are the adversaries: they are composite, they factor nontrivially, and yet they satisfy the Fermat congruence for every base coprime to them. they are the liars of elementary number theory.</p>
+
+            <p>the reason 2821 is a Carmichael number is explained by Korselt's criterion, published in 1899: a composite number n is a Carmichael number if and only if it is squarefree and for every prime factor p of n, $p - 1$ divides $n - 1$. check it for $2821 = 7 \times 13 \times 31$: 2821 is squarefree, and 2820 is divisible by 6, by 12, and by 30, which are $p - 1$ for each of the three prime factors. the criterion is satisfied perfectly. the group-theoretic mechanism is that 2821, despite being composite, mimics the exponent structure of a prime's multiplicative group closely enough to fool Fermat every time.</p>
+
+            <p>for a long time it was not known whether there were infinitely many Carmichael numbers. the question was settled only in 1994, when Alford, Granville, and Pomerance proved that there are infinitely many, and in fact that the count of Carmichael numbers up to x grows at least as fast as $x^{2/7}$. the Carmichael numbers are not exotic exceptions to an otherwise clean theory. they are a pervasive feature of the arithmetic landscape, and they explain why probabilistic primality tests in serious cryptographic applications never rely on Fermat alone.</p>
+
+            <p>take a plate, GJ 14 KP 0153.</p>
+
+            <p>the number 153 is three digits, which already feels like it might be too small to be interesting. but consider what happens when you cube each digit and add. $1^3 = 1$. $5^3 = 125$. $3^3 = 27$. add them: $1 + 125 + 27 = 153$. the number eats its own digits, cubes them, sums them, and returns precisely to itself. this makes 153 a narcissistic number, or in more formal language, an Armstrong number of order 3, a fixed point of the map that sends any three-digit number n to the sum of the cubes of its decimal digits.</p>
+
+            <p>there are exactly four three-digit Armstrong numbers in base 10: 153, 370, 371, and 407. apply the cubing-and-summing map to any other three-digit number and the resulting sequence eventually falls into one of these four fixed points or collapses below 100 and escapes the domain. the four fixed points are the attractors of a discrete dynamical system defined entirely by the decimal representation of integers, which is itself an arbitrary human choice, and yet the fixed points feel almost inevitable once you find them. changing to a different base produces different fixed points, a different attractor structure, a different set of numbers with this strange self-referential property. the narcissism is base-dependent, which makes it less fundamental and more beautiful, a reminder that what looks like an intrinsic property of a number is sometimes a property of the relationship between the number and the notation we use to write it down.</p>
+
+            <p>take a plate, TN 11 RP 6174.</p>
+
+            <p>this is Kaprekar's constant. here is the operation that leads to it. take any four-digit number whose digits are not all identical. rearrange its digits to form the largest possible number, then the smallest possible number, and subtract the smaller from the larger. this is the Kaprekar operation. take 3524: the largest arrangement is 5432, the smallest is 2345, the difference is 3087. apply the operation again: 8730 minus 0378 equals 8352. and again: 8532 minus 2358 equals 6174. and now apply the operation to 6174 itself: 7641 minus 1467 equals 6174. fixed point. the operation eats it and returns it unchanged.</p>
+
+            <p>what makes 6174 remarkable is not just that it is a fixed point but that it is, for four-digit numbers, a global attractor. every four-digit number with at least two distinct digits reaches 6174 within at most seven iterations of the Kaprekar operation, without exception. the entire space of four-digit numbers, all the way from 1000 to 9999, is organised into trajectories that converge on this single drain. the process looks like arithmetic but it behaves like a topological dynamical system, and 6174 is its unique stable equilibrium.</p>
+
+            <p>the three-digit version of the same operation converges to 495 in at most six steps, and 495 plays the same role there that 6174 plays for four digits. for five and six digits the structure becomes more complex: rather than a single fixed point you get cycles, closed orbits that the Kaprekar operation loops around indefinitely. the two-dimensional version of the problem, asking what happens when you apply analogous operations in higher bases, remains an active area of recreational mathematics. Kaprekar himself, an Indian mathematician working as a school teacher in Deolali, discovered this in 1949 and spent decades exploring its generalisations in relative obscurity. the constant that bears his name sat on numberplates for years before anyone bothered to look.</p>
+
+            <p>take a plate, DL 09 MR 8128.</p>
+
+            <p>8128 is a perfect number, the fourth perfect number, and it has been known to be perfect since antiquity. a perfect number is one that equals the sum of all its proper divisors. the proper divisors of 8128 are 1, 2, 4, 8, 16, 32, 64, 127, 254, 508, 1016, 2032, and 4064, and their sum is exactly 8128. the first four perfect numbers, 6, 28, 496, and 8128, were known to the ancient greeks. the fifth, 33550336, was not found until the fifteenth century.</p>
+
+            <p>euclid proved that if $2^k - 1$ is prime, then $2^{k-1}(2^k - 1)$ is a perfect number. for 8128, $k = 7$, and $2^7 - 1 = 127$, which is indeed prime. the primes of the form $2^k - 1$ are called Mersenne primes, and they are extraordinarily rare: as of 2024, only 51 are known, with the largest requiring millions of decimal digits to write out. euler proved the other direction: every even perfect number has precisely the form euclid described. so the even perfect numbers and the Mersenne primes are in perfect one-to-one correspondence, and finding one is equivalent to finding the other.</p>
+
+            <p>but the question of whether any odd perfect numbers exist has been open for over two thousand years. this is not for lack of trying. mathematicians have established that if an odd perfect number exists it must be greater than $10^{1500}$, must have at least 101 prime factors counted with multiplicity, must have a largest prime factor exceeding $10^8$, and must satisfy dozens of other stringent structural constraints. none of this rules one out. the problem combines elementary divisibility theory with extraordinarily deep questions about multiplicative structure in the integers, and it sits on a numberplate, unresolved, in traffic.</p>
+
+            <p>take a plate, WB 03 CT 0057.</p>
+
+            <p>57 does not look special. it is not prime, which you might not immediately notice. 57 equals 3 times 19, both prime, a routine factorisation. there is nothing visually distinctive about the number. and yet 57 has become, in mathematical circles, a piece of folklore.</p>
+
+            <p>in the early 1970s, alexander grothendieck was giving a lecture and someone in the audience asked him to give an example of a prime number, specifically to make a point concrete. grothendieck, without hesitation, said 57. he moved on. the audience, aware that they were in the presence of one of the most formidable mathematical minds of the twentieth century, mostly did not interrupt to point out that 57 equals 3 times 19. grothendieck had restructured the foundations of algebraic geometry almost single-handedly, inventing the theory of schemes, developing étale cohomology, and producing tools whose full power mathematicians are still discovering decades later. the idea that he might make a multiplication error seemed almost categorically impossible.</p>
+
+            <p>57 is now sometimes called grothendieck's prime, which is a joke but also a serious observation about the nature of mathematical thinking at high levels of abstraction. grothendieck worked so far above the level of individual numbers that specific integers had become essentially irrelevant to his daily practice. the question of whether 57 was prime was not the kind of question his mind was equipped, at that moment, to answer, the way a professional chess player asked to count the legs on a chair might pause for longer than expected. the number 57 is interesting precisely because of what it reveals about the person who called it prime: that real mathematical sophistication and elementary arithmetic can coexist in near-complete independence from each other.</p>
+
+            <p>take a plate, UP 07 GH 0045.</p>
+
+            <p>stop reading the letters as letters. G is the 7th letter of the alphabet. H is the 8th. 7 times 8 times 45 equals 2520. and 2520 is the least common multiple of every integer from 1 through 10, the smallest positive integer that is simultaneously divisible by 1, 2, 3, 4, 5, 6, 7, 8, 9, and 10.</p>
+
+            <p>why this is interesting from a group-theoretic perspective requires a small detour. the cyclic group $\mathbb{Z}/n\mathbb{Z}$ is the group of integers modulo n under addition, and a subgroup of $\mathbb{Z}/n\mathbb{Z}$ isomorphic to $\mathbb{Z}/k\mathbb{Z}$ exists if and only if k divides n. so if you want a single cyclic group that contains, as subgroups, copies of $\mathbb{Z}/1\mathbb{Z}$, $\mathbb{Z}/2\mathbb{Z}$, $\mathbb{Z}/3\mathbb{Z}$, all the way up to $\mathbb{Z}/10\mathbb{Z}$ simultaneously, the smallest n for which $\mathbb{Z}/n\mathbb{Z}$ achieves this is n equals the least common multiple of 1 through 10, which is 2520. the number 2520 is the smallest modulus that makes all ten of those subgroups live simultaneously inside one cyclic group.</p>
+
+            <p>more broadly, $2520 = 2^3 \times 3^2 \times 5 \times 7$, which means it is divisible by every prime power up to 10. this is what makes it highly composite in the relevant sense: it sits at the intersection of the divisibility requirements of every number in that range. the plate shows you 45, which looks like almost nothing, with 7 and 8 tucked quietly into the letters, and the product of the three of them is the exponent of the group that threads through all of the first ten cyclic structures at once.</p>
+
+            <p>take a plate, KL 19 QZ 1093.</p>
+
+            <p>1093 is prime. but it is an extraordinarily specific kind of prime, called a Wieferich prime, and only two have ever been found in the entire infinity of the integers despite computer searches extending across enormous ranges.</p>
+
+            <p>the defining condition is that $p^2$ must divide $2^{p-1} - 1$. fermat's little theorem already guarantees that p divides $2^{p-1} - 1$ for any odd prime p, because the multiplicative group $(\mathbb{Z}/p\mathbb{Z})^*$ has order $p - 1$ and 2 is an element of it. but a Wieferich prime requires the square of p to divide this expression, a far more demanding condition, one that says the fermat congruence holds not merely modulo p but modulo $p^2$. lifting congruences from modulo p to modulo $p^2$ is generically impossible: it requires a very specific relationship between the prime and the base that has no obvious reason to hold. 1093 satisfies it. 3511 satisfies it. as of the time of writing, nothing else below $6.7 \times 10^{15}$ does.</p>
+
+            <p>the historical reason Wieferich primes matter is this. in 1909, decades before wiles resolved fermat's last theorem, wieferich proved that if $x^p + y^p = z^p$ has a solution in positive integers where none of x, y, z is divisible by p, then p must be a Wieferich prime. this did not come close to proving fermat's last theorem. but it meant that every ordinary prime could be immediately ruled out as a counterexample in that specific case, because ordinary primes are not Wieferich primes, and the density of Wieferich primes in any reasonable probabilistic model is so low that heuristically you would expect only finitely many to exist, though this has never been proved. the question of whether infinitely many Wieferich primes exist, or whether 1093 and 3511 are eventually the whole list, is completely open.</p>
+
+            <p>1093 is sitting on a bumper while a question that occupied some of the greatest number theorists of the twentieth century idles unresolved above it.</p>
+
+            <p>i used to think i was good at finding interesting numbers. i was just noticing that all of them are, each one carrying some distinction the others do not, each one a fixed point or a liar or an attractor or a relic of a problem no one has solved yet. the interesting number paradox told me this was guaranteed. what the numberplates taught me is that guaranteed and obvious are very different things, and that the distance between them is most of mathematics.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
