@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shatranj ke khilari | aryaman chandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .blog-post {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .blog-title {
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-meta {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .blog-body p {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .blog-body i {
+            font-family: var(--font-sans);
+        }
+
+        .blog-body {
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .blog-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .blog-body figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .blog-body .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .blog-body .katex {
+            font-size: 0.8em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#makers">Makers</a>
+            <a href="../research.html">Research</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../library.html">Library</a>
+            <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div style="height: 100px;"></div>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Shatranj Ke Khilari</h1>
+            <div class="blog-meta">
+                <span>2026.07.23</span>
+                <span>•</span>
+                <span>math · game theory · Premchand</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>Munshi Premchand's birthday is at the end of this month, and the piece of his i keep coming back to is not one of the famine-and-debt stories i wrote about when i first started this project, it's Shatranj Ke Khilari, published in the magazine Madhuri in 1924, which is the closest thing in the Indian literary canon to a story that is secretly about the difference between playing a game well and playing the right game at all.</p>
+
+            <figure>
+                <img src="images/shatranj-ke-khilari.png" alt="Cover of Shatranj Ke Khilari showing two men playing chess while cavalry approaches">
+            </figure>
+
+            <p><strong>the setup</strong></p>
+
+            <p>the story is set in Lucknow in 1856, the year the British East India Company annexed the kingdom of Awadh from its last independently ruling Nawab, Wajid Ali Shah, on the pretext of misgovernance, using the Doctrine of Lapse that Lord Dalhousie had already applied to annex a string of other princely states. two minor aristocrats, Mirza Sajjad Ali and Mir Roshan Ali, spend the entire story playing chess, obsessively, from morning to evening, day after day, oblivious to their households, their wives, their debts, and eventually to the political collapse happening around them. by the story's end the Nawab has been deposed and Awadh has been annexed without a shot fired in its defense, and the two men, having relocated their board to a quiet spot outside the city to avoid interruption, are found dead, having killed each other in a fit of rage over the game, at the exact moment the British forces are marching past them.</p>
+
+            <p><strong>formalizing the micro-game</strong></p>
+
+            <p>chess is, in the formal sense, one of the cleanest objects game theory has to offer. we can express it as a extensive-form game $G_c = \langle N_c, A_c, H_c, Z_c, \chi_c, \rho_c, u_c \rangle$, where the player set $N_c = \{1, 2\}$ represents White and Black. $H_c$ is the set of histories, $A_c(h)$ is the set of legal moves at history $h$, $\chi_c: H_c \setminus Z_c \to N_c$ maps non-terminal histories to the player whose turn it is to move, and $Z_c$ is the set of terminal histories.</p>
+
+            <p>because chess is finite, deterministic, and has perfect information, Ernst Zermelo proved in 1913 that $G_c$ is strictly determined. for any history $h \in H_c$, the minimax value $v_i(h)$ for player $i \in \{1, 2\}$ is defined recursively over terminal states $z \in Z_c$ where $u_i(z) \in \{-1, 0, 1\}$:</p>
+
+            $$v_i(h) = \begin{cases} u_i(h) & \text{if } h \in Z_c \\ \max_{a \in A_c(h)} v_i(h \circ a) & \text{if } \chi_c(h) = i \\ \min_{a \in A_c(h)} v_i(h \circ a) & \text{if } \chi_c(h) \neq i \end{cases}$$
+
+            <p>this guarantees that from the initial empty history $h_0$, there exists a pure strategy profile $s_c^* = (s_1^*, s_2^*)$ that achieves the unique game-theoretic value $v(h_0)$. this is the mathematical guarantee that makes chess satisfying to obsess over. every move $a \in A_c(h)$ is answerable to a well-defined criterion of correctness.</p>
+
+            <p><strong>the macro-game and miscalculated action spaces</strong></p>
+
+            <p>the annexation of Awadh is the opposite kind of object. let this macro-game be $G_m = \langle N_m, H_m, Z_m, P, u_m \rangle$, where the true player set consists of the British East India Company ($E$) and the Awadh Court ($C$), so $N_m = \{E, C\}$.</p>
+
+            <p>Mirza and Mir are not players in $N_m$. they belong to a population set $P$, acting as passive elements whose state is driven by the strategy profile $s_m \in S_m$ chosen by $N_m$. Premchand's satire works because Mirza and Mir model their existence through a subjective state space $\hat{S}_i$ that completely substitutes $G_c$ for $G_m$.</p>
+
+            <p>formally, their decision-making assumes their total utility $U_i$ is separable and dominated by $G_c$:</p>
+
+            $$U_i(s_c, s_m) = \alpha u_{i, c}(s_c) + (1 - \alpha) u_{i, m}(s_m), \quad \text{with } \alpha \approx 1$$
+
+            <p>in reality, the true payoff structure sets $\alpha = 0$ for their survival. the Company operates with a strategy set $A_E = \{\text{negotiate}, \text{depose}, \text{annex}\}$, while the Court's response space $A_C$ is severely constrained. because $u_{i, m}(s_m) \to -\infty$ when $s_m = (\text{annex}, \text{acquiesce})$, Mirza and Mir's decision to maximize $u_{i, c}$ inside $G_c$ represents a local optimization that is completely orthogonal to their actual payoff boundary.</p>
+
+            <p><strong>backward induction and truncated game trees</strong></p>
+
+            <p>the technique that lets a rational player choose a move in a sequential game like chess is backward induction. it is the same logic behind the minimax theorem, formalized by John von Neumann in 1928, which guarantees that in any finite zero-sum game with perfect information, there is an optimal strategy profile $s^* = (s_i^*, s_{-i}^*)$ satisfying:</p>
+
+            $$u_i(s_i^*, s_{-i}^*) \ge \max_{s_i} \min_{s_{-i}} u_i(s_i, s_{-i})$$
+
+            <p>General James Outram, the Company's representative negotiating Awadh's annexation, is doing exactly this kind of backward induction, just on the macro-game tree $T_m$ instead of the chessboard tree $T_c$. he evaluates the terminal node $z_{\text{annex}} \in Z_m$, computes the optimal path through subgame perfection, and executes the sequence of actions $a_E^{(1)}, a_E^{(2)}, \dots, a_E^{(k)}$ required to force that outcome.</p>
+
+            <p>Mirza and Mir apply this exact backward-induction operator $\text{BI}(T_c)$ to their chessboard while evaluating $T_m$ as a trivial single-node tree with no branches. this is the story's cruelest joke: it isn't that the two aristocrats lack the capacity for strategic thought, Premchand is careful to show them thinking with real sophistication about the game in front of them. it's that they have restricted their backward induction to a game tree that yields zero payoff toward their true survival.</p>
+
+            <p><strong>information sets and common knowledge</strong></p>
+
+            <p>game theory usually assumes common knowledge of the rules, meaning the game structure $G$, the action spaces $A$, and the payoff functions $u$ are known to all players, everyone knows that everyone knows, and so on ad infinitum. chess satisfies this trivially. $G_m$ does not.</p>
+
+            <p>we can model this as a game with incomplete information where players hold subjective beliefs $\mu_i$ over the true game state $\theta \in \Theta$. the Company operates under type $\theta_{\text{realpolitik}}$, where the game is a single-stage extraction contest with dominant strategy $a_E^* = \text{annex}$. the Awadh aristocracy operates under belief distribution $\mu_C(\theta_{\text{feudal}}) = 1$, assuming a repeated diplomatic game where compliance yields perpetual equilibrium.</p>
+
+            <p>because Mirza and Mir fail to perform Bayesian updating on their prior beliefs when observing external signals $y \in Y$ (such as troop movements), their posterior belief remains fixed:</p>
+
+            $$\mu_i(\theta_{\text{realpolitik}} \mid y) = \frac{P(y \mid \theta_{\text{realpolitik}}) \mu_i(\theta_{\text{realpolitik}})}{P(y)} = 0$$
+
+            <p>a party operating under an unadjusted, incorrect belief distribution cannot play optimally in $G_m$, because expected utility maximization $\arg\max_{a_i} \mathbb{E}_{\mu_i}[u_i(a_i, a_{-i})]$ is computed relative to a subjective game model that bears no relation to the true payoff matrix.</p>
+
+            <p><strong>the game that ends the game</strong></p>
+
+            <p>there's a bitter formal irony in how the two friends actually die. having fled their households to play in peace, they get into an argument over an illegal move, tempers rise, and they kill each other with their swords over a dispute about $G_c$ itself, at the exact historical moment $G_m$ reaches its terminal state $z_{\text{annex}}$.</p>
+
+            <p>at the moment of the duel, their internal game $G_c$ undergoes a payoff collapse. the state space transitions from a zero-sum recreational game to a deadly subgame $G_d$ where the action set becomes $A_d = \{\text{strike}, \text{yield}\}$ and the payoff matrix transforms into a coordination failure:</p>
+
+            $$\begin{pmatrix} (-10, -10) & (1, -1) \\ (-1, 1) & (0, 0) \end{pmatrix}$$
+
+            <p>both players choose the dominated action $\text{strike}$, driving the outcome to the worst joint payoff $(-10, -10)$. the well-defined, zero-sum, perfectly rational game consumes them entirely, while the actual high-stakes political game proceeds to its absorbing state without requiring their participation or even their notice. Premchand doesn't need to state the moral outright, and doesn't, the structure does it for him: a game with clean rules and legible payoffs is enormously more attractive to reason about than a messy, high-stakes, poorly-specified one, and that attractiveness has nothing to do with which game actually determines your future. Satyajit Ray, adapting the story into his 1977 film, widened the lens to show Outram's calculations directly alongside the two nawabs' matches, which makes the asymmetry explicit in a way Premchand's tighter, more claustrophobic original leaves implicit, and I think the original is stronger for the restraint. you're never shown the other board. you just watch two extremely intelligent men lose, permanently, at a game they never noticed they were playing.</p>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
+        </div>
+    </footer>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
