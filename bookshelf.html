@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookshelf — Aryaman Chandra</title>
     <meta name="description" content="Books Aryaman Chandra keeps coming back to — math, physics, and a few detours.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,7 +18,7 @@
         <div class="nav-links" id="navLinks">
             <a href="index.html">about</a>
             <a href="research.html">research</a>
-            <a href="work.html">projects</a>
+            <a href="education-equity.html">education equity</a>
             <a href="blog.html">blog</a>
             <a href="bookshelf.html">bookshelf</a>
             <a href="contact.html">contact</a>
@@ -27,55 +30,52 @@
         <span></span>
     </button>
 
-    <header class="page-header">
-        <div class="section-heading">
-            <span class="eyebrow">Bookshelf</span>
-            <h2>Books I keep coming back to.</h2>
-            <p class="section-sub">Not a full library — just the ones that changed how I think, in no particular
-                order.</p>
-        </div>
-    </header>
+    <main class="timeline-page">
+        <h1 class="timeline-heading">Bookshelf</h1>
 
-    <section class="section bookshelf-page">
-        <ul class="book-list">
-            <li class="book-item reveal">
-                <div class="book-item-text">
-                    <h3>Gödel, Escher, Bach</h3>
-                    <p class="book-author">Douglas Hofstadter</p>
+        <section class="timeline">
+            <article class="timeline-entry">
+                <span class="timeline-date">Hofstadter</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">Gödel, Escher, Bach</h2>
                     <p>The book that made self-reference feel like the most natural thing in the world.</p>
                 </div>
-            </li>
-            <li class="book-item reveal">
-                <div class="book-item-text">
-                    <h3>The Feynman Lectures on Physics</h3>
-                    <p class="book-author">Richard Feynman, Robert Leighton, Matthew Sands</p>
+            </article>
+
+            <article class="timeline-entry">
+                <span class="timeline-date">Feynman</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">The Feynman Lectures on Physics</h2>
                     <p>Still the clearest explanation I've read of why anything works at all.</p>
                 </div>
-            </li>
-            <li class="book-item reveal">
-                <div class="book-item-text">
-                    <h3>A Mathematician's Apology</h3>
-                    <p class="book-author">G. H. Hardy</p>
+            </article>
+
+            <article class="timeline-entry">
+                <span class="timeline-date">Hardy</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">A Mathematician's Apology</h2>
                     <p>Short, a little defensive, and completely right about what makes a proof beautiful.</p>
                 </div>
-            </li>
-            <li class="book-item reveal">
-                <div class="book-item-text">
-                    <h3>Surely You're Joking, Mr. Feynman!</h3>
-                    <p class="book-author">Richard Feynman</p>
+            </article>
+
+            <article class="timeline-entry">
+                <span class="timeline-date">Feynman</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">Surely You're Joking, Mr. Feynman!</h2>
                     <p>Proof that curiosity is a personality trait, not just a research method.</p>
                 </div>
-            </li>
-            <li class="book-item reveal">
-                <div class="book-item-text">
-                    <h3>Gulliver's Travels</h3>
-                    <p class="book-author">Jonathan Swift</p>
+            </article>
+
+            <article class="timeline-entry">
+                <span class="timeline-date">Swift</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">Gulliver's Travels</h2>
                     <p>Satire that still lands, three centuries later.</p>
                 </div>
-            </li>
-        </ul>
-    </section>
-<script src="script.js"></script>
+            </article>
+        </section>
+    </main>
+    <script src="script.js"></script>
 </body>
 
 </html>

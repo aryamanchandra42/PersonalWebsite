@@ -73,3 +73,10 @@ if (revealEls.length) {
     revealEls.forEach((el) => observer.observe(el));
 }
 
+// YouTube embeds require http(s) — show thumbnail link when opened as a local file
+if (location.protocol === 'file:') {
+    document.querySelectorAll('.video-embed').forEach((embed) => {
+        embed.classList.add('is-file-fallback');
+    });
+}
+

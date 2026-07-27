@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Equity — Aryaman Chandra</title>
+    <meta name="description" content="Education equity work by Aryaman Chandra — HeyArya!, Live the Learning, and Saksham.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="nav solid" id="siteNav">
+        <a class="nav-name" href="index.html">Aryaman Chandra</a>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">about</a>
+            <a href="research.html">research</a>
+            <a href="education-equity.html">education equity</a>
+            <a href="blog.html">blog</a>
+            <a href="bookshelf.html">bookshelf</a>
+            <a href="contact.html">contact</a>
+        </div>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <main class="timeline-page">
+        <h1 class="timeline-heading">Education Equity</h1>
+
+        <section class="timeline">
+            <article class="timeline-entry" id="heyarya">
+                <span class="timeline-date">Platform</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">HeyArya!</h2>
+                    <p>I built an AI math tutor that explains things the way Feynman would: simply, honestly, and at whatever level you are actually at. No answer dumping. Just learning.</p>
+
+                    <div class="project-stats">
+                        <div class="project-stat">
+                            <span class="project-stat-value">9k+</span>
+                            <span class="project-stat-label">views</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="project-stat-value">100</span>
+                            <span class="project-stat-label">active users</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="project-stat-value">9</span>
+                            <span class="project-stat-label">countries</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="project-stat-value">4</span>
+                            <span class="project-stat-label">core math subjects</span>
+                        </div>
+                    </div>
+
+                    <div class="project-body">
+                        <h2>Why I built it</h2>
+                        <p>
+                            Saksham and Live the Learning taught me that access to learning is uneven. HeyArya! was my attempt to
+                            scale the other side: a tutor that anyone with a browser could reach, at midnight before an exam, in a
+                            village with no coaching center, or in a classroom where the teacher has forty students and ten minutes.
+                        </p>
+                        <p>
+                            I did not want another app that solves problems for you. I wanted something that walks you through the
+                            thinking, adjusts when you are lost, and treats confusion as the starting point rather than a failure.
+                        </p>
+
+                        <h2>What it does</h2>
+                        <p>
+                            <a href="https://heyarya.in/" target="_blank" rel="noopener noreferrer">HeyArya!</a> is an AI-driven
+                            educational platform for interactive math tutoring. I designed it around three ideas pulled straight
+                            from how Feynman taught:
+                        </p>
+                        <ul class="project-note-list">
+                            <li><strong>Clear explanations.</strong> Complex concepts broken down without dumbing them down.</li>
+                            <li><strong>Interactive learning.</strong> Conversation, not a wall of generated text.</li>
+                            <li><strong>Personalized tutoring.</strong> Responses tuned to your level, not a generic syllabus script.</li>
+                        </ul>
+                        <p>
+                            Students can jump into calculus, algebra, geometry, or statistics and ask what they actually need: a
+                            concept explained, a step unpacked, a problem walked through from first principles.
+                        </p>
+
+                        <h2>What I built</h2>
+                        <p>
+                            I built and shipped the full stack myself: the tutoring interface, the adaptive prompting layer, and
+                            the subject routing that sends a question to the right kind of explanation. I tuned the system so it
+                            nudges toward understanding rather than handing over a finished solution, which matters when ChatGPT
+                            shortcuts are the default.
+                        </p>
+                        <p>
+                            The Feynman thread is not cosmetic. It shapes how the model is instructed to respond: use plain
+                            language, check whether the student followed, and re-explain from a different angle when they did not.
+                        </p>
+
+                        <h2>Where it stands</h2>
+                        <p>
+                            HeyArya! has passed <strong>9,000 views</strong> with around <strong>100 active users</strong> across
+                            <strong>9 countries</strong>. It is live, free to try, and still the project I iterate on when I think
+                            about who gets a tutor and who does not.
+                        </p>
+                        <p>
+                            <a href="https://heyarya.in/" target="_blank" rel="noopener noreferrer" class="project-cta">Try
+                                HeyArya! →</a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="timeline-entry" id="live-the-learning">
+                <span class="timeline-date">Guide</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">Live the Learning</h2>
+                    <p>A teacher handed me a crumpled note. Five lines on what wasn't working — and the starting point for a guide I took into schools and STEAM labs.</p>
+
+                    <div class="project-body">
+                        <figure class="project-figure project-figure-note">
+                            <img src="images/cas-guide/teacher-note.png"
+                                alt="Handwritten note from a teacher listing five things they want changed">
+                            <figcaption>The note that started it — folded, annotated, real.</figcaption>
+                        </figure>
+
+                        <h2>Where it started</h2>
+                        <p>
+                            I was visiting schools to understand how NEP 2020 was landing on the ground. One teacher didn't give a
+                            polished briefing. She slid this piece of paper across the table — a quick list of what she wanted
+                            changed, written in the margins between classes.
+                        </p>
+                        <p>It wasn't abstract policy talk. It was specific, frustrated, and honest:</p>
+
+                        <ol class="project-note-list">
+                            <li>Parents' involvement is zero.</li>
+                            <li>Students use apps like ChatGPT to solve problems instead of thinking through them.</li>
+                            <li>Only about 20% of students arrive with their learning work done.</li>
+                            <li>Education should be daily and experiential — not purely theoretical.</li>
+                            <li>There is a lack of practice at home and in the classroom during class time.</li>
+                        </ol>
+
+                        <p>
+                            That list became the design brief. Not a deck of slides — a guide teachers could actually run with:
+                            modules, activities, reflection prompts, and ways to bring parents and practice back into the loop.
+                        </p>
+
+                        <h2>What we built</h2>
+                        <p>
+                            <strong>Live the Learning</strong> is a nine-module CAS guide to experiential learning aligned with NEP
+                            2020. Each module moves from concept to classroom activity to reflection — built so a teacher can pick
+                            it up without a training workshop first.
+                        </p>
+                        <p>
+                            The guide covers creativity, activity, and community engagement — the kind of learning that sticks
+                            because students do something, debrief it, and connect it back to the syllabus instead of copying an
+                            answer off a screen.
+                        </p>
+
+                        <figure class="project-figure">
+                            <img src="images/cas-guide/presentation.png"
+                                alt="Presenting Live the Learning on a laptop — the guide cover on screen">
+                            <figcaption>Presenting the guide — the cover reads <em>Live the Learning: A Guide to Experiential
+                                    Learning</em>.</figcaption>
+                        </figure>
+
+                        <figure class="project-figure">
+                            <img src="images/cas-guide/book.jpg" alt="Holding the printed Live the Learning guide">
+                            <figcaption>The printed guide — meant to be marked up, folded, carried into class.</figcaption>
+                        </figure>
+
+                        <h2>In the field</h2>
+                        <p>
+                            We deployed across 5+ schools and STEAM labs. The goal wasn't a pilot that looked good in a report —
+                            it was to see whether teachers would actually use the modules, whether students would show up with work,
+                            and whether the daily, hands-on structure could compete with the shortcut culture the note described.
+                        </p>
+
+                        <div class="project-gallery">
+                            <figure>
+                                <img src="images/cas-guide/steam-lab.jpg" alt="Students in a STEAM lab session">
+                                <figcaption>STEAM lab session</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/cas-guide/workshop.jpg" alt="Student workshop in progress">
+                                <figcaption>Workshop in progress</figcaption>
+                            </figure>
+                        </div>
+
+                        <h2>What I'm still figuring out</h2>
+                        <p>
+                            The ChatGPT problem doesn't go away because you hand out a better workbook. Parent involvement needs
+                            more than a module — it needs systems schools don't always have. And "daily experiential learning" is
+                            easy to say and hard to schedule when the syllabus is packed.
+                        </p>
+                        <p>
+                            But the note mattered because it named the gap plainly. Live the Learning was my attempt to close it —
+                            one module, one classroom, one crumpled piece of paper at a time.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="timeline-entry" id="saksham">
+                <span class="timeline-date">NGO</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">Saksham</h2>
+                    <p>I built Saksham as a school-based NGO to reach underprivileged and differently-abled children in the schools they already attend. I did all the engineering myself. I also led the mentoring programs and the systems that kept running after I left.</p>
+
+                    <div class="project-gallery project-gallery-featured">
+                        <figure>
+                            <img src="images/saksham/students-performing.png"
+                                alt="Visually impaired students performing a dance at Captain Chandanlal Special School for the Blind">
+                            <figcaption>Students at <a href="https://www.aicb.org.in/chandanlalSchool.html" target="_blank"
+                                    rel="noopener noreferrer">Captain Chandanlal Special School for the Blind</a>: dance, judo,
+                                music, and co-curricular programs alongside regular schooling.</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="images/saksham/prototype-lab.png"
+                                alt="Building assistive hardware: Raspberry Pi, sensors, and prototype boards on a workbench">
+                            <figcaption>Me in the lab. I built every prototype here and tested it until it worked in real school
+                                corridors.</figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="project-stats">
+                        <div class="project-stat">
+                            <span class="project-stat-value">300+</span>
+                            <span class="project-stat-label">students across 10 schools</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="project-stat-value">50+</span>
+                            <span class="project-stat-label">visually impaired students using my devices</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="project-stat-value">60%</span>
+                            <span class="project-stat-label">reduction in corridor navigation time</span>
+                        </div>
+                        <div class="project-stat">
+                            <span class="project-stat-value">50</span>
+                            <span class="project-stat-label">volunteers I led on programs and systems</span>
+                        </div>
+                    </div>
+
+                    <div class="project-body">
+                        <h2>What it is</h2>
+                        <p>
+                            Saksham is a school-based NGO I built to meet students where they already are: government schools
+                            across Delhi, not a separate charity bubble. I partner with institutions serving underprivileged and
+                            differently-abled children, and I show up with engineering, mentoring, and the boring infrastructure
+                            schools are never funded for.
+                        </p>
+                        <p>
+                            Two anchor partners: the <a href="https://www.aicb.org.in/chandanlalSchool.html" target="_blank"
+                                rel="noopener noreferrer">AICB Captain Chandanlal Special School for the Blind</a> in Behrampur,
+                            Gurgaon (a residential school for blind boys and girls from preschool through class 8) and
+                            <strong>Govt. Senior Secondary School, Bhajgera</strong>. The work spreads from there across the
+                            Delhi government school network.
+                        </p>
+
+                        <h2>Three devices · patent pending</h2>
+                        <p>
+                            I designed and built all three assistive tools myself. I deployed them with 50+ visually impaired
+                            students in school corridors and classrooms. All three innovations are <strong>patent pending</strong>.
+                        </p>
+
+                        <ul class="project-innovations">
+                            <li>
+                                <div class="project-innovation-head">
+                                    <strong>Ultrasonic walking stick</strong>
+                                    <span class="project-badge">Patent pending</span>
+                                </div>
+                                <p>I built this with HC-SR04 sonar and haptic feedback for obstacle detection under ₹5,000 per
+                                    unit. I designed it for scale, not lab demos. In daily use it cut average corridor navigation
+                                    time by 60%.</p>
+                            </li>
+                            <li>
+                                <div class="project-innovation-head">
+                                    <strong>Lip-reading cap</strong>
+                                    <span class="project-badge">Patent pending</span>
+                                </div>
+                                <p>I ran edge inference on a Raspberry Pi: a vision layer for silent communication and context a
+                                    cane cannot provide. I optimized the model with quantization until latency was usable on the
+                                    hardware schools actually had.</p>
+                            </li>
+                            <li>
+                                <div class="project-innovation-head">
+                                    <strong>Morse-code haptic sentiment feedback</strong>
+                                    <span class="project-badge">Patent pending</span>
+                                </div>
+                                <p>I built a tactile channel for emotional and social cues, translating sentiment into Morse-pattern
+                                    vibrations students can read without sight or sound.</p>
+                            </li>
+                        </ul>
+
+                        <h2>Programs & systems</h2>
+                        <p>
+                            Hardware alone does not fix a school. I led a team of 50 volunteers to build what lasted after I left:
+                        </p>
+                        <ul class="project-note-list">
+                            <li>Mentoring programs pairing older students with younger ones across partner schools.</li>
+                            <li>Attendance systems schools could maintain without me in the room.</li>
+                            <li>Progress indicators: simple, visible tracks of whether a student was actually moving forward.</li>
+                        </ul>
+                        <p>
+                            Together, these reached <strong>300+ students across 10 schools</strong>. Not a one-week camp, but
+                            structures teachers could keep running.
+                        </p>
+
+                        <h2>Science lab</h2>
+                        <p>
+                            I raised <strong>$1.2K</strong> to open a science lab at a partner government school: cabinets,
+                            materials, and storage so hands-on learning was not theoretical anymore.
+                        </p>
+
+                        <div class="project-gallery">
+                            <figure>
+                                <img src="images/saksham/fundraising-supplies.png"
+                                    alt="Boxes of school supplies, markers, glue, and tape, sorted and counted for delivery">
+                                <figcaption>Fundraising haul: markers, glue, tape, sorted and counted before delivery to schools.
+                                </figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/saksham/science-lab.png"
+                                    alt="Students stocking a new science lab cabinet at a partner government school">
+                                <figcaption>Inauguration day: students stocking the almirah, marigold garlands on the doors.
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <p>
+                            The lab was the first time many of them had a room that was theirs to experiment in. Not a slideshow,
+                            not a textbook chapter, but drawers they could open and mess up.
+                        </p>
+
+                        <h2>Why Captain Chandlal</h2>
+                        <p>
+                            The Chandanlal school is unlike most places I have worked. Over 100 blind students, free residential
+                            education, a touch-and-tell museum, adapted science kits, yoga and judo, and children who compete with
+                            sighted students in co-curricular events and win. I built Saksham's assistive tech for corridors like
+                            theirs: narrow, crowded, familiar to the students but unforgiving if your tools lag behind.
+                        </p>
+                        <p>
+                            <a href="https://www.aicb.org.in/chandanlalSchool.html" target="_blank"
+                                rel="noopener noreferrer">Learn more about the school →</a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -2271,11 +2271,11 @@ body.project-page {
     display: grid;
     grid-template-columns: 7.5rem 1fr;
     gap: 1.5rem;
-    padding: clamp(1.5rem, 4vh, 2.5rem) 0;
+    padding: 0 0 clamp(2rem, 4vh, 2.75rem);
 }
 
-.timeline-entry + .timeline-entry {
-    border-top: 1px solid var(--border-color);
+.timeline-entry:last-child {
+    padding-bottom: 0;
 }
 
 .timeline-date {
@@ -2309,10 +2309,88 @@ body.project-page {
     margin-bottom: 0;
 }
 
+.timeline-body .project-stats {
+    margin: 1.25rem 0 0;
+}
+
+.timeline-body .project-gallery-featured {
+    margin-top: 1.25rem;
+}
+
+.timeline-body .project-body {
+    margin-top: 0.5rem;
+}
+
+.timeline-body .project-body h2:first-child {
+    margin-top: 1.5rem;
+}
+
 .timeline-body a {
     color: inherit;
     text-decoration: underline;
     text-underline-offset: 3px;
+}
+
+.video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-top: 1.25rem;
+    background: #000000;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.video-embed-sm {
+    max-width: 18rem;
+}
+
+.video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.video-fallback {
+    display: none;
+    position: absolute;
+    inset: 0;
+    color: inherit;
+    text-decoration: none;
+}
+
+.video-fallback img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.72);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.video-embed.is-file-fallback .video-iframe {
+    display: none;
+}
+
+.video-embed.is-file-fallback .video-fallback {
+    display: block;
 }
 
 @media (max-width: 720px) {
