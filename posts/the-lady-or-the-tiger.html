@@ -7,118 +7,29 @@
     <title>the lady, or the tiger? | aryaman chandra</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
-    <style>
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        .blog-post {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 2px;
-            margin-bottom: 4rem;
-        }
-
-        .blog-title {
-            font-family: var(--font-sans);
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .blog-meta {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            display: flex;
-            gap: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
-
-        .blog-body p {
-            font-family: var(--font-sans);
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-        }
-
-        .blog-body i {
-            font-family: var(--font-sans);
-        }
-
-        .blog-body {
-            animation: fadeInUp 0.8s ease both;
-        }
-
-        .blog-body figure {
-            margin: 2.5rem 0;
-            text-align: center;
-        }
-
-        .blog-body figure img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .blog-body .katex-display {
-            margin: 2rem 0;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-        .blog-body .katex {
-            font-size: 0.8em;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            transition: color 0.2s;
-            border-bottom: 1px solid transparent;
-        }
-
-        .back-link:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-primary);
-        }
-    </style>
 </head>
 
-<body>
-    <nav class="nav">
-        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
-        <div class="nav-dropdown" id="navDropdown">
-            <a href="../index.html#about">About</a>
-            <a href="../index.html#makers">Makers</a>
-            <a href="../research.html">Research</a>
-            <a href="../blog.html">Blog</a>
-            <a href="../library.html">Library</a>
-            <a href="../index.html#contact">Contact</a>
-        </div>
-        <div class="nav-toggle" id="navToggle">
-            <span></span>
-            <span></span>
-            <span></span>
+<body class="blog-page">
+    <nav class="nav solid" id="siteNav">
+        <a class="nav-name" href="../index.html">Aryaman Chandra</a>
+        <div class="nav-links" id="navLinks">
+            <a href="../index.html">about</a>
+            <a href="../research.html">research</a>
+            <a href="../work.html">projects</a>
+            <a href="../blog.html">blog</a>
+            <a href="../bookshelf.html">bookshelf</a>
+            <a href="../contact.html">contact</a>
         </div>
     </nav>
-
-    <div style="height: 100px;"></div>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
     <article class="blog-post">
         <a href="../blog.html" class="back-link">← back to blog</a>
@@ -186,14 +97,7 @@
             <p>stockton's story, read this way, is not really about whether the princess loves the man enough. it is about whether love is the kind of thing that survives compression into a single bit of information. the mathematics suggests it is not.</p>
         </div>
     </article>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
-        </div>
-    </footer>
-
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
         crossorigin="anonymous"></script>
     <script defer src="../script.js"></script>

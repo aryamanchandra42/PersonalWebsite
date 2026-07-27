@@ -4,294 +4,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>aryaman chandra | blog</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
-        rel="stylesheet">
+    <title>Writing — Aryaman Chandra</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        #mathCanvas {
-            display: none;
-        }
-
-        body {
-            user-select: text;
-        }
-
-        .blog {
-            max-width: 640px;
-            padding: 2.5rem 1.5rem 7rem;
-        }
-
-        .blog .section-header {
-            text-align: left;
-            margin-bottom: 0.25rem;
-        }
-
-        .blog .section-header h2 {
-            font-family: var(--font-sans);
-            font-size: 2rem;
-            font-weight: 400;
-            letter-spacing: 0;
-            text-transform: none;
-        }
-
-        .blog-intro {
-            margin-bottom: 2rem;
-            padding-bottom: 1.25rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .blog-intro p {
-            font-family: var(--font-sans);
-            font-style: normal;
-            color: var(--text-secondary);
-            font-size: 0.98rem;
-            line-height: 1.55;
-        }
-
-        .blog-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .blog-entry {
-            padding: 1.35rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .blog-entry:first-child {
-            padding-top: 0;
-        }
-
-        .blog-entry:last-child {
-            border-bottom: none;
-        }
-
-        .blog-entry-date {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            letter-spacing: 0;
-            margin-bottom: 0.2rem;
-            display: block;
-        }
-
-        .blog-entry-title {
-            font-family: var(--font-sans);
-            font-size: 1.2rem;
-            font-weight: 400;
-            line-height: 1.4;
-            margin-bottom: 0.35rem;
-            letter-spacing: 0;
-        }
-
-        .blog-entry-title a {
-            color: var(--text-primary);
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 2px;
-            transition: none;
-        }
-
-        .blog-entry-title a:hover {
-            color: var(--text-primary);
-        }
-
-        .blog-entry-desc {
-            font-family: var(--font-sans);
-            font-size: 0.98rem;
-            line-height: 1.55;
-            color: var(--text-secondary);
-            margin-bottom: 0.35rem;
-        }
-
-        .blog-entry-tags {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: #8a8a8a;
-            letter-spacing: 0;
-        }
-
-        @media (max-width: 768px) {
-            .blog {
-                padding: 1.5rem 1rem 5rem;
-            }
-
-            .blog .section-header h2 {
-                font-size: 1.55rem;
-            }
-
-            .blog-entry-title {
-                font-size: 1.05rem;
-            }
-
-            .blog-entry {
-                padding: 1.15rem 0;
-            }
-        }
-    </style>
 </head>
 
 <body>
-    <canvas id="mathCanvas"></canvas>
-
-    <nav class="nav">
-        <div class="nav-logo" onclick="window.location.href='index.html'">aryaman chandra</div>
-        <div class="nav-dropdown" id="navDropdown">
-            <a href="index.html#about">About</a>
-            <a href="index.html#makers">Makers</a>
-            <a href="research.html">Research</a>
-            <a href="blog.html">Blog</a>
+    <nav class="nav solid" id="siteNav">
+        <a class="nav-name" href="index.html">Aryaman Chandra</a>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">about</a>
+            <a href="research.html">research</a>
+            <a href="work.html">projects</a>
+            <a href="blog.html">blog</a>
+            <a href="bookshelf.html">bookshelf</a>
+            <a href="contact.html">contact</a>
         </div>
     </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-    <div style="height: 100px;"></div>
-
-    <section id="blog" class="section blog">
-        <div class="section-header">
-            <h2>blog</h2>
+    <header class="page-header">
+        <div class="section-heading">
+            <span class="eyebrow">Writing</span>
+            <h2>Essays, notes, and prizes.</h2>
+            <p class="section-sub">Math blog posts below. Earlier work in essay competitions and a Scholastic anthology.</p>
         </div>
-        <div class="blog-content">
-            <div class="blog-intro">
-                <p>Notes on mathematics.</p>
+    </header>
+
+    <section class="section writing-page">
+        <article class="writing-highlight reveal">
+            <div class="writing-highlight-header">
+                <span class="writing-highlight-label">Horizon Academic Essay Prize 2026</span>
+                <p class="writing-highlight-meta">Horizon Inspires · Aug 2025</p>
             </div>
 
-            <ul class="blog-list">
+            <div class="writing-highlight-gallery">
+                <figure>
+                    <img src="images/writing/horizon-certificate.png"
+                        alt="Horizon Academic Essay Prize 2025 Excellence Award certificate for Aryaman Chandra">
+                    <figcaption>Excellence Award, Horizon Academic Essay Prize 2025.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/writing/scholastic-book.png"
+                        alt="Scholastic Writing Awards 2020: For Kids By Kids anthology cover">
+                    <figcaption>Scholastic Writing Awards 2020 national anthology. I was one of four entries selected
+                        nationwide in 4th grade.</figcaption>
+                </figure>
+            </div>
 
-                <li class="blog-entry">
+            <p class="writing-highlight-desc">
+                I received an Excellence Award and qualified for the Horizon Academic Research Program with a
+                <strong>$1,000 scholarship</strong>.
+            </p>
+            <p class="writing-highlight-desc">
+                I was also shortlisted for the prestigious <strong>John Locke Essay Competition</strong>. Those essays
+                are available on request.
+            </p>
+            <p class="writing-highlight-desc">
+                Before any of that: in 4th grade I authored a piece published in Scholastic's national
+                <em>For Kids By Kids</em> anthology. Four entries were chosen from the entire country that year. Mine
+                was one of them.
+            </p>
+        </article>
+
+        <div class="writing-section-heading reveal">
+            <span class="eyebrow">Blog</span>
+            <h2>Notes on mathematics.</h2>
+        </div>
+    </section>
+
+    <section id="blog" class="section blog-section">
+        <ul class="blog-list">
+
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.07.23</span>
                     <h3 class="blog-entry-title"><a href="posts/shatranj-ke-khilari.html">Shatranj Ke Khilari</a></h3>
                     <p class="blog-entry-desc">Premchand's chess players, Zermelo, and the difference between playing a game well and playing the right game at all.</p>
                     <span class="blog-entry-tags">math · game theory · Premchand</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/shatranj-ke-khilari.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry no-thumb">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/interesting-number-plates.html">Interesting Number Plates</a></h3>
                     <p class="blog-entry-desc">Taxicab numbers, Carmichael liars, Kaprekar attractors, Wieferich primes, and Grothendieck's 57.</p>
                     <span class="blog-entry-tags">math · combinatorics · algebra</span>
-                </li>
+                </div>
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/ham-sandwich-theorem.html">Ham Sandwich Theorem</a></h3>
                     <p class="blog-entry-desc">One plane that bisects three objects at once: the intermediate value theorem meets Borsuk–Ulam.</p>
                     <span class="blog-entry-tags">math · topology · algebra</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/ham-sandwich-theorem.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/jordan-curve-theorem.html">Jordan Curve Theorem</a></h3>
                     <p class="blog-entry-desc">Every simple closed curve splits the plane into inside and outside, and why proving it is hard.</p>
                     <span class="blog-entry-tags">math · topology · geometry</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/jordan-curve.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/quaternions.html">Quaternions</a></h3>
                     <p class="blog-entry-desc">From Broom Bridge to modern attitude control: smooth 3D rotations without gimbal lock.</p>
                     <span class="blog-entry-tags">math · geometry · algebra</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/alice-quaternions.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/how-many-times-do-you-need-to-shuffle-a-deck-of-cards-before-it-is-truly-random.html">How Many Times Do You Need to Shuffle a Deck of Cards Before It Is Truly Random?</a></h3>
                     <p class="blog-entry-desc">Diaconis, riffle shuffles, and the cutoff phenomenon behind the famous threshold of seven.</p>
                     <span class="blog-entry-tags">math · combinatorics · algebra</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/persi-diaconis-coin.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/bounded-gaps-between-primes.html">Bounded Gaps Between Primes</a></h3>
                     <p class="blog-entry-desc">Unbounded prime gaps, bounded liminf, and how Zhang, Maynard, and Polymath pushed the frontier.</p>
                     <span class="blog-entry-tags">math · analysis · combinatorics</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/bounded-prime-gaps.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/dirac-delta-function.html">Dirac Delta Function</a></h3>
                     <p class="blog-entry-desc">A perfectly sharp tap, its sifting property, and why its Fourier transform is constant.</p>
                     <span class="blog-entry-tags">math · analysis</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/dirac-delta-function-sequence.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/quantum-zeno-effect.html">Quantum Zeno Effect</a></h3>
                     <p class="blog-entry-desc">Frequent measurement that freezes decay, and the intermediate-rate anti-Zeno acceleration.</p>
                     <span class="blog-entry-tags">math · analysis</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/watched-pot-quantum-zeno.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry no-thumb">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/the-lady-or-the-tiger.html">The Lady, or the Tiger?</a></h3>
                     <p class="blog-entry-desc">Ill-posed inverse problems and why one bit of information cannot justify the ending.</p>
                     <span class="blog-entry-tags">math · analysis</span>
-                </li>
+                </div>
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry no-thumb">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/lie-groups.html">Lie Groups</a></h3>
                     <p class="blog-entry-desc">Symmetries that vary smoothly: groups like rotations, and their infinitesimal Lie algebras.</p>
                     <span class="blog-entry-tags">math · geometry · algebra</span>
-                </li>
+                </div>
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/greens-functions.html">Green's Functions</a></h3>
                     <p class="blog-entry-desc">How systems react to a single point poke, and why that response gives the solution to any forcing.</p>
                     <span class="blog-entry-tags">math · analysis</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/greens-function-diagram.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/fourier-series.html">Fourier Series</a></h3>
                     <p class="blog-entry-desc">Turning jagged periodic patterns into weighted sums of smooth waves, and what happens near jumps.</p>
                     <span class="blog-entry-tags">math · analysis</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/fourier-square-wave.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/godel-proof-of-the-existence-of-god.html">Gödel's Proof of the Existence of God</a></h3>
                     <p class="blog-entry-desc">Gödel, modal logic, and the ontological argument: formal assumptions that force a conclusion.</p>
                     <span class="blog-entry-tags">math · algebra</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/michelangelo-creation-of-adam.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/arnolds-cat-map.html">Arnold's Cat Map</a></h3>
                     <p class="blog-entry-desc">Stretching and folding a square: a perfectly deterministic transformation that looks, for all practical purposes, like chaos.</p>
                     <span class="blog-entry-tags">math · analysis · algebra</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/arnolds-cat-map.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry">
+                <div>
                     <span class="blog-entry-date">2026.03.20</span>
                     <h3 class="blog-entry-title"><a href="posts/isospectral-shapes.html">Isospectral Shapes</a></h3>
                     <p class="blog-entry-desc">Drums that sound the same: isospectral polygons and the transplantation idea that preserves spectra.</p>
                     <span class="blog-entry-tags">math · geometry · analysis</span>
-                </li>
+                </div>
+                <img class="blog-entry-thumb" src="posts/images/gordon-webb-wolpert-iso-pair.png" alt="" loading="lazy">
+            </li>
 
-                <li class="blog-entry">
+            <li class="blog-entry no-thumb">
+                <div>
                     <span class="blog-entry-date">2025.12.17</span>
                     <h3 class="blog-entry-title"><a href="posts/grammar-of-reality.html">On Recording Patterns</a></h3>
                     <p class="blog-entry-desc">"Mathematics is not an artistic overlay placed upon reality, but the grammar through which reality permits itself to be analysed at all."</p>
                     <span class="blog-entry-tags">philosophy · math</span>
-                </li>
+                </div>
+            </li>
 
-            </ul>
-
-        </div>
+        </ul>
     </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 
 </html>

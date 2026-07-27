@@ -4,139 +4,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>build_002 | assistive tech</title>
+    <title>Saksham · Aryaman Chandra</title>
+    <meta name="description"
+        content="School-based NGO in Delhi. I built assistive hardware, mentoring programs, and outreach with underprivileged and differently-abled children.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        .report-header {
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-        }
-
-        .report-meta {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .report-section {
-            margin-bottom: 3rem;
-        }
-
-        .report-section h3 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-    </style>
 </head>
 
-<body>
-    <canvas id="mathCanvas"></canvas>
+<body class="project-page">
 
-    <nav class="nav">
-        <div class="nav-logo" onclick="window.location.href='../index.html'">aryaman chandra</div>
-        <div class="nav-dropdown" id="navDropdown">
-            <a href="../index.html#about">About</a>
-            <a href="../index.html#makers">Makers</a>
-            <a href="../index.html#research">Research</a>
-            <a href="../blog.html">Blog</a>
-            <a href="../library.html">Library</a>
-            <a href="../index.html#contact">Contact</a>
-        </div>
-        <div class="nav-toggle" id="navToggle">
-            <span></span>
-            <span></span>
-            <span></span>
+    <nav class="nav solid" id="siteNav">
+        <a class="nav-name" href="../index.html">Aryaman Chandra</a>
+        <div class="nav-links" id="navLinks">
+            <a href="../index.html">about</a>
+            <a href="../research.html">research</a>
+            <a href="../work.html">projects</a>
+            <a href="../blog.html">blog</a>
+            <a href="../bookshelf.html">bookshelf</a>
+            <a href="../contact.html">contact</a>
         </div>
     </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-    <div style="height: 100px;"></div>
+    <article class="project-post">
 
-    <section class="section blog-post">
-
-        <header class="report-header">
-            <div class="report-meta">REF: BUILD_002 // STATUS: DEPLOYED</div>
-            <h1 style="margin-bottom: 0.5rem;">Assistive Tech @ Saksham</h1>
-            <p style="font-style: italic; color: var(--text-secondary);">An exercise in sensor fusion and accessible
-                design.</p>
+        <header class="project-header">
+            <div class="project-meta">NGO · Education Equity · Delhi</div>
+            <h1 class="project-title">Saksham</h1>
+            <p class="project-lede">I built Saksham as a school-based NGO to reach underprivileged and differently-abled
+                children in the schools they already attend. I did all the engineering myself. I also led the mentoring
+                programs and the systems that kept running after I left.</p>
         </header>
 
-        <div class="report-section">
-            <h3>I. Hypothesis</h3>
-            <p>
-                The problem of navigation for the visually impaired is typically treated as a clear-path problem.
-                However, the greater challenge is context awareness. A cane can detect a wall, but it cannot read a sign
-                or detect a silent gesture. The hypothesis was that a multimodal system (Vision + Sonar) could offer a
-                "semantic cane" experience.
-            </p>
+        <div class="project-gallery project-gallery-featured">
+            <figure>
+                <img src="../images/saksham/students-performing.png"
+                    alt="Visually impaired students performing a dance at Captain Chandanlal Special School for the Blind">
+                <figcaption>Students at <a href="https://www.aicb.org.in/chandanlalSchool.html" target="_blank"
+                        rel="noopener noreferrer">Captain Chandanlal Special School for the Blind</a>: dance, judo,
+                    music, and co-curricular programs alongside regular schooling.</figcaption>
+            </figure>
+            <figure>
+                <img src="../images/saksham/prototype-lab.png"
+                    alt="Building assistive hardware: Raspberry Pi, sensors, and prototype boards on a workbench">
+                <figcaption>Me in the lab. I built every prototype here and tested it until it worked in real school
+                    corridors.</figcaption>
+            </figure>
         </div>
 
-        <div class="report-section">
-            <h3>II. Apparatus</h3>
-            <ul>
-                <li><strong>Vision</strong>: Custom Sign Language Recognition model (CNN)</li>
-                <li><strong>Distance</strong>: Ultrasonic sensors (HC-SR04) with haptic feedback correlation.</li>
-                <li><strong>Compute</strong>: Raspberry Pi 4 (Edge Inference).</li>
-                <li><strong>Cost Constraint</strong>: < ₹5,000 per unit for scalability.</li>
+        <div class="project-stats reveal">
+            <div class="project-stat">
+                <span class="project-stat-value">300+</span>
+                <span class="project-stat-label">students across 10 schools</span>
+            </div>
+            <div class="project-stat">
+                <span class="project-stat-value">50+</span>
+                <span class="project-stat-label">visually impaired students using my devices</span>
+            </div>
+            <div class="project-stat">
+                <span class="project-stat-value">60%</span>
+                <span class="project-stat-label">reduction in corridor navigation time</span>
+            </div>
+            <div class="project-stat">
+                <span class="project-stat-value">50</span>
+                <span class="project-stat-label">volunteers I led on programs and systems</span>
+            </div>
+        </div>
+
+        <div class="project-body">
+
+            <h2>What it is</h2>
+            <p>
+                Saksham is a school-based NGO I built to meet students where they already are: government schools
+                across Delhi, not a separate charity bubble. I partner with institutions serving underprivileged and
+                differently-abled children, and I show up with engineering, mentoring, and the boring infrastructure
+                schools are never funded for.
+            </p>
+            <p>
+                Two anchor partners: the <a href="https://www.aicb.org.in/chandanlalSchool.html" target="_blank"
+                    rel="noopener noreferrer">AICB Captain Chandanlal Special School for the Blind</a> in Behrampur,
+                Gurgaon (a residential school for blind boys and girls from preschool through class 8) and
+                <strong>Govt. Senior Secondary School, Bhajgera</strong>. The work spreads from there across the
+                Delhi government school network.
+            </p>
+
+            <h2>Three devices · patent pending</h2>
+            <p>
+                I designed and built all three assistive tools myself. I deployed them with 50+ visually impaired
+                students in school corridors and classrooms. All three innovations are <strong>patent pending</strong>.
+            </p>
+
+            <ul class="project-innovations">
+                <li>
+                    <div class="project-innovation-head">
+                        <strong>Ultrasonic walking stick</strong>
+                        <span class="project-badge">Patent pending</span>
+                    </div>
+                    <p>I built this with HC-SR04 sonar and haptic feedback for obstacle detection under ₹5,000 per
+                        unit. I designed it for scale, not lab demos. In daily use it cut average corridor navigation
+                        time by 60%.</p>
+                </li>
+                <li>
+                    <div class="project-innovation-head">
+                        <strong>Lip-reading cap</strong>
+                        <span class="project-badge">Patent pending</span>
+                    </div>
+                    <p>I ran edge inference on a Raspberry Pi: a vision layer for silent communication and context a
+                        cane cannot provide. I optimized the model with quantization until latency was usable on the
+                        hardware schools actually had.</p>
+                </li>
+                <li>
+                    <div class="project-innovation-head">
+                        <strong>Morse-code haptic sentiment feedback</strong>
+                        <span class="project-badge">Patent pending</span>
+                    </div>
+                    <p>I built a tactile channel for emotional and social cues, translating sentiment into Morse-pattern
+                        vibrations students can read without sight or sound.</p>
+                </li>
             </ul>
-        </div>
 
-        <div class="report-section">
-            <h3>III. Observation</h3>
+            <h2>Programs & systems</h2>
             <p>
-                The ultrasonic walking stick proved robust, providing reliable < 2m obstacle detection. However, the
-                    Smart Cap (Vision) faced significant latency issues on the Pi 4 when running simultaneous object
-                    detection and OCR. </p>
-                    <p>
-                        We optimized the model using quantization, reducing inference time by 40%. The final system
-                        achieved 85% accuracy in real-time sign language translation under controlled lighting.
-                    </p>
-                    <figure style="margin: 2rem 0; text-align: center;">
-                        <div
-                            style="background: #eee; height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; color: #888; font-family: var(--font-mono);">
-                            [ ARCHIVAL IMAGE: PROTOTYPE V1 ]
-                        </div>
-                        <figcaption class="hero-image-caption">Fig 1. Wiring harness and sensor array.</figcaption>
-                    </figure>
-        </div>
-
-        <div class="report-section">
-            <h3>IV. Conclusion</h3>
-            <p>
-                The project successfully secured ₹335,000 in funding, validating the market need. The "semantic" layer
-                is viable but requires dedicated AI accelerators (like a Coral stick) for true real-time comfort.
+                Hardware alone does not fix a school. I led a team of 50 volunteers to build what lasted after I left:
             </p>
+            <ul class="project-note-list">
+                <li>Mentoring programs pairing older students with younger ones across partner schools.</li>
+                <li>Attendance systems schools could maintain without me in the room.</li>
+                <li>Progress indicators: simple, visible tracks of whether a student was actually moving forward.</li>
+            </ul>
+            <p>
+                Together, these reached <strong>300+ students across 10 schools</strong>. Not a one-week camp, but
+                structures teachers could keep running.
+            </p>
+
+            <h2>Science lab</h2>
+            <p>
+                I raised <strong>$1.2K</strong> to open a science lab at a partner government school: cabinets,
+                materials, and storage so hands-on learning was not theoretical anymore.
+            </p>
+
+            <div class="project-gallery">
+                <figure>
+                    <img src="../images/saksham/fundraising-supplies.png"
+                        alt="Boxes of school supplies, markers, glue, and tape, sorted and counted for delivery">
+                    <figcaption>Fundraising haul: markers, glue, tape, sorted and counted before delivery to schools.
+                    </figcaption>
+                </figure>
+                <figure>
+                    <img src="../images/saksham/science-lab.png"
+                        alt="Students stocking a new science lab cabinet at a partner government school">
+                    <figcaption>Inauguration day: students stocking the almirah, marigold garlands on the doors.
+                    </figcaption>
+                </figure>
+            </div>
+
+            <p>
+                The lab was the first time many of them had a room that was theirs to experiment in. Not a slideshow,
+                not a textbook chapter, but drawers they could open and mess up.
+            </p>
+
+            <h2>Why Captain Chandlal</h2>
+            <p>
+                The Chandanlal school is unlike most places I have worked. Over 100 blind students, free residential
+                education, a touch-and-tell museum, adapted science kits, yoga and judo, and children who compete with
+                sighted students in co-curricular events and win. I built Saksham's assistive tech for corridors like
+                theirs: narrow, crowded, familiar to the students but unforgiving if your tools lag behind.
+            </p>
+            <p>
+                <a href="https://www.aicb.org.in/chandanlalSchool.html" target="_blank"
+                    rel="noopener noreferrer">Learn more about the school →</a>
+            </p>
+
         </div>
 
         <div class="back-link">
-            <a href="../index.html#makers">← return to log</a>
+            <a href="../index.html#education-equity">← back to education equity</a>
         </div>
 
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
-        </div>
-    </footer>
-
-    <script src="../script.js"></script>
+    </article>
+<script src="../script.js"></script>
 </body>
 
 </html>

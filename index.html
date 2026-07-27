@@ -1,329 +1,45 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>aryaman chandra | portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
-        rel="stylesheet">
+    <title>Aryaman Chandra</title>
+    <meta name="description" content="Aryaman Chandra — math, hardware, and code. Curious about why anything works at all.">
     <link rel="stylesheet" href="style.css">
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
-        };
-    </script>
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body>
-    <canvas id="mathCanvas"></canvas>
-
-    <nav class="nav">
-        <div class="nav-logo" id="navToggle">aryaman chandra</div>
-        <div class="nav-dropdown" id="navDropdown">
-            <a href="#about">About</a>
-            <a href="research.html">Research</a>
-            <a href="blog.html">Blog</a>
+<body class="landing">
+    <nav class="nav on-hero" id="siteNav">
+        <a class="nav-name" href="index.html">Aryaman Chandra</a>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">about</a>
+            <a href="research.html">research</a>
+            <a href="work.html">projects</a>
+            <a href="blog.html">blog</a>
+            <a href="bookshelf.html">bookshelf</a>
+            <a href="contact.html">contact</a>
         </div>
     </nav>
-    <button id="classicModeToggleFloating" class="classic-mode-toggle classic-mode-floating" type="button" aria-label="Toggle classic mode" title="Toggle classic mode">🪄</button>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-    <header class="hero">
-        <div class="hero-content">
-            <div class="hero-image-container">
-                <img src="me.jpg" alt="Aryaman Chandra" class="hero-image">
-            </div>
-
-            <h1 class="hero-title">Aryaman Chandra</h1>
-
-            <p class="hero-subtitle">
-                Experiments in Mathematics, Hardware, and Code
-            </p>
-
-            <div class="hero-affiliations">
-                <span class="affiliation">Independent Researcher</span>
-                <span class="affiliation-divider">·</span>
-                <span class="affiliation">Builder</span>
-                <span class="affiliation-divider">·</span>
-                <span class="affiliation">Systems Thinker</span>
-            </div>
-
-            <div class="hero-motto">
-                <em>Bound by nothing</em>
-            </div>
+    <main class="landing-page">
+        <h1 class="sr-only">Aryaman Chandra — Curious about why anything works at all.</h1>
+        <div class="landing-about">
+            <img class="landing-about-photo" src="me.jpg" alt="Aryaman Chandra">
+            <p>Hey, I'm Aryaman.</p>
+            <p>This portfolio is a collection of my research, projects, writing, and the ideas that have shaped them.</p>
+            <p>I began programming in the sixth grade in 2020. Shortly afterwards, I fell in love with mathematics, and since then I've been building things at the intersection of the two. Along the way, I spent countless hours every week under the tutelage of Dr. Saugata Ghosh, whose guidance helped shape my early understanding of mathematics. That experience also made me appreciate how transformative good teaching can be, and it sparked my interest in making high-quality mathematics education more accessible through technology. Since then, I've been working a lot in <a href="https://www.oecd.org/en/topics/policy-issues/education-equity.html" target="_blank" rel="noopener noreferrer">education equity</a>.</p>
+            <p>Whatever I've been able to accomplish so far is as much a reflection of the people who've supported me as it is of my own efforts. I'm deeply grateful to my parents, sister, grandparents, teachers, and the many mentors who've guided me along the way.</p>
+            <p>My thinking has been shaped by people such as <a href="https://en.wikipedia.org/wiki/Richard_Feynman" target="_blank" rel="noopener noreferrer">Richard Feynman</a>, <a href="https://en.wikipedia.org/wiki/I._I._Rabi" target="_blank" rel="noopener noreferrer">I. I. Rabi</a>, <a href="https://en.wikipedia.org/wiki/Freeman_Dyson" target="_blank" rel="noopener noreferrer">Freeman Dyson</a>, <a href="https://en.wikipedia.org/wiki/Steve_Jobs" target="_blank" rel="noopener noreferrer">Steve Jobs</a>, <a href="https://en.wikipedia.org/wiki/Peter_Thiel" target="_blank" rel="noopener noreferrer">Peter Thiel</a>, and <a href="https://en.wikipedia.org/wiki/Elon_Musk" target="_blank" rel="noopener noreferrer">Elon Musk</a>, among many others. I also enjoy reading, particularly biographies, history, and books that explore the intersection of science, technology, and philosophy.</p>
+            <p>I enjoy building across disciplines and am comfortable working with Python, C++, Java, HTML/CSS/JavaScript, Verilog, Julia, and the Wolfram Language. Beyond programming, I like writing about mathematics, literature, and the unexpected paths that connect them.</p>
+            <p>Research has become one of the most rewarding parts of my journey. Much of my original work has been carried out in collaboration with Dr. Sudhir Ranjan Jain, an experience for which I remain immensely grateful. Working with him taught me not only mathematics, but also how to approach difficult problems with patience, rigor, and intellectual curiosity.</p>
         </div>
-        <a href="#about" class="scroll-indicator">∇</a>
-    </header>
-
-    <section id="about" class="section about">
-        <div class="section-header">
-            <span class="section-number">01</span>
-            <h2>about</h2>
-        </div>
-        <div class="about-content">
-            <div class="about-image-container">
-                <img src="me2.jpg" alt="Aryaman Chandra" class="about-image">
-                <div class="about-image-caption">Fig 1.1: The Author</div>
-            </div>
-            <div class="about-text">
-                <p>
-                    I am Aryaman. I build systems, largely to see whether the universe objects.
-                </p>
-                <p>
-                    This site is a catalogue of those negotiations. Experiments in mathematics, hardware, and code,
-                    undertaken not because they are especially useful, but because they seem just barely permissible.
-                    Each project begins with a set of rules, proceeds under the assumption that those rules are
-                    incomplete, and ends either in success or in a clearer understanding of why success was never on the
-                    table.
-                </p>
-                <p>
-                    It is, in practice, a register of minor improbabilities. A record of occasions on which logic
-                    behaves impeccably, reality cooperates reluctantly, and precision is achieved in spite of
-                    everything. The aim is not to impose order, which would be unreasonable, but to locate pockets of
-                    clarity and examine them before they collapse back into noise.
-                </p>
-                <p>
-                    The work is guided by a simple curiosity: why, in a universe so committed to disorder, anything
-                    works at all.
-                </p>
-                <div class="proof-box">
-                    <span class="proof-qed">current status</span> — actively building. last updated: <span
-                        id="lastUpdated"></span>
-                </div>
-            </div>
-            <div class="about-stats">
-                <div class="stat-card">
-                    <span class="stat-symbol">π</span>
-                    <span class="stat-value">3+</span>
-                    <span class="stat-label">Years Experience</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-symbol">∞</span>
-                    <span class="stat-value">∞</span>
-                    <span class="stat-label">Curiosity Level</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-symbol">Σ</span>
-                    <span class="stat-value">42</span>
-                    <span class="stat-label">Projects Completed</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="skills-section">
-        <div class="skills-equation">
-            <span>Skills = {</span>
-            <div class="skills-set">
-                <span class="skill" data-level="95">JavaScript</span>
-                <span class="skill" data-level="90">React</span>
-                <span class="skill" data-level="85">Python</span>
-                <span class="skill" data-level="80">Node.js</span>
-                <span class="skill" data-level="88">CSS</span>
-                <span class="skill" data-level="75">SQL</span>
-            </div>
-            <span>}</span>
-        </div>
-    </section>
-
-    <section id="makers" class="section makers">
-        <div class="section-header">
-            <span class="section-number">02</span>
-            <h2>Makers</h2>
-        </div>
-        <div class="makers-grid">
-            <article class="maker-card">
-                <div class="maker-index">build_001</div>
-                <h3>HeyArya!</h3>
-                <img src="makers/heyarya.jpg" alt="HeyArya! project" class="maker-image"
-                    onerror="this.style.display='none'">
-                <p class="maker-description">AI-driven educational platform. Adaptive learning algorithms, interactive
-                    math tutoring. 9k+ views, 100 active users across 9 countries.</p>
-                <div class="maker-tags">
-                    <span class="tag">AI/ML</span>
-                    <span class="tag">NLP</span>
-                    <span class="tag">Web</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">github</a>
-                    <a href="#" class="maker-link">demo</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_002</div>
-                <h3><a href="projects/assistive-tech.html" style="text-decoration: none; color: inherit;"></a>Assistive
-                    Tech @ Saksham</a></h3>
-                <p class="maker-description">AI-powered cap (lip reading, object detection, sign language) + ultrasonic
-                    walking stick. Raised ₹335k total funding.</p>
-                <div class="maker-tags">
-                    <span class="tag">Hardware</span>
-                    <span class="tag">CV</span>
-                    <span class="tag">Embedded</span>
-                </div>
-                <div class="maker-links">
-                    <a href="projects/assistive-tech.html" class="maker-link">view_log</a>
-                    <a href="#" class="maker-link">github</a>
-                    <a href="#" class="maker-link">docs</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_003</div>
-                <h3>CNN Waste Segregation</h3>
-                <p class="maker-description">Raspberry Pi 4 + CNN for biodegradable/non-biodegradable classification.
-                    2nd place @ IIT Kharagpur (17k+ participants, ₹230k prize).</p>
-                <div class="maker-tags">
-                    <span class="tag">ML</span>
-                    <span class="tag">Raspberry Pi</span>
-                    <span class="tag">CV</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">github</a>
-                    <a href="#" class="maker-link">demo</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_004</div>
-                <h3>CAS Guide (9 Modules)</h3>
-                <p class="maker-description">Nine-module guide integrating IBDP, NEP 2020, Socratic learning. Deployed
-                    across 5+ schools.</p>
-                <div class="maker-tags">
-                    <span class="tag">Education</span>
-                    <span class="tag">Design</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">docs</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_005</div>
-                <h3>Breast Cancer CNN</h3>
-                <p class="maker-description">CNN for malignant vs benign tumor classification. Medical image analysis
-                    using deep learning.</p>
-                <div class="maker-tags">
-                    <span class="tag">ML</span>
-                    <span class="tag">CV</span>
-                    <span class="tag">Medical</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">github</a>
-                    <a href="#" class="maker-link">notebook</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_006</div>
-                <h3>Criminal Justice NLP Bias Analysis</h3>
-                <p class="maker-description">Explored bias in criminal justice system using NLP models. Fairness
-                    analysis and algorithmic accountability.</p>
-                <div class="maker-tags">
-                    <span class="tag">NLP</span>
-                    <span class="tag">Fairness</span>
-                    <span class="tag">Analysis</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">github</a>
-                    <a href="#" class="maker-link">report</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_007</div>
-                <h3>Sentiment-Based Stock Analysis</h3>
-                <p class="maker-description">Analyzed stock market behavior using sentiment patterns from tweets.
-                    NLP-driven financial modeling.</p>
-                <div class="maker-tags">
-                    <span class="tag">NLP</span>
-                    <span class="tag">Finance</span>
-                    <span class="tag">Sentiment</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">github</a>
-                    <a href="#" class="maker-link">notebook</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_008</div>
-                <h3>Piezoelectric Gym Startup</h3>
-                <p class="maker-description">Piezoelectric-powered gym concept converting kinetic energy to electricity.
-                    Developed @ Hero MotoCorp Innovation Cell.</p>
-                <div class="maker-tags">
-                    <span class="tag">Hardware</span>
-                    <span class="tag">Energy</span>
-                    <span class="tag">Innovation</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">prototype</a>
-                </div>
-            </article>
-
-            <article class="maker-card">
-                <div class="maker-index">build_009</div>
-                <h3>Game Development Projects</h3>
-                <p class="maker-description">Original games designed and presented to review board (Harvard/MIT/IIT
-                    alumni). Combinatorics & number theory applications.</p>
-                <div class="maker-tags">
-                    <span class="tag">Games</span>
-                    <span class="tag">Math</span>
-                </div>
-                <div class="maker-links">
-                    <a href="#" class="maker-link">github</a>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section id="contact" class="section contact">
-        <div class="section-header">
-            <span class="section-number">05</span>
-            <h2>contact</h2>
-        </div>
-        <div class="contact-content">
-            <div class="math-contact">
-                <a href="mailto:aryaman.chandra@gmail.com" class="contact-item">
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">aryaman.chandra@gmail.com</span>
-                </a>
-                <a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233/" target="_blank" class="contact-item">
-                    <span class="contact-label">LinkedIn</span>
-                    <span class="contact-value">linkedin.com/in/aryaman-chandra-2b0a7a233</span>
-                </a>
-                <a href="tel:+919667016540" class="contact-item">
-                    <span class="contact-label">Phone</span>
-                    <span class="contact-value">+91 96670 16540</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-institutions">
-                <div class="footer-institutions-label">collaborated with researchers/alumni from</div>
-                <div class="footer-logos">
-                    <img src="logos/iit-kharagpur.png" alt="IIT Kharagpur" class="footer-logo">
-                    <img src="logos/iit-bombay.png" alt="IIT Bombay" class="footer-logo">
-                    <img src="logos/mit.png" alt="MIT" class="footer-logo">
-                    <img src="logos/stanford.png" alt="Stanford" class="footer-logo"
-                        onerror="this.style.display='none'">
-                    <img src="logos/harvard.png" alt="Harvard" class="footer-logo">
-                    <img src="logos/brown.png" alt="Brown" class="footer-logo">
-                    <img src="logos/northeastern.png" alt="Northeastern" class="footer-logo">
-                </div>
-            </div>
-            <p class="footer-math">P(you_enjoyed_this) ≈ 1</p>
-        </div>
-    </footer>
+    </main>
 
     <script src="script.js"></script>
 </body>
