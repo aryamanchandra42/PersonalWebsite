@@ -14,45 +14,37 @@
     <meta property="og:description" content="you have never, in your entire life, cut a sandwich perfectly in half.">
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body class="blog-page">
-    <nav class="nav solid" id="siteNav">
-        <a class="nav-name" href="../index.html">Aryaman Chandra</a>
-        <div class="nav-links" id="navLinks">
-            <a href="../index.html">about</a>
-            <a href="../research.html">research</a>
-            <a href="../education-equity.html">education equity</a>
-            <a href="../blog.html">blog</a>
-            <a href="../bookshelf.html">bookshelf</a>
-            <a href="../contact.html">contact</a>
+        <nav class="navbar">
+        <div class="container nav-inner">
+            <a class="nav-name" href="../index.html">Aryaman Chandra</a>
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html">About me</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../research.html">Research</a>
+                <a href="../blog.html" class="active" aria-current="page">Writing</a>
+            </div>
         </div>
     </nav>
-    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
 
-    <article class="blog-post">
+    <article class="blog-post reading-page container">
         <a href="../blog.html" class="back-link">← back to blog</a>
 
-        <header class="blog-header">
+        <header class="blog-header reading-header">
             <h1 class="blog-title">Ham Sandwich Theorem</h1>
-            <div class="blog-meta">
+            <div class="blog-meta reading-byline">
                 <span>2026.03.20</span>
                 <span>•</span>
                 <span>math · topology · algebra</span>
             </div>
         </header>
 
-        <div class="blog-body">
+        <div class="blog-body prose">
             <p>you have never, in your entire life, cut a sandwich perfectly in half.</p>
 
             <p>not because you lack skill or a steady hand, and not because you were distracted, or because the knife was slightly dull, or because the bread was softer on one side than the other. it is because cutting three distinct objects in half simultaneously with a single straight cut is genuinely, almost impossibly difficult to do by eye. the bread on top, the ham in the middle, the bread on the bottom, each one a different shape, a different thickness, sitting at a slightly different angle relative to the others, and you are supposed to bisect all three at once with one clean confident motion. not cut each one in half in sequence. all three, at the same time, with the same cut.</p>
@@ -88,10 +80,10 @@
             <p>the proof never touches the specific geometry of your sandwich. it does not care whether the ham is a perfect ellipse or a rough irregular slab. the argument is entirely about continuous functions on a sphere and the action of a two-element group on antipodal points, and those things are true regardless of what your lunch looks like. the perfect cut is guaranteed by the structure of mathematics itself, which is either deeply comforting or mildly unsettling, depending on your relationship with lunch.</p>
         </div>
     </article>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    <footer><div class="container footer-inner"><span>© <span id="year"></span> Aryaman Chandra</span><div class="social-row"><a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233" target="_blank" rel="noreferrer">LinkedIn</a><a href="../index.html">About me</a><a href="../projects.html">Projects</a><a href="../research.html">Research</a><a href="../blog.html">Writing</a></div></div></footer>    <footer><div class="container footer-inner"><span>© <span id="year"></span> Aryaman Chandra</span><div class="social-row"><a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233" target="_blank" rel="noreferrer">LinkedIn</a><a href="../index.html">About me</a><a href="../projects.html">Projects</a><a href="../research.html">Research</a><a href="../blog.html">Writing</a></div></div></footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+        <footer><div class="container footer-inner"><span>© <span id="year"></span> Aryaman Chandra</span><div class="social-row"><a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233" target="_blank" rel="noreferrer">LinkedIn</a><a href="../index.html">About me</a><a href="../projects.html">Projects</a><a href="../research.html">Research</a><a href="../blog.html">Writing</a></div></div></footer>    <footer><div class="container footer-inner"><span>© <span id="year"></span> Aryaman Chandra</span><div class="social-row"><a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233" target="_blank" rel="noreferrer">LinkedIn</a><a href="../index.html">About me</a><a href="../projects.html">Projects</a><a href="../research.html">Research</a><a href="../blog.html">Writing</a></div></div></footer><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
         crossorigin="anonymous"></script>
-    <script defer src="../script.js"></script>
+    <script defer src="../assets/js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var el = document.querySelector('.blog-body');

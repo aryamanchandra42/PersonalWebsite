@@ -1,18 +1,16 @@
 # Aryaman Chandra — personal website
 
-A small, framework-free personal site built with HTML, CSS, and JavaScript. Open `index.html` in a browser or publish this folder as a static site.
+A static personal site built with HTML, CSS, and JavaScript. There is no build step or framework; `index.html` is the homepage.
 
-## Pages
+## Current pages
 
-- `index.html` — home, portrait, a recognition carousel, and affiliations
-- `about.html` — personal editorial page
-- `projects.html` — selected work
-- `research.html` — research timeline and paper links
-- `blog.html` — research papers and the 17 essays from the original writing archive
-- `blog-post-template.html` — narrow layout to duplicate for a long-form note
+- `index.html` — home and recognitions
+- `about.html` — biography
+- `projects.html` — selected projects and activities
+- `research.html` — research timeline
+- `blog.html` — writing archive
+- `posts/` — essay pages linked from the writing archive
 
-## Assets and motion
+All current pages share `assets/css/style.css` and `assets/js/main.js`. Site images used by the current layout are in `assets/images/`. The post pages use KaTeX for mathematics and the shared site stylesheet and navigation.
 
-Images and logos live in `assets/images/`. Shared styling is in `assets/css/style.css`; the mobile navigation, animated affiliations strip, paper-opening and scroll-reveal transitions, faint moving mathematical trace, and research-pen cursor with a fading ink stroke are in `assets/js/main.js`. Motion respects reduced-motion preferences; the cursor is disabled on touch devices. Research previews are embedded from the original papers and linked to their sources.
-
-The pages use Google Fonts when online and fall back to system serif and sans-serif fonts. No build step or framework is required.
+GitHub Pages publishes the site from the repository root. `CNAME` keeps the existing custom domain. Older page URLs redirect to their current section, and `_templates/` contains an unpublished writing template.
