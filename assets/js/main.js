@@ -95,6 +95,22 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', updateHonourCount, { passive: true });
   }
 
+  // Expand Saksham when a direct patent anchor is opened.
+  function revealSakshamAnchor() {
+    var targetId = decodeURIComponent(window.location.hash.slice(1));
+    if (!['patents', 'wearable-cap', 'navigation-stick'].includes(targetId)) return;
+    var sakshamDetails = document.querySelector('#saksham > .saksham-card-details');
+    if (sakshamDetails) sakshamDetails.open = true;
+    var patentDetails = document.querySelector('#saksham .saksham-patent-details');
+    if (patentDetails) patentDetails.open = true;
+    window.requestAnimationFrame(function () {
+      var target = document.getElementById(targetId);
+      if (target) target.scrollIntoView();
+    });
+  }
+  revealSakshamAnchor();
+  window.addEventListener('hashchange', revealSakshamAnchor);
+
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reducedMotion) document.body.classList.add('page-ready');
 
