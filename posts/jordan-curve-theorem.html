@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jordan curve theorem | aryaman chandra</title>
+    <meta name="description" content="in the attached image: which points of the plane lie inside the polygon?">
+    <meta name="author" content="Aryaman Chandra">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aryamanchandra.in/posts/jordan-curve-theorem.html">
+    <meta property="og:title" content="Jordan Curve Theorem | Aryaman Chandra">
+    <meta property="og:url" content="https://aryamanchandra.in/posts/jordan-curve-theorem.html">
+    <meta property="og:description" content="in the attached image: which points of the plane lie inside the polygon?">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="blog-page">
+    <nav class="nav solid" id="siteNav">
+        <a class="nav-name" href="../index.html">Aryaman Chandra</a>
+        <div class="nav-links" id="navLinks">
+            <a href="../index.html">about</a>
+            <a href="../research.html">research</a>
+            <a href="../education-equity.html">education equity</a>
+            <a href="../blog.html">blog</a>
+            <a href="../bookshelf.html">bookshelf</a>
+            <a href="../contact.html">contact</a>
+        </div>
+    </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <article class="blog-post">
+        <a href="../blog.html" class="back-link">← back to blog</a>
+
+        <header class="blog-header">
+            <h1 class="blog-title">Jordan Curve Theorem</h1>
+            <div class="blog-meta">
+                <span>2026.03.20</span>
+                <span>•</span>
+                <span>math · topology · geometry</span>
+            </div>
+        </header>
+
+        <div class="blog-body">
+            <p>in the attached image: which points of the plane lie inside the polygon?</p>
+
+            <p>take a moment. it's not entirely obvious.</p>
+
+            <figure>
+                <img src="images/jordan-curve.png" alt="A convoluted simple closed curve winding across the plane">
+            </figure>
+
+            <p>this is something i keep coming back to, the jordan curve theorem, and i want to try to explain it the way i understand it.</p>
+
+            <p>the theorem says: every simple closed curve in the plane divides it into exactly two regions, one bounded (the inside) and one unbounded (the outside), and the curve is the boundary of each. this is easy to understand.</p>
+
+            <p>a simple closed curve just means a continuous loop that doesn't cross itself. a circle qualifies. so does the convoluted mess in the picture, winding and doubling back without ever self-intersecting. hence, the theorem holds for both.</p>
+
+            <p>now, why is this hard to prove?</p>
+
+            <p>the first difficulty is that "inside" and "outside" aren't definitions, they're intuitions. to make them rigorous, you need to show that removing the curve from the plane leaves exactly two connected components. connected here has a precise meaning: a region is connected if you can travel between any two points in it without crossing the curve. proving that there are exactly two such components, no more, no fewer, for any simple closed curve, is where things get difficult.</p>
+
+            <p>the second difficulty is continuity. the theorem has to hold not just for smooth, well-behaved curves but for arbitrarily wild ones. a curve can be continuous and nowhere differentiable, fractal-like, filling space in disturbing ways, and the theorem still has to hold. the proof can't rely on the curve being nice.</p>
+
+            <p>one of the cleaner ways to see why it works is through the winding number. pick any point not on the curve and draw a ray outward in any direction. count how many times the curve crosses that ray, with sign (left to right crossings cancel right to left ones). if the total is zero, you're outside. if it's nonzero, you're inside. this is essentially the intermediate value theorem in disguise: as you move continuously from a point far away (winding number zero) to a point deep inside, the winding number has to change, and a continuous integer-valued function can only change by jumping, which means crossing the curve.</p>
+
+            <p>this also explains why the proof works for wild curves but not just circles. for a circle you can see the answer. the winding number argument doesn't care what the curve looks like, it only uses the fact that the curve is a continuous closed loop. that's the level of generality the proof operates at!</p>
+
+            <p>the theorem matters quite a lot in practice. every time your maps app checks whether you're inside a delivery zone, every time a game engine decides whether a bullet hit landed inside a hitbox, it's running point-in-polygon.</p>
+
+            <p>that is, the idea: cast a ray from the point and count how many times it crosses the boundary. odd crossings, you're inside. even, you're outside. the jordan curve theorem is the reason that algorithm is guaranteed to work!</p>
+        </div>
+    </article>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.querySelector('.blog-body');
+            if (el && typeof renderMathInElement === 'function') {
+                renderMathInElement(el, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false }
+                    ],
+                    throwOnError: false
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

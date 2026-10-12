@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elsewhere - Semantic Distance Game</title>
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonts: Crimson Text (Serif), Inter (Sans), JetBrains Mono (Mono) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/effects.css') }}?v=3">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+    <!-- Abstract Background Mesh -->
+    <svg class="background-mesh" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 50 Q 25 25, 50 50 T 100 50" stroke="rgba(0,0,0,0.03)" fill="none" stroke-width="0.5" />
+        <path d="M0 30 Q 40 10, 80 50 T 100 90" stroke="rgba(0,0,0,0.03)" fill="none" stroke-width="0.5" />
+        <path d="M0 80 Q 30 90, 60 50 T 100 20" stroke="rgba(0,0,0,0.03)" fill="none" stroke-width="0.5" />
+        <circle cx="80" cy="20" r="10" stroke="rgba(0,0,0,0.03)" fill="none" stroke-width="0.5" />
+    </svg>
+
+    <div class="fx-container" id="fx-container"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="acronym-expansion">
+                <span class="word-group"><span class="letter">E</span><span class="rest">xperiments in</span></span>
+                <span class="word-group"><span class="letter">L</span><span class="rest">atent</span></span>
+                <span class="word-group"><span class="letter">S</span><span class="rest">emantic</span></span>
+                <span class="word-group"><span class="letter">E</span><span class="rest">mbeddings &</span></span>
+                <span class="word-group"><span class="letter">W</span><span class="rest">eighted</span></span>
+                <span class="word-group"><span class="letter">H</span><span class="rest">igh-dimensional</span></span>
+                <span class="word-group"><span class="letter">E</span><span class="rest">ncoded</span></span>
+                <span class="word-group"><span class="letter">R</span><span class="rest">epresentations of</span></span>
+                <span class="word-group"><span class="letter">E</span><span class="rest">xpression</span></span>
+            </h1>
+        </header>
+
+        <!-- Background Music -->
+        <audio id="bg-music" loop preload="auto">
+            <source src="{{ url_for('static', filename='soundtrack.mp3') }}" type="audio/mpeg">
+        </audio>
+
+        <!-- Music Toggle Button -->
+        <button class="music-toggle" id="music-toggle" title="Toggle Music">
+            <i class="fas fa-volume-mute" id="music-icon"></i>
+        </button>
+
+        <div class="paper-card">
+            <!-- Game Status -->
+            <div class="game-status">
+                <div class="status-item">
+                    <span class="status-label">Round</span>
+                    <span class="status-value" id="round-number">1</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Your Score</span>
+                    <span class="status-value score-highlight" id="user-score">0</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Computer Score</span>
+                    <span class="status-value" id="computer-score">0</span>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board" id="game-board">
+
+                <!-- INTRO SECTION -->
+                <div class="game-intro" id="game-intro">
+                    <button class="settings-toggle" id="settings-btn" title="Game Settings">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+
+                    <div class="settings-panel" id="settings-panel">
+                        <div class="setting-row">
+                            <label>Time per Turn</label>
+                            <input type="range" id="time-setting" min="5" max="60" value="7" step="1">
+                            <span class="setting-value" id="time-val">7s</span>
+                        </div>
+                        <div class="setting-row">
+                            <label>Total Rounds</label>
+                            <input type="range" id="rounds-setting" min="1" max="50" value="20" step="1">
+                            <span class="setting-value" id="rounds-val">20</span>
+                        </div>
+                    </div>
+
+                    <h3>Welcome to Elsewhere</h3>
+                    <p>Navigate the semantic void. Your goal is to find words mathematically most distant from their
+                        predecessors, while an AI adversary attempts to do the same.</p>
+
+                    <button class="start-btn" id="start-btn">
+                        Begin
+                    </button>
+
+                    <div class="rules-container">
+                        <button class="scroll-trigger" id="scroll-trigger">
+                            <span class="scroll-icon"></span>
+                            <span>View Mathematical Basis</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ACTIVE GAME SECTION -->
+                <div class="game-active" id="game-active" style="display: none;">
+
+                    <!-- Left Column: Interaction -->
+                    <div class="game-left-col">
+                        <div class="turn-indicator" id="turn-indicator">
+                            <span>Ready</span>
+                        </div>
+
+                        <!-- Featured Computer Move (Transient) -->
+                        <div id="active-computer-move" class="active-computer-card hidden">
+                            <span class="label">Computer's Move</span>
+                            <div class="word" id="comp-word-display">--</div>
+                            <div class="meaning" id="comp-meaning-display">--</div>
+                            <div class="distance" id="comp-distance-display">--</div>
+                        </div>
+
+                        <div class="input-section" id="input-section">
+                            <div class="timer-container">
+                                <label>Input Vector</label>
+                                <div>
+                                    <span class="timer-display" id="timer-display">7</span>s
+                                </div>
+                            </div>
+                            <div class="word-input-container">
+                                <input type="text" id="word-input" placeholder="Type a word..." autocomplete="off" />
+                                <button class="submit-btn" id="submit-btn">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="error-msg" id="error-msg"></div>
+                        </div>
+
+                        <!-- Mathematical Visualization -->
+                        <div class="math-panel" id="math-panel">
+                            <div class="math-header">
+                                <span>Real-time Metrics</span>
+                            </div>
+                            <div class="distance-display" id="distance-display">
+                                <div class="distance-value">--</div>
+                                <div class="distance-label">Cosine Distance</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: History -->
+                    <div class="game-right-col">
+                        <div class="math-header">Trajectory Log</div>
+                        <div class="word-history" id="word-history">
+                            <!-- Words injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GAME OVER SECTION -->
+            <div class="game-over" id="game-over" style="display: none;">
+                <h2 id="game-result">Sequence Complete</h2>
+                <div class="final-scores">
+                    <div class="final-score-item">
+                        <span class="final-label">Your Total</span>
+                        <span class="final-value" id="final-user-score">0</span>
+                    </div>
+                    <div class="final-score-item">
+                        <span class="final-label">Computer Total</span>
+                        <span class="final-value" id="final-computer-score">0</span>
+                    </div>
+                </div>
+
+                <div id="graph-network" class="graph-network"
+                    style="height: 300px; border: 1px solid var(--border); margin-bottom: 2rem;"></div>
+
+                <button class="restart-btn" id="restart-btn">
+                    Try again
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>Made by <strong>Aryaman Chandra</strong></p>
+        </footer>
+    </div>
+
+    <!-- Ancient Scroll Overlay -->
+    <div class="scroll-overlay" id="scroll-overlay">
+        <div class="scroll-container" id="scroll-container">
+            <button class="scroll-close" id="scroll-close">&times;</button>
+
+            <div class="scroll-roller scroll-roller-top"></div>
+
+            <div class="scroll-content" id="scroll-content">
+                <h2 class="scroll-title">The Mathematical Basis</h2>
+                <p class="scroll-subtitle">A Formal Treatment of Semantic Distance in Vector Spaces</p>
+
+                <section class="scroll-section">
+                    <h3>§ I. The Embedding Space</h3>
+                    <p>Let <em>V</em> denote our vocabulary of cardinality |<em>V</em>| ≈ 400,000. We define an
+                        embedding function:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">Definition 1.1 (Word Embedding):</span>
+                        <div class="formula">φ : V → ℝ<sup>d</sup>, where d = 100</div>
+                    </div>
+
+                    <p>The embedding space (ℝ<sup>d</sup>, ⟨·,·⟩) forms an inner product space with the standard
+                        Euclidean inner product. Each word <em>w</em> ∈ <em>V</em> maps to a vector φ(<em>w</em>)
+                        learned via the <strong>GloVe</strong> objective, which minimizes:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">GloVe Objective Function:</span>
+                        <div class="formula">J = Σ<sub>i,j</sub>
+                            f(X<sub>ij</sub>)(w<sub>i</sub><sup>T</sup>w̃<sub>j</sub> + b<sub>i</sub> + b̃<sub>j</sub> −
+                            log X<sub>ij</sub>)<sup>2</sup></div>
+                    </div>
+
+                    <p>where <em>X<sub>ij</sub></em> denotes the co-occurrence count, and <em>f</em> is a weighting
+                        function satisfying <em>f</em>(0) = 0 with <em>f</em>(<em>x</em>) → ∞ as <em>x</em> →
+                        0<sup>+</sup> bounded.</p>
+                </section>
+
+                <section class="scroll-section">
+                    <h3>§ II. Cosine Similarity as Angular Distance</h3>
+                    <p>For vectors <strong>u</strong>, <strong>v</strong> ∈ ℝ<sup>d</sup> \ {<strong>0</strong>}, the
+                        cosine similarity is the normalized inner product:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">Definition 2.1 (Cosine Similarity):</span>
+                        <div class="formula">sim(u, v) = ⟨u, v⟩ / (‖u‖₂ · ‖v‖₂) = cos(θ<sub>u,v</sub>)</div>
+                    </div>
+
+                    <p><strong>Proposition 2.2:</strong> sim(·,·) ∈ [−1, 1] with equality iff the vectors are parallel
+                        (sim = 1) or antiparallel (sim = −1).</p>
+
+                    <p><em>Proof:</em> By Cauchy-Schwarz, |⟨u, v⟩| ≤ ‖u‖₂ · ‖v‖₂, with equality iff u = αv for some α ∈
+                        ℝ. Division by the norms yields the result. ∎</p>
+
+                    <p><strong>Remark:</strong> The angular distance θ = arccos(sim(u, v)) defines a proper metric on
+                        the projective space ℝP<sup>d−1</sup>.</p>
+                </section>
+
+                <section class="scroll-section">
+                    <h3>§ III. The Dissimilarity Metric</h3>
+                    <p>We define semantic distance as a monotone transformation of cosine similarity:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">Definition 3.1 (Semantic Distance):</span>
+                        <div class="formula formula-large">d(u, v) = 1 − sim(u, v) ∈ [0, 2]</div>
+                    </div>
+
+                    <p><strong>Theorem 3.2:</strong> The function d(·,·) satisfies:</p>
+                    <ul class="scroll-list">
+                        <li>(i) <em>Non-negativity:</em> d(u, v) ≥ 0</li>
+                        <li>(ii) <em>Identity:</em> d(u, v) = 0 ⟺ u ∥ v (parallel vectors)</li>
+                        <li>(iii) <em>Symmetry:</em> d(u, v) = d(v, u)</li>
+                    </ul>
+                    <p><strong>Note:</strong> d(·,·) violates the triangle inequality in general, hence is a
+                        <em>dissimilarity measure</em> rather than a true metric. However, √d(u,v) does satisfy metric
+                        axioms for unit vectors.
+                    </p>
+                </section>
+
+                <section class="scroll-section">
+                    <h3>§ IV. The Optimization Problem</h3>
+                    <p>Let {w<sub>0</sub>, w<sub>1</sub>, ..., w<sub>n</sub>} be the word sequence. At turn <em>t</em>,
+                        the player solves:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">Player's Objective:</span>
+                        <div class="formula">w<sub>t</sub>* = arg max<sub>w ∈ V</sub> d(φ(w<sub>t-1</sub>), φ(w))</div>
+                    </div>
+
+                    <p>Subject to <em>w</em> ∉ {w<sub>0</sub>, ..., w<sub>t-1</sub>} (no repetitions). The cumulative
+                        score:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">Total Score:</span>
+                        <div class="formula">S = Σ<sub>t=1</sub><sup>n</sup> d(φ(w<sub>t-1</sub>), φ(w<sub>t</sub>))
+                        </div>
+                    </div>
+
+                    <p><strong>Computational Complexity:</strong> Naïve search is O(|V| · d) per turn. Approximate
+                        nearest neighbor structures (e.g., HNSW) reduce this to O(log |V|) with bounded approximation
+                        error.</p>
+                </section>
+
+                <section class="scroll-section">
+                    <h3>§ V. Geometric Intuition</h3>
+                    <p>The embedding manifold exhibits rich algebraic structure. Linear operations preserve semantic
+                        relationships:</p>
+
+                    <div class="scroll-formula">
+                        <span class="formula-label">Semantic Composition (Mikolov et al., 2013):</span>
+                        <div class="formula">φ(king) − φ(man) + φ(woman) ≈ φ(queen)</div>
+                    </div>
+
+                    <div class="scroll-note">
+                        <strong>Strategic Lemma:</strong> Antonyms often exhibit high cosine similarity (small distance)
+                        due to distributional co-occurrence in similar contexts. Maximum distance is achieved by
+                        selecting words from orthogonal semantic subspaces—e.g., abstract vs. concrete, emotional vs.
+                        technical.
+                    </div>
+
+                    <p><strong>Corollary:</strong> The optimal strategy is not to find opposites, but to find
+                        <em>semantically unrelated</em> terms: words whose embedding vectors span maximally independent
+                        directions in ℝ<sup>d</sup>.
+                    </p>
+                </section>
+
+                <section class="scroll-section">
+                    <h3>§ VI. References</h3>
+                    <ul class="scroll-list scroll-references">
+                        <li>Pennington, J., Socher, R., & Manning, C. (2014). <em>GloVe: Global Vectors for Word
+                                Representation.</em> EMNLP.</li>
+                        <li>Mikolov, T., et al. (2013). <em>Distributed Representations of Words and Phrases.</em>
+                            NeurIPS.</li>
+                        <li>Levy, O. & Goldberg, Y. (2014). <em>Neural Word Embedding as Implicit Matrix
+                                Factorization.</em> NeurIPS.</li>
+                    </ul>
+
+                    <p class="scroll-footer">— <em>Finis</em> —</p>
+                </section>
+            </div>
+
+            <div class="scroll-roller scroll-roller-bottom"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}?v=3"></script>
+</body>
+
+</html>
