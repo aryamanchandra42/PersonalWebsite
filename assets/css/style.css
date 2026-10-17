@@ -811,8 +811,8 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .implementation-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
 .implementation-logo-track{display:flex;width:max-content;animation:implementation-logo-scroll 44s linear infinite}
 .implementation-logo-group{display:flex;flex:none;align-items:center;gap:clamp(8px,1.2vw,14px);padding-right:0}
-.implementation-logo-tile{display:grid;flex:0 0 auto;width:clamp(100px,11vw,145px);height:78px;place-items:center;padding:7px;border:0;background:transparent}
-.implementation-logo-tile img{width:100%;height:62px;object-fit:contain;mix-blend-mode:multiply}
+.implementation-logo-tile{display:grid;flex:0 0 auto;width:clamp(100px,11vw,145px);height:78px;place-items:center;padding:7px;border:1px solid rgba(217,214,202,.65);background:rgba(255,255,255,.84)}
+.implementation-logo-tile img{width:100%;height:62px;object-fit:contain;mix-blend-mode:normal}
 #education-partners .implementation-logo-tile--compact img{width:76%;height:48px}
 @keyframes implementation-logo-scroll{to{transform:translateX(-50%)}}
 .implementation-marquee:hover .implementation-logo-track{animation-play-state:paused}
