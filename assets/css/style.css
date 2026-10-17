@@ -814,6 +814,13 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .venture-firm-link span{min-width:0;overflow-wrap:anywhere;font:500 11px/1.4 var(--mono)}
 @media(max-width:430px){.venture-firm-links{grid-template-columns:1fr}.venture-firm-link{min-height:72px}.venture-firm-link img{width:52px;height:52px}}
 
+.implementation-partners{margin-top:22px;padding-top:15px;border-top:1px solid var(--rule)}
+.implementation-partners>.eyebrow{margin-bottom:10px}
+.implementation-logo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.implementation-logo-tile{display:grid;min-width:0;min-height:76px;place-items:center;padding:6px;border:1px solid rgba(217,214,202,.8);background:rgba(255,255,255,.62)}
+.implementation-logo-tile img{width:100%;height:62px;object-fit:contain}
+@media(max-width:390px){.implementation-logo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
 /* Quiet mathematical marks on the landing-page paper. */
 .home-intro-panel .home-hero{isolation:isolate}
 .home-math-marks{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;color:var(--blue);font:400 clamp(38px,6vw,74px)/1 var(--serif);opacity:.13}
