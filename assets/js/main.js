@@ -138,17 +138,27 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', updateHonourCount, { passive: true });
   }
 
-  // Expand Saksham when a direct patent anchor is opened.
+  var sakshamDialog = document.getElementById('saksham-details');
+  if (sakshamDialog) {
+    var sakshamOpenButton = document.querySelector('#saksham .saksham-toggle-label');
+    var sakshamCloseButton = sakshamDialog.querySelector('.saksham-dialog-close');
+    if (sakshamOpenButton) sakshamOpenButton.addEventListener('click', function () { sakshamDialog.showModal(); });
+    if (sakshamCloseButton) sakshamCloseButton.addEventListener('click', function () { sakshamDialog.close(); });
+    sakshamDialog.addEventListener('click', function (event) {
+      if (event.target === sakshamDialog) sakshamDialog.close();
+    });
+  }
+
+  // Open the full-screen Saksham details for direct patent links.
   function revealSakshamAnchor() {
     var targetId = decodeURIComponent(window.location.hash.slice(1));
     if (!['patents', 'wearable-cap', 'navigation-stick'].includes(targetId)) return;
-    var sakshamDetails = document.querySelector('#saksham > .saksham-card-details');
-    if (sakshamDetails) sakshamDetails.open = true;
+    if (sakshamDialog && !sakshamDialog.open) sakshamDialog.showModal();
     var patentDetails = document.querySelector('#saksham .saksham-patent-details');
     if (patentDetails) patentDetails.open = true;
     window.requestAnimationFrame(function () {
       var target = document.getElementById(targetId);
-      if (target) target.scrollIntoView();
+      if (target) target.scrollIntoView({ block: 'center' });
     });
   }
   revealSakshamAnchor();
