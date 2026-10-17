@@ -866,15 +866,15 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .saksham-details-dialog .saksham-card-content>div>p{max-width:760px}
 .honours-heading{display:flex;justify-content:center;text-align:center}
 .honours-heading h2{max-width:none}
-.project-list>.patent-applications-card{grid-column:1/-1;display:block;padding:clamp(20px,3vw,38px);border:1px solid var(--rule);background:rgba(255,255,255,.2)}
+.project-list>.patent-applications-card{grid-column:auto;display:block;min-height:230px;padding:clamp(16px,1.8vw,22px);border:1px solid var(--rule);background:rgba(255,255,255,.24)}
 .patent-applications-intro{padding-bottom:14px}
-.patent-applications-intro h2{font:400 clamp(28px,3.2vw,38px)/1.12 var(--serif);margin:9px 0 8px}
-.patent-applications-intro>p:last-child{margin:0;color:var(--muted);font-size:13px}
+.patent-applications-intro h2{font:400 clamp(25px,2.5vw,31px)/1.2 var(--serif);letter-spacing:-.03em;margin:0 0 9px}
+.patent-applications-intro>p:last-child{max-width:70ch;margin:0;color:var(--muted);font-size:13px;line-height:1.6}
 .patent-applications-card .saksham-patent-group{margin:0;padding:0;border:0}
 .patent-applications-card .saksham-patent-details{border-top:1px solid var(--rule)}
 .patent-applications-card .saksham-patent-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0 0 4px}
 .patent-applications-card .saksham-patent-list .patent-row{padding:16px;border:1px solid var(--rule);background:rgba(255,255,255,.45)}
-@media(max-width:760px){.research-affiliations{gap:8px}.research-affiliation{width:calc((100% - 16px)/3);height:50px;padding:7px}.saksham-dialog-panel{padding:24px 18px 40px}.saksham-dialog-header{margin-bottom:20px}.saksham-dialog-close{width:38px;height:38px}.honours-heading{justify-content:center;align-items:center}.saksham-details-dialog .project-gallery{grid-template-columns:1fr}.saksham-details-dialog .project-gallery img{height:auto;max-height:280px}.project-list>.patent-applications-card{padding:20px}.patent-applications-card .saksham-patent-list{grid-template-columns:1fr;gap:9px}}
+@media(max-width:760px){.research-affiliations{gap:8px}.research-affiliation{width:calc((100% - 16px)/3);height:50px;padding:7px}.saksham-dialog-panel{padding:24px 18px 40px}.saksham-dialog-header{margin-bottom:20px}.saksham-dialog-close{width:38px;height:38px}.honours-heading{justify-content:center;align-items:center}.saksham-details-dialog .project-gallery{grid-template-columns:1fr}.saksham-details-dialog .project-gallery img{height:auto;max-height:280px}.project-list>.patent-applications-card{min-height:0;padding:20px}.patent-applications-card .saksham-patent-list{grid-template-columns:1fr;gap:9px}}
 
 /* Give the writing archive a compact, scannable card layout. */
 .writing-page>.page-heading{padding-bottom:22px}
