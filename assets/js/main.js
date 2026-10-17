@@ -76,16 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  var ltlDialog = document.getElementById('ltl-details');
-  if (ltlDialog) {
-    var ltlOpenButton = document.querySelector('.ltl-details-trigger');
-    var ltlCloseButton = ltlDialog.querySelector('.ltl-dialog-close');
-    if (ltlOpenButton) ltlOpenButton.addEventListener('click', function () { ltlDialog.showModal(); });
-    if (ltlCloseButton) ltlCloseButton.addEventListener('click', function () { ltlDialog.close(); });
-    ltlDialog.addEventListener('click', function (event) {
-      if (event.target === ltlDialog) ltlDialog.close();
-    });
-  }
 
   var honoursCarousel = document.getElementById('honours-carousel');
   if (honoursCarousel) {

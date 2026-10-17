@@ -797,15 +797,6 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 
 .project-list>.project-row>a.project-glyph{display:grid;place-items:center;color:var(--blue);transition:transform .2s ease,color .2s ease}
 .project-list>.project-row>a.project-glyph:hover{transform:translate(3px,-3px);color:var(--red)}
-.ltl-details-trigger{display:inline-flex;align-items:center;gap:10px;margin:4px 0 8px;padding:0 0 4px;border:0;border-bottom:1px solid rgba(72,107,134,.35);background:transparent;color:var(--blue);font:500 12px/1.5 var(--sans);cursor:pointer}
-.ltl-details-trigger:hover{color:var(--red);border-color:var(--red)}
-.ltl-details-trigger span{font-size:16px}
-.ltl-project-dialog{position:fixed;inset:clamp(12px,3vw,38px);width:auto;height:auto;max-width:none;max-height:none;margin:0;padding:clamp(22px,5vw,70px);overflow:auto;border:1px solid rgba(217,214,202,.9);background:rgba(245,242,233,.97);color:var(--ink);box-shadow:0 24px 80px rgba(24,27,28,.2);backdrop-filter:blur(18px)}
-.ltl-project-dialog::backdrop{background:rgba(24,27,28,.68);backdrop-filter:blur(5px)}
-.ltl-dialog-panel{width:min(100%,1000px);min-height:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:center}
-.ltl-dialog-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
-.ltl-dialog-header h2{margin:9px 0 0;font:400 clamp(34px,5vw,62px)/1.05 var(--serif);letter-spacing:-.035em}
-.ltl-dialog-close{width:44px;height:44px;flex:none;border:1px solid var(--rule);border-radius:50%;background:transparent;color:var(--ink);font:300 28px/1 var(--sans);cursor:pointer}
 
 .venture-firm-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:20px}
 .venture-firm-link{display:flex;min-width:0;min-height:82px;align-items:center;gap:12px;padding:10px;border:1px solid var(--rule);background:rgba(255,255,255,.34);color:var(--blue);transition:border-color .2s,background-color .2s}
@@ -819,13 +810,13 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .implementation-partners-note{margin:0 0 13px;color:var(--muted);font-size:13px}
 .implementation-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
 .implementation-logo-track{display:flex;width:max-content;animation:implementation-logo-scroll 44s linear infinite}
-.implementation-logo-group{display:flex;flex:none;align-items:center;gap:clamp(16px,2vw,28px);padding-right:clamp(16px,2vw,28px)}
+.implementation-logo-group{display:flex;flex:none;align-items:center;gap:clamp(8px,1.2vw,14px);padding-right:0}
 .implementation-logo-tile{display:grid;flex:0 0 auto;width:clamp(100px,11vw,145px);height:78px;place-items:center;padding:7px;border:0;background:transparent}
 .implementation-logo-tile img{width:100%;height:62px;object-fit:contain;mix-blend-mode:multiply}
 #education-partners .implementation-logo-tile--compact img{width:76%;height:48px}
 @keyframes implementation-logo-scroll{to{transform:translateX(-50%)}}
 .implementation-marquee:hover .implementation-logo-track{animation-play-state:paused}
-@media(max-width:760px){.project-list>.implementation-partners{padding:19px 15px!important}.implementation-logo-tile{width:104px;height:70px}.implementation-logo-tile img{height:56px}.implementation-logo-group{gap:12px;padding-right:12px}}
+@media(max-width:760px){.project-list>.implementation-partners{padding:19px 15px!important}.implementation-logo-tile{width:104px;height:70px}.implementation-logo-tile img{height:56px}.implementation-logo-group{gap:8px;padding-right:0}}
 @media(prefers-reduced-motion:reduce){.implementation-logo-track{animation:none}.implementation-logo-group[aria-hidden="true"]{display:none}}
 
 /* Quiet mathematical marks on the landing-page paper. */
@@ -842,13 +833,6 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .home-intro-panel .home-hero>.hero-copy,.home-intro-panel .home-hero>.hero-portrait{position:relative;z-index:1}
 @media(max-width:760px){.home-math-marks{font-size:48px;opacity:.11}.math-mark-sum{left:4%;top:5%}.math-mark-integral{left:auto;right:7%;top:15%}.math-mark-pi{right:5%;top:49%}.math-mark-infinity{left:8%;bottom:22%}.math-mark-theta{left:auto;right:8%;bottom:8%}.math-mark-lambda{right:38%;bottom:35%}}
 @media(prefers-reduced-motion:reduce){.home-math-marks .math-mark{animation:none}}
-.ltl-dialog-close:hover{border-color:var(--blue);color:var(--blue)}
-.ltl-dialog-content{display:grid;gap:0}
-.ltl-dialog-content section{display:grid;grid-template-columns:60px minmax(0,1fr);gap:18px;padding:25px 0;border-bottom:1px solid var(--rule)}
-.ltl-detail-index{color:var(--blue);font:11px/1.5 var(--mono);letter-spacing:.08em}
-.ltl-dialog-content h3{margin:0 0 9px;font:500 clamp(21px,2.6vw,30px)/1.2 var(--serif)}
-.ltl-dialog-content p{max-width:760px;margin:0;color:#5f625c;font:400 clamp(15px,1.5vw,18px)/1.7 var(--sans)}
-@media(max-width:600px){.ltl-project-dialog{inset:10px;padding:22px 18px}.ltl-dialog-content section{grid-template-columns:34px minmax(0,1fr);gap:11px;padding:19px 0}.ltl-dialog-close{width:38px;height:38px}}
 
 .writing-page>.page-heading{border-bottom:0}
 .writing-page>.page-heading:after{display:none}
