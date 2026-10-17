@@ -814,15 +814,19 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .venture-firm-link span{min-width:0;overflow-wrap:anywhere;font:500 11px/1.4 var(--mono)}
 @media(max-width:430px){.venture-firm-links{grid-template-columns:1fr}.venture-firm-link{min-height:72px}.venture-firm-link img{width:52px;height:52px}}
 
-.project-list>.implementation-partners{grid-column:1/-1}
+.project-list>.implementation-partners{grid-column:1/-1;padding:21px clamp(19px,2.2vw,28px)!important;border-inline:0!important;background:rgba(255,255,255,.14)!important}
 .implementation-partners>.eyebrow{margin-bottom:4px}
-.implementation-partners-note{margin:0 0 14px;color:var(--muted);font-size:13px}
-.implementation-logo-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.implementation-logo-tile{display:grid;min-width:0;min-height:88px;place-items:center;padding:7px;border:1px solid rgba(217,214,202,.8);background:rgba(255,255,255,.62)}
-.implementation-logo-tile img{width:100%;height:72px;object-fit:contain}
-#education-partners .implementation-logo-tile--compact img{width:76%;height:56px}
-@media(max-width:900px){.implementation-logo-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:390px){.implementation-logo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.implementation-partners-note{margin:0 0 13px;color:var(--muted);font-size:13px}
+.implementation-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+.implementation-logo-track{display:flex;width:max-content;animation:implementation-logo-scroll 44s linear infinite}
+.implementation-logo-group{display:flex;flex:none;align-items:center;gap:clamp(16px,2vw,28px);padding-right:clamp(16px,2vw,28px)}
+.implementation-logo-tile{display:grid;flex:0 0 auto;width:clamp(100px,11vw,145px);height:78px;place-items:center;padding:7px;border:0;background:transparent}
+.implementation-logo-tile img{width:100%;height:62px;object-fit:contain;mix-blend-mode:multiply}
+#education-partners .implementation-logo-tile--compact img{width:76%;height:48px}
+@keyframes implementation-logo-scroll{to{transform:translateX(-50%)}}
+.implementation-marquee:hover .implementation-logo-track{animation-play-state:paused}
+@media(max-width:760px){.project-list>.implementation-partners{padding:19px 15px!important}.implementation-logo-tile{width:104px;height:70px}.implementation-logo-tile img{height:56px}.implementation-logo-group{gap:12px;padding-right:12px}}
+@media(prefers-reduced-motion:reduce){.implementation-logo-track{animation:none}.implementation-logo-group[aria-hidden="true"]{display:none}}
 
 /* Quiet mathematical marks on the landing-page paper. */
 .home-intro-panel .home-hero{isolation:isolate}
