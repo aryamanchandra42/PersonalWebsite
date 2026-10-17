@@ -810,13 +810,13 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 /* Quiet mathematical marks on the landing-page paper. */
 .home-intro-panel .home-hero{isolation:isolate}
 .home-math-marks{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;color:var(--blue);font:400 clamp(38px,6vw,74px)/1 var(--serif);opacity:.13}
-.home-math-marks .math-mark{position:absolute;display:block;animation:math-symbol-float 7s ease-in-out infinite}
-.math-mark-sum{left:9%;top:12%;--math-rotation:-9deg;animation-delay:-1.4s}
-.math-mark-integral{left:48%;top:17%;font-size:.8em;--math-rotation:8deg;animation-duration:8s;animation-delay:-4.2s}
-.math-mark-pi{right:8%;top:11%;font-size:.78em;--math-rotation:7deg;animation-duration:7.6s;animation-delay:-2.6s}
-.math-mark-infinity{left:39%;bottom:13%;font-size:.92em;--math-rotation:-8deg;animation-duration:8.4s;animation-delay:-5.1s}
-.math-mark-theta{left:6%;bottom:16%;font-size:.65em;--math-rotation:8deg;animation-duration:6.6s;animation-delay:-3.2s}
-.math-mark-lambda{right:31%;bottom:12%;font-size:.7em;--math-rotation:-7deg;animation-duration:7.9s;animation-delay:-.8s}
+.home-math-marks .math-mark{position:absolute;display:block;animation:math-symbol-float 3.5s ease-in-out infinite}
+.math-mark-sum{left:9%;top:12%;--math-rotation:-9deg;animation-delay:-.7s}
+.math-mark-integral{left:48%;top:17%;font-size:.8em;--math-rotation:8deg;animation-duration:4s;animation-delay:-2.1s}
+.math-mark-pi{right:8%;top:11%;font-size:.78em;--math-rotation:7deg;animation-duration:3.8s;animation-delay:-1.3s}
+.math-mark-infinity{left:39%;bottom:13%;font-size:.92em;--math-rotation:-8deg;animation-duration:4.2s;animation-delay:-2.6s}
+.math-mark-theta{left:6%;bottom:16%;font-size:.65em;--math-rotation:8deg;animation-duration:3.3s;animation-delay:-1.6s}
+.math-mark-lambda{right:31%;bottom:12%;font-size:.7em;--math-rotation:-7deg;animation-duration:3.9s;animation-delay:-.4s}
 @keyframes math-symbol-float{0%,100%{transform:translate3d(0,0,0) rotate(var(--math-rotation,0deg))}50%{transform:translate3d(0,-9px,0) rotate(calc(var(--math-rotation,0deg) + 2deg))}}
 .home-intro-panel .home-hero>.hero-copy,.home-intro-panel .home-hero>.hero-portrait{position:relative;z-index:1}
 @media(max-width:760px){.home-math-marks{font-size:48px;opacity:.11}.math-mark-sum{left:4%;top:5%}.math-mark-integral{left:auto;right:7%;top:15%}.math-mark-pi{right:5%;top:49%}.math-mark-infinity{left:8%;bottom:22%}.math-mark-theta{left:auto;right:8%;bottom:8%}.math-mark-lambda{right:38%;bottom:35%}}
