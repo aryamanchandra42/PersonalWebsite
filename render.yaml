@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: aryaman-chandra-site
+    runtime: static
+    branch: main
+    buildCommand: "echo 'No build required'"
+    staticPublishPath: .
+    autoDeployTrigger: commit
+    routes:
+      - type: rewrite
+        source: /about
+        destination: /about.html
+      - type: rewrite
+        source: /projects
+        destination: /projects.html
+      - type: rewrite
+        source: /research
+        destination: /research.html
+      - type: rewrite
+        source: /blog
+        destination: /blog.html
