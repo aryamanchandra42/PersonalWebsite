@@ -805,7 +805,7 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .venture-firm-link span{min-width:0;overflow-wrap:anywhere;font:500 11px/1.4 var(--mono)}
 @media(max-width:430px){.venture-firm-links{grid-template-columns:1fr}.venture-firm-link{min-height:72px}.venture-firm-link img{width:52px;height:52px}}
 
-.project-list>.implementation-partners{grid-column:1/-1;padding:21px clamp(19px,2.2vw,28px)!important;border-inline:0!important;background:rgba(255,255,255,.14)!important}
+.project-list>.implementation-partners{grid-column:1/-1;padding:21px clamp(19px,2.2vw,28px)!important;border:1px solid rgba(255,255,255,.58)!important;border-radius:4px;background:rgba(255,255,255,.3)!important;box-shadow:0 12px 34px rgba(36,39,34,.05);backdrop-filter:blur(14px) saturate(1.18);-webkit-backdrop-filter:blur(14px) saturate(1.18)}
 .implementation-partners>.eyebrow{margin-bottom:4px}
 .implementation-partners-note{margin:0 0 13px;color:var(--muted);font-size:13px}
 .implementation-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
