@@ -149,20 +149,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Open the full-screen Saksham details for direct patent links.
-  function revealSakshamAnchor() {
+  // Open the standalone patent disclosure for direct device links.
+  function revealPatentAnchor() {
     var targetId = decodeURIComponent(window.location.hash.slice(1));
     if (!['patents', 'wearable-cap', 'navigation-stick'].includes(targetId)) return;
-    if (sakshamDialog && !sakshamDialog.open) sakshamDialog.showModal();
-    var patentDetails = document.querySelector('#saksham .saksham-patent-details');
+    var patentDetails = document.querySelector('#patents .saksham-patent-details');
     if (patentDetails) patentDetails.open = true;
     window.requestAnimationFrame(function () {
       var target = document.getElementById(targetId);
       if (target) target.scrollIntoView({ block: 'center' });
     });
   }
-  revealSakshamAnchor();
-  window.addEventListener('hashchange', revealSakshamAnchor);
+  revealPatentAnchor();
+  window.addEventListener('hashchange', revealPatentAnchor);
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reducedMotion) document.body.classList.add('page-ready');
