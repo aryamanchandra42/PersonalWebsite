@@ -149,14 +149,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Open the standalone patent disclosure for direct device links.
+  var patentsDialog = document.getElementById('patents-details');
+  if (patentsDialog) {
+    var patentsOpenButton = document.querySelector('#patents .patent-open-button');
+    var patentsCloseButton = patentsDialog.querySelector('.patent-dialog-close');
+    if (patentsOpenButton) patentsOpenButton.addEventListener('click', function () { patentsDialog.showModal(); });
+    if (patentsCloseButton) patentsCloseButton.addEventListener('click', function () { patentsDialog.close(); });
+    patentsDialog.addEventListener('click', function (event) {
+      if (event.target === patentsDialog) patentsDialog.close();
+    });
+  }
+
+  // Open the patent pop-out for direct links to its applications.
   function revealPatentAnchor() {
     var targetId = decodeURIComponent(window.location.hash.slice(1));
-    if (!['patents', 'wearable-cap', 'navigation-stick'].includes(targetId)) return;
-    var patentDetails = document.querySelector('#patents .saksham-patent-details');
-    if (patentDetails) patentDetails.open = true;
+    var patentTargets = ['patents', 'patent-glasses', 'wearable-cap', 'navigation-stick'];
+    if (!patentTargets.includes(targetId)) {
+      if (patentsDialog && patentsDialog.open) patentsDialog.close();
+      return;
+    }
+    if (patentsDialog && !patentsDialog.open) patentsDialog.showModal();
     window.requestAnimationFrame(function () {
-      var target = document.getElementById(targetId);
+      var target = targetId === 'patents' ? null : document.getElementById(targetId);
       if (target) target.scrollIntoView({ block: 'center' });
     });
   }
