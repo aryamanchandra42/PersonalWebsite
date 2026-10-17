@@ -15,11 +15,16 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Contact — Aryaman Chandra">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <nav class="nav solid" id="siteNav">
+    <nav class="nav" id="siteNav">
         <a class="nav-name" href="index.html">Aryaman Chandra</a>
         <div class="nav-links" id="navLinks">
             <a href="index.html">about</a>
@@ -36,20 +41,19 @@
         <span></span>
     </button>
 
-    <header class="page-header">
-        <div class="section-heading">
-            <span class="eyebrow">Contact</span>
-            <h2>Say hello <span class="wave-emoji" aria-hidden="true">👋</span></h2>
-        </div>
-    </header>
+    <main class="page">
+        <header class="page-intro">
+            <h1>Contact</h1>
+            <p>Email is the most reliable way to reach me.</p>
+        </header>
 
-    <section class="section contact-page">
-        <div class="contact-row reveal">
+        <div class="contact-row">
             <a href="mailto:aryaman.chandra@gmail.com" class="contact-item">
                 <span class="contact-label">Email</span>
                 <span class="contact-value">aryaman.chandra@gmail.com</span>
             </a>
-            <a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233/" target="_blank" rel="noopener noreferrer" class="contact-item">
+            <a href="https://www.linkedin.com/in/aryaman-chandra-2b0a7a233/" target="_blank" rel="noopener noreferrer"
+                class="contact-item">
                 <span class="contact-label">LinkedIn</span>
                 <span class="contact-value">aryaman-chandra</span>
             </a>
@@ -57,9 +61,18 @@
                 <span class="contact-label">Phone</span>
                 <span class="contact-value">+91 96670 16540</span>
             </a>
+            <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <span class="contact-label">Résumé</span>
+                <span class="contact-value">Download PDF →</span>
+            </a>
+            <a href="https://arxiv.org/search/?searchtype=author&query=Chandra%2C+A" target="_blank"
+                rel="noopener noreferrer" class="contact-item">
+                <span class="contact-label">arXiv</span>
+                <span class="contact-value">Aryaman Chandra</span>
+            </a>
         </div>
-    </section>
-<script src="script.js"></script>
+    </main>
+    <script src="script.js"></script>
 </body>
 
 </html>

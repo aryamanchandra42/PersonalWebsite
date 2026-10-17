@@ -1,4 +1,4 @@
-// Nav: subtle solid state on scroll
+// ─── Nav: scrolled border state ─────────────────────────────
 const nav = document.getElementById('siteNav');
 if (nav) {
     const updateNav = () => {
@@ -8,7 +8,7 @@ if (nav) {
     window.addEventListener('scroll', updateNav, { passive: true });
 }
 
-// Nav toggle — hamburger opens/closes the nav on all screen sizes
+// ─── Nav toggle ──────────────────────────────────────────────
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 if (navToggle && navLinks && nav) {
@@ -34,7 +34,7 @@ if (navToggle && navLinks && nav) {
     });
 }
 
-// Highlight current page in nav
+// ─── Highlight current page in nav ───────────────────────────
 const path = window.location.pathname.replace(/\\/g, '/');
 const page = path.split('/').pop() || 'index.html';
 
@@ -42,23 +42,18 @@ if (navLinks) {
     navLinks.querySelectorAll('a').forEach((link) => {
         const href = link.getAttribute('href') || '';
         const linkPage = href.split('#')[0].split('/').pop();
-
-        if (linkPage === page) {
-            link.classList.add('is-active');
-        }
+        if (linkPage === page) link.classList.add('is-active');
     });
 }
 
-// Stagger reveal delays within grids and lists
-document.querySelectorAll(
-    '.writing-grid, .work-grid, .equity-items, .blog-list, .paper-list, .contact-row'
-).forEach((group) => {
+// ─── Stagger reveal delays ───────────────────────────────────
+document.querySelectorAll('.achievement-grid, .selected-grid, .card-grid, .contact-row').forEach((group) => {
     group.querySelectorAll('.reveal').forEach((el, i) => {
         el.dataset.delay = String(Math.min(i % 4 + 1, 3));
     });
 });
 
-// Scroll reveal
+// ─── Scroll reveal ────────────────────────────────────────────
 const revealEls = document.querySelectorAll('.reveal');
 if (revealEls.length) {
     const observer = new IntersectionObserver((entries) => {
@@ -68,15 +63,18 @@ if (revealEls.length) {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
 
     revealEls.forEach((el) => observer.observe(el));
 }
 
-// YouTube embeds require http(s) — show thumbnail link when opened as a local file
+// ─── YouTube embeds: file:// fallback ────────────────────────
 if (location.protocol === 'file:') {
-    document.querySelectorAll('.video-embed').forEach((embed) => {
+    document.querySelectorAll('.video-embed, .research-award-video').forEach((embed) => {
         embed.classList.add('is-file-fallback');
+        const fallback = embed.querySelector('.video-fallback');
+        const iframe = embed.querySelector('iframe');
+        if (fallback) fallback.style.display = 'block';
+        if (iframe) iframe.style.display = 'none';
     });
 }
-

@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aryaman Chandra � Mathematics, Research &amp; Writing</title>
-    <meta name="description" content="Aryaman Chandra � research on landscape functions and the Chandra-Jain Conjecture, education equity projects, mathematics writing, and programming.">
-    <meta name="keywords" content="Aryaman Chandra, Chandra-Jain Conjecture, landscape functions, mathematics, education equity">
+    <title>Aryaman Chandra — Mathematics, Research & Writing</title>
+    <meta name="description"
+        content="Aryaman Chandra — research on landscape functions and the Chandra-Jain Conjecture, education equity projects, mathematics writing, and programming.">
+    <meta name="keywords"
+        content="Aryaman Chandra, Chandra-Jain Conjecture, landscape functions, mathematics, education equity">
     <meta name="author" content="Aryaman Chandra">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://aryamanchandra.in/">
@@ -33,11 +35,17 @@
         ]
     }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="landing">
-    <nav class="nav on-hero" id="siteNav">
+<body>
+    <!-- ─── Navigation ─── -->
+    <nav class="nav" id="siteNav">
         <a class="nav-name" href="index.html">Aryaman Chandra</a>
         <div class="nav-links" id="navLinks">
             <a href="index.html">about</a>
@@ -54,18 +62,255 @@
         <span></span>
     </button>
 
-    <main class="landing-page">
-        <h1 class="sr-only">Aryaman Chandra � Curious about why anything works at all.</h1>
-        <div class="landing-about">
-            <img class="landing-about-photo" src="me.jpg" alt="Aryaman Chandra">
-            <p>Hey, I'm Aryaman.</p>
-            <p>This portfolio is a collection of my research, projects, writing, and the ideas that have shaped them.</p>
-            <p>I began programming in the sixth grade in 2020. Shortly afterwards, I fell in love with mathematics, and since then I've been building things at the intersection of the two. Along the way, I spent countless hours every week under the tutelage of Dr. Saugata Ghosh, whose guidance helped shape my early understanding of mathematics. That experience also made me appreciate how transformative good teaching can be, and it sparked my interest in making high-quality mathematics education more accessible through technology. Since then, I've been working a lot in <a href="https://www.oecd.org/en/topics/policy-issues/education-equity.html" target="_blank" rel="noopener noreferrer">education equity</a>.</p>
-            <p>Whatever I've been able to accomplish so far is as much a reflection of the people who've supported me as it is of my own efforts. I'm deeply grateful to my parents, sister, grandparents, teachers, and the many mentors who've guided me along the way.</p>
-            <p>My thinking has been shaped by people such as <a href="https://en.wikipedia.org/wiki/Richard_Feynman" target="_blank" rel="noopener noreferrer">Richard Feynman</a>, <a href="https://en.wikipedia.org/wiki/I._I._Rabi" target="_blank" rel="noopener noreferrer">I. I. Rabi</a>, <a href="https://en.wikipedia.org/wiki/Freeman_Dyson" target="_blank" rel="noopener noreferrer">Freeman Dyson</a>, <a href="https://en.wikipedia.org/wiki/Steve_Jobs" target="_blank" rel="noopener noreferrer">Steve Jobs</a>, <a href="https://en.wikipedia.org/wiki/Peter_Thiel" target="_blank" rel="noopener noreferrer">Peter Thiel</a>, and <a href="https://en.wikipedia.org/wiki/Elon_Musk" target="_blank" rel="noopener noreferrer">Elon Musk</a>, among many others. I also enjoy reading, particularly biographies, history, and books that explore the intersection of science, technology, and philosophy.</p>
-            <p>I enjoy building across disciplines and am comfortable working with Python, C++, Java, HTML/CSS/JavaScript, Verilog, Julia, and the Wolfram Language. Beyond programming, I like writing about mathematics, literature, and the unexpected paths that connect them.</p>
-            <p>Research has become one of the most rewarding parts of my journey. Much of my original work has been carried out in collaboration with Dr. Sudhir Ranjan Jain, including the <a href="chandra-jain-conjecture.html">Chandra-Jain Conjecture</a> on discrete landscape functions. Working with him taught me not only mathematics, but also how to approach difficult problems with patience, rigor, and intellectual curiosity.</p>
+    <main class="page">
+
+        <!-- ─── Hero ─── -->
+        <section class="home-hero">
+            <div class="hero-text-block">
+                <div class="affiliation-block" style="margin-bottom: 1.5rem;">
+                    <div class="section-eyebrow" style="margin-bottom: 0.75rem;">Featured &amp; Recognised By</div>
+                    <div class="logo-strip">
+                        <span class="logo-chip"><img src="logos/zee-news.svg" alt="Zee News">Zee News</span>
+                        <span class="logo-chip">Sigma Xi</span>
+                        <span class="logo-chip">RSL Awards</span>
+                        <span class="logo-chip"><img src="logos/iit-kharagpur.png" alt="IIT KGP">IIT Kharagpur</span>
+                    </div>
+                </div>
+                <h1>Hey, I'm Aryaman.</h1>
+                <p class="home-lede">
+                    I’m a 17-year-old from Gurgaon who loves mathematics. I explore its deeper questions, contribute to
+                    mathematical research, and build things that help other people learn and think about it.
+                </p>
+                <div class="home-actions">
+                    <a class="primary" href="research.html">Research</a>
+                    <a href="education-equity.html">Education equity</a>
+                    <a href="contact.html">Get in touch</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <img class="home-photo" src="me.png" alt="Aryaman Chandra">
+
+            </div>
+        </section>
+
+        <!-- ─── Selected Achievements ─── -->
+        <h2 class="section-label">Selected achievements</h2>
+        <div class="achievement-grid">
+
+            <!-- Featured: Zee News -->
+            <a class="achievement-card featured reveal"
+                href="https://zeenews.india.com/industry-updates/aryaman-chandra-the-17-year-old-shaping-a-bold-future-for-math-education-in-india-3067262.html"
+                target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+                <img class="achievement-card-img" src="me2.jpg" alt="Aryaman Chandra - Zee News" loading="lazy"
+                    style="object-position: top;">
+                <div class="achievement-card-body">
+                    <span class="achievement-tag gold">📰 Press Feature</span>
+                    <p class="achievement-title">Zee News: Shaping a bold future for math education in India</p>
+                    <p class="achievement-desc">
+                        Featured in Zee News for efforts in transforming math education accessibility through AI
+                        platforms like HeyArya! and school-integrated NGO work.
+                    </p>
+                    <span class="achievement-meta">Zee News · Industry Updates</span>
+                </div>
+            </a>
+
+            <!-- Featured: Sigma Xi People's Choice -->
+            <a class="achievement-card featured reveal" href="research.html#sigma-xi" style="text-decoration:none;">
+                <img class="achievement-card-img" src="images/research/showcase-cover.jpg"
+                    alt="Sigma Xi Student Research Showcase — Can a Shape Hear Itself?" loading="lazy">
+                <div class="achievement-card-body">
+                    <span class="achievement-tag gold">🏆 People's Choice Award</span>
+                    <p class="achievement-title">Sigma Xi Student Research Showcase</p>
+                    <p class="achievement-desc">
+                        Presented <em>Can a Shape Hear Itself?</em> — a year-long project on landscape functions — at
+                        Sigma Xi's international showcase (311 participants, 13 disciplines). Received the highest
+                        engagement in Sigma Xi history: 2,600+ likes, a grade of 47/50, and a $250 prize. Featured in
+                        the official Sigma Xi press release.
+                    </p>
+                    <span class="achievement-meta">April 2026 · High School, UG &amp; Graduate divisions</span>
+                </div>
+            </a>
+
+            <!-- IIT Kharagpur -->
+            <div class="achievement-card reveal">
+                <div class="achievement-card-body">
+                    <span class="achievement-tag">🥈 Ranked 2nd of 17K+</span>
+                    <p class="achievement-title">IIT Kharagpur Young Innovators</p>
+                    <p class="achievement-desc">
+                        Ranked 1st in Junior Category, 2nd overall out of 17,000+ submissions. Defended a novel
+                        graph-theoretic Waste Classification CNN (94% accuracy) against DRDO faculty. Awarded $600 and
+                        invited to deploy the model with IIT faculty.
+                    </p>
+                    <span class="achievement-meta">IIT Kharagpur (#3 Tech Institute in India)</span>
+                </div>
+            </div>
+
+            <!-- Chandra-Jain Conjecture -->
+            <a class="achievement-card reveal" href="chandra-jain-conjecture.html" style="text-decoration:none;">
+                <div class="achievement-card-body">
+                    <span class="achievement-tag">📖 arXiv preprint</span>
+                    <p class="achievement-title">Chandra-Jain Conjecture</p>
+                    <p class="achievement-desc">
+                        A conjecture on the arithmetic degree of discrete landscape spectral coefficients, proven for
+                        small cases. Published on arXiv in August 2026 with Dr. Sudhir Ranjan Jain, IIT Delhi.
+                    </p>
+                    <span class="achievement-stat">arXiv:2608.11372</span>
+                </div>
+            </a>
+
+            <!-- Saksham NGO -->
+            <a class="achievement-card reveal" href="education-equity.html#saksham" style="text-decoration:none;">
+                <div class="achievement-card-body">
+                    <span class="achievement-tag">🏫 NGO · 2 Patents Filed</span>
+                    <p class="achievement-title">Saksham — Assistive Technology NGO</p>
+                    <p class="achievement-desc">
+                        Deployed low-cost assistive devices for the visually and hearing impaired. Filed patents:
+                        <em>Wearable Communication Method</em> (202611103628) and <em>Wearable Assistive System</em>
+                        (202611103635).
+                    </p>
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.4rem;">
+                        <span class="achievement-stat">300+ students</span>
+                        <span class="achievement-stat">Crest Gold Award</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Other Honours -->
+            <div class="achievement-card reveal">
+                <div class="achievement-card-body">
+                    <span class="achievement-tag">🏅 Recognition</span>
+                    <p class="achievement-title">Awards &amp; Honours</p>
+                    <p class="achievement-desc">
+                        • <strong>AP Scholar with Distinction</strong><br>
+                        • <strong>RSL Guitar Grade 8</strong>: RockSchool (Issued Feb 2024)<br>
+                    </p>
+                </div>
+            </div>
+
         </div>
+
+        <!-- ─── Experience ─── -->
+        <h2 class="section-label">Experience</h2>
+        <section class="timeline">
+
+            <article class="timeline-entry reveal">
+                <span class="timeline-date">May 26 - Jul 26</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">Founding Engineer Intern · <a href="https://myasiavc.com" target="_blank"
+                            rel="noopener noreferrer">MyAsiaVC</a> / <a href="https://contravc.com" target="_blank"
+                            rel="noopener noreferrer">ContraVC</a></h2>
+                    <p>Hong Kong SAR · Remote. Part of a 4-person team raising an early-stage $30M Fund I. Created a
+                        proprietary stochastic LP-outreach tool: ContraConsole. Developed ML-assisted frameworks to aid
+                        YCS26 due diligence.</p>
+                </div>
+            </article>
+
+            <article class="timeline-entry reveal">
+                <span class="timeline-date">Jul 23 - Present</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">NLP Game Developer &amp; Founder · <a href="https://playelsewhere.xyz"
+                            target="_blank" rel="noopener noreferrer">ELSEWHERE</a></h2>
+                    <p>Built an LLM-powered multiplayer game countering acute apophenia by forcing players to sever
+                        associative chains in real time, pioneered at YTS Plaksha University. Endorsed by 3 therapists
+                        and Fortis Hospital. 1,000+ plays across 15 countries.</p>
+                </div>
+            </article>
+
+            <article class="timeline-entry reveal">
+                <span class="timeline-date">Jun 23 - Jul 23</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">YTS Fellow · Plaksha University</h2>
+                    <p>Selected from 2,500+ applicants into a cohort of 200 for a residential STEM program in robotics
+                        and AI. Chosen as 1-of-25 for advanced coursework in Combinatorics, Number Theory and Discrete
+                        Mathematics under Prof. Hanumant Singh (Northeastern/MIT-WHOI).</p>
+                </div>
+            </article>
+
+            <article class="timeline-entry reveal">
+                <span class="timeline-date">May 24 - Jul 24</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">R&amp;D Intern · Hero MotoCorp</h2>
+                    <p>Designed a piezoelectric gym floor concept with the Hero MotoCorp team; developed an MVP using
+                        plant materials and pitched to Head of Design, reporting ~30% efficiency over equivalent Western
+                        deployments. Granted exclusive access to Harley-Davidson plant; studied X440 and Hero Mavrick
+                        440 engines.</p>
+                </div>
+            </article>
+
+            <article class="timeline-entry reveal">
+                <span class="timeline-date">Dec 23 - Jan 24</span>
+                <div class="timeline-body">
+                    <h2 class="timeline-title">AI Research Program · Inspirit AI</h2>
+                    <p>Built 4 full-stack ML systems (Breast tumor CNN, sentiment stock forecaster, YOLO v5 traffic
+                        pipeline, bias detection in LLMs) with MIT/Harvard/Brown researchers. Selected 1-of-3 for a
+                        specialized CTE head-injury detection fellowship using CNN architectures.</p>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- ─── About prose ─── -->
+        <h2 class="section-label">About</h2>
+        <div class="prose reveal">
+            <p>I began programming in the sixth grade in 2020. Shortly afterwards, I fell in love with mathematics, and
+                since then I've been building things at the intersection of the two. Along the way, I spent countless
+                hours every week under the tutelage of Dr. Saugata Ghosh, whose guidance helped shape my early
+                understanding of mathematics. That experience made me appreciate how transformative good teaching can
+                be, and it sparked my interest in making high-quality mathematics education more accessible through
+                technology.</p>
+
+            <p>Whatever I've been able to accomplish so far is as much a reflection of the people who've supported me as
+                it is of my own efforts. I'm deeply grateful to my parents, sister, grandparents, teachers, and the many
+                mentors who've guided me along the way.</p>
+
+            <p>My thinking has been shaped by <a href="https://en.wikipedia.org/wiki/Richard_Feynman" target="_blank"
+                    rel="noopener noreferrer">Richard Feynman</a>, <a href="https://en.wikipedia.org/wiki/I._I._Rabi"
+                    target="_blank" rel="noopener noreferrer">I. I. Rabi</a>, <a
+                    href="https://en.wikipedia.org/wiki/Freeman_Dyson" target="_blank" rel="noopener noreferrer">Freeman
+                    Dyson</a>, <a href="https://en.wikipedia.org/wiki/Steve_Jobs" target="_blank"
+                    rel="noopener noreferrer">Steve Jobs</a>, <a href="https://en.wikipedia.org/wiki/Peter_Thiel"
+                    target="_blank" rel="noopener noreferrer">Peter Thiel</a>, and <a
+                    href="https://en.wikipedia.org/wiki/Elon_Musk" target="_blank" rel="noopener noreferrer">Elon
+                    Musk</a>, among many others. I enjoy reading, particularly biographies, history, and books at the
+                intersection of science, technology, and philosophy.</p>
+
+            <p>I'm comfortable across Python, C++, Java, HTML/CSS/JavaScript, Verilog, Julia, and the Wolfram Language.
+                Beyond programming, I write about mathematics, literature, and the unexpected paths that connect them.
+            </p>
+
+            <p>Research has become one of the most rewarding parts of my journey. Much of my original work has been
+                carried out in collaboration with Dr. Sudhir Ranjan Jain, including the <a
+                    href="chandra-jain-conjecture.html">Chandra-Jain Conjecture</a> on discrete landscape functions.</p>
+        </div>
+
+        <!-- ─── Selected work ─── -->
+        <h2 class="section-label">Selected work</h2>
+        <div class="selected-grid">
+            <a class="card reveal" href="chandra-jain-conjecture.html">
+                <div class="card-tags"><span class="card-tag">Mathematics</span><span class="card-tag">arXiv</span>
+                </div>
+                <h3>Chandra-Jain Conjecture</h3>
+                <p>A conjecture on the arithmetic degree of discrete landscape spectral coefficients, with Dr. Sudhir
+                    Ranjan Jain.</p>
+                <span class="card-link">Read more →</span>
+            </a>
+            <a class="card reveal" href="research.html">
+                <div class="card-tags"><span class="card-tag">Papers</span><span class="card-tag">Landscape
+                        functions</span></div>
+                <h3>Research</h3>
+                <p>Spectral properties of discrete landscapes, the Arnold cat map, and the sagging string.</p>
+                <span class="card-link">View papers →</span>
+            </a>
+            <a class="card reveal" href="education-equity.html">
+                <div class="card-tags"><span class="card-tag">Projects</span><span class="card-tag">Education</span>
+                </div>
+                <h3>Education equity</h3>
+                <p>HeyArya!, Live the Learning, and Saksham — tutoring, classrooms, and assistive technology.</p>
+                <span class="card-link">See projects →</span>
+            </a>
+        </div>
+
     </main>
 
     <script src="script.js"></script>
