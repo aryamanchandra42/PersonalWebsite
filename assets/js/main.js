@@ -103,29 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
       activeHonour = next;
       if (honourCount) honourCount.textContent = String(next + 1).padStart(2, '0') + ' / ' + String(honourSlides.length).padStart(2, '0');
     }
-    var honoursSection = honoursCarousel.closest('.honours-section');
-    var autoplayTimer = 0;
-    function stopHonourAutoplay() {
-      window.clearInterval(autoplayTimer);
-      autoplayTimer = 0;
-    }
-    function startHonourAutoplay() {
-      stopHonourAutoplay();
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      autoplayTimer = window.setInterval(function () {
-        if (document.hidden || honourSlides.length < 2) return;
-        moveHonours(activeHonour === honourSlides.length - 1 ? -activeHonour : 1);
-      }, 8500);
-    }
-    if (honoursSection) {
-      honoursSection.addEventListener('mouseenter', stopHonourAutoplay);
-      honoursSection.addEventListener('mouseleave', startHonourAutoplay);
-      honoursSection.addEventListener('focusin', stopHonourAutoplay);
-      honoursSection.addEventListener('focusout', function (event) {
-        if (!honoursSection.contains(event.relatedTarget)) startHonourAutoplay();
-      });
-      startHonourAutoplay();
-    }
     var previousHonour = document.querySelector('[data-carousel-prev]');
     var nextHonour = document.querySelector('[data-carousel-next]');
     if (previousHonour) previousHonour.addEventListener('click', function () { moveHonours(-1); });
