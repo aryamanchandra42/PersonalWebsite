@@ -62,6 +62,16 @@
     });
   });
 
+  function renumber() {
+    var n = 0;
+    rows.forEach(function (r) {
+      var num = r.querySelector('.rs-num');
+      if (!num || r.parentElement.hidden) return;
+      n += 1;
+      num.textContent = (n < 10 ? '0' : '') + n;
+    });
+  }
+
   // Filter chips
   var chips = document.querySelectorAll('.rs-chip');
   chips.forEach(function (chip) {
@@ -73,6 +83,7 @@
         r.parentElement.hidden = !show;
         if (show && !first) first = r;
       });
+      renumber();
       var active = rows.filter(function (r) { return r.classList.contains('is-active'); })[0];
       if (first && (!active || active.parentElement.hidden)) select(first.dataset.target);
     });

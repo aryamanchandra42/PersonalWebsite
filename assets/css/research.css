@@ -70,7 +70,7 @@ body.research-page .rs-main{width:min(1240px,calc(100% - 64px));padding-bottom:9
 .rs-award{display:flex;align-items:center;gap:16px;padding:16px 20px;border:1px solid var(--rule);border-radius:12px;margin-bottom:20px;background:rgba(164,87,73,.05)}
 .rs-award img{width:52px;height:auto}
 .rs-award p{margin:0;font-size:14px;line-height:1.4}
-.rs-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 26px}
+.rs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 26px}
 .rs-stats>div{padding:18px 16px;border-radius:12px;background:var(--ink);color:#fff}
 .rs-stats strong{display:block;font:400 clamp(26px,3vw,38px)/1 var(--serif)}
 .rs-stats span{display:block;margin-top:8px;font-size:11px;letter-spacing:.04em;opacity:.7;line-height:1.3}

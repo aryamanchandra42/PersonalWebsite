@@ -137,6 +137,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  var venturesDialog = document.getElementById('ventures-details');
+  if (venturesDialog) {
+    var venturesOpenButton = document.querySelector('#ventures .venture-open-button');
+    var venturesCloseButton = venturesDialog.querySelector('.venture-dialog-close');
+    if (venturesOpenButton) venturesOpenButton.addEventListener('click', function () { venturesDialog.showModal(); });
+    if (venturesCloseButton) venturesCloseButton.addEventListener('click', function () { venturesDialog.close(); });
+    venturesDialog.addEventListener('click', function (event) {
+      if (event.target === venturesDialog) venturesDialog.close();
+    });
+  }
+
   // Open the patent pop-out for direct links to its applications.
   function revealPatentAnchor() {
     var targetId = decodeURIComponent(window.location.hash.slice(1));
