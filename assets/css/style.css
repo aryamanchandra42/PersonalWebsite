@@ -534,7 +534,7 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
  .recognition-index-note{font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){.recognition-track{animation:none!important}.recognition-set[aria-hidden="true"]{display:none}}
-.projects-page-heading h1{font-size:clamp(42px,4.1vw,56px);white-space:nowrap}
+.projects-page-heading h1{font-size:clamp(42px,4.1vw,56px)}
 @media(max-width:760px){.projects-page-heading h1{font-size:clamp(38px,9vw,52px);white-space:normal}}
 
 
@@ -673,7 +673,7 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .iitkgp-showcase-header{position:relative;display:grid;place-items:center;min-height:94px;padding:8px 78px 16px;border-bottom:1px solid var(--rule);text-align:center}
 .iitkgp-showcase-header h3{margin:5px 0 0;font:400 clamp(30px,3.5vw,44px)/1.05 var(--serif);letter-spacing:-.035em}
 .iitkgp-showcase-header p{margin:5px 0 0;color:var(--muted);font:11px/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase}
-.iitkgp-showcase-logo{position:absolute;top:0;right:0;width:60px;height:60px;object-fit:contain;background:rgba(255,255,255,.72);mix-blend-mode:multiply}
+.iitkgp-showcase-logo{position:absolute;top:0;right:0;width:60px;height:60px;object-fit:contain;background:transparent;mix-blend-mode:multiply}
 .iitkgp-showcase-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.65fr);gap:clamp(20px,3.5vw,44px);align-items:center}
 .iitkgp-showcase-photo{margin:0;min-width:0;display:grid;justify-items:center;gap:9px}
 .iitkgp-showcase-photo h4{margin:0 0 3px;font:400 clamp(25px,2.5vw,32px)/1.1 var(--serif);letter-spacing:-.025em;text-align:center}
@@ -1390,3 +1390,268 @@ main.container:has(.project-list){width:min(1520px,calc(100% - clamp(24px,5vw,96
 .elsewhere-project-logo span{font:700 clamp(26px,2.8vw,34px)/1 var(--serif);letter-spacing:-.04em}
 .elsewhere-project-card .eyebrow{margin-bottom:6px}
 @media(max-width:760px){.elsewhere-project-logo img{width:42px;height:42px}.elsewhere-project-logo span{font-size:28px}}
+
+/* Patent honour slide: fill the tall carousel frame */
+@media(min-width:761px){
+  .patent-honour-slide{
+    display:grid;
+    grid-template-rows:auto minmax(0,1fr) auto;
+    align-content:stretch!important;
+    align-items:stretch;
+    gap:clamp(16px,2.2vh,28px);
+    padding:clamp(20px,2.8vw,36px);
+  }
+  .patent-honour-heading{
+    text-align:left;
+    padding:0 0 clamp(12px,1.6vh,20px);
+  }
+  .patent-honour-heading h3{
+    margin:6px 0 10px;
+    font-size:clamp(32px,3.4vw,52px);
+    text-align:left;
+  }
+  .patent-honour-heading p{
+    max-width:42em;
+    margin:0;
+    color:var(--muted);
+    font:400 clamp(15px,1.2vw,18px)/1.5 var(--serif);
+  }
+  .patent-honour-slide .patent-device-grid{
+    height:100%;
+    min-height:0;
+    gap:clamp(12px,1.6vw,22px);
+    align-items:stretch;
+  }
+  .patent-honour-slide .patent-device-card{
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    height:100%;
+    padding:clamp(12px,1.4vw,18px);
+    background:rgba(255,255,255,.55);
+  }
+  .patent-honour-slide .patent-device-card .patent-figure-trigger{
+    flex:1;
+    display:grid;
+    grid-template-rows:minmax(0,1fr) auto;
+    gap:10px;
+    min-height:0;
+    height:100%;
+  }
+  .patent-honour-slide .patent-device-card .patent-figure-trigger img{
+    width:100%;
+    height:100%!important;
+    min-height:clamp(180px,32vh,380px);
+    max-height:none;
+    object-fit:contain;
+    background:rgba(255,255,255,.85);
+    padding:clamp(8px,1vw,16px);
+  }
+  .patent-honour-slide .patent-device-card .patent-figure-trigger span{
+    font:500 clamp(14px,1.15vw,17px)/1.25 var(--sans);
+  }
+  .patent-honour-slide .patent-device-card>p{
+    margin:10px 0 0;
+    color:var(--muted);
+    font:400 clamp(13px,1.05vw,15px)/1.45 var(--serif);
+  }
+  .patent-honour-slide .patent-devices-link{
+    margin-top:4px!important;
+    justify-self:start;
+  }
+}
+@media(max-width:760px){
+  .patent-honour-heading{text-align:left}
+  .patent-honour-heading h3{text-align:left;margin:6px 0 8px}
+  .patent-honour-heading p{margin:0 0 4px;font:400 15px/1.45 var(--serif);color:var(--muted)}
+  .patent-honour-slide .patent-device-card>p{margin:8px 0 0;color:var(--muted);font:400 14px/1.4 var(--serif)}
+}
+
+/* Indian Patent Office mark on the patents honour slide */
+.patent-honour-heading{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:clamp(16px,3vw,36px);
+}
+.patent-honour-copy{min-width:0}
+.patent-office-logo{
+  width:min(280px,28vw);
+  height:auto;
+  max-height:72px;
+  object-fit:contain;
+  object-position:right center;
+  background:#fff;
+  padding:8px 12px;
+  border:1px solid var(--rule);
+}
+@media(max-width:760px){
+  .patent-honour-heading{grid-template-columns:1fr;gap:14px}
+  .patent-office-logo{width:min(220px,70vw);max-height:56px;justify-self:start;object-position:left center}
+}
+
+/* Ecosort Pro on the IIT KGP honour slide */
+.iitkgp-showcase-photo h4{letter-spacing:-.03em}
+.iitkgp-showcase-photo img{
+  object-fit:cover;
+  object-position:center;
+  background:transparent;
+}
+.iitkgp-showcase-details{
+  gap:14px;
+}
+.iitkgp-prototype{
+  margin:0;
+  width:100%;
+  min-width:0;
+}
+.iitkgp-prototype img{
+  display:block;
+  width:100%;
+  height:clamp(120px,18vh,180px);
+  object-fit:cover;
+  object-position:center;
+  background:#fff;
+  border:1px solid var(--rule);
+}
+.iitkgp-prototype figcaption{
+  margin-top:6px;
+  color:var(--muted);
+  font:9px/1.5 var(--mono);
+  letter-spacing:.035em;
+}
+@media(min-width:761px){
+  .iitkgp-showcase-slide{
+    align-content:stretch!important;
+    grid-template-rows:auto minmax(0,1fr);
+    gap:clamp(14px,2vh,24px);
+  }
+  .iitkgp-showcase-grid{height:100%;min-height:0;align-items:stretch}
+  .iitkgp-showcase-photo{height:100%;align-content:start}
+  .iitkgp-showcase-photo img{height:min(52vh,520px)}
+}
+@media(max-width:760px){
+  .iitkgp-prototype img{height:clamp(140px,42vw,200px)}
+}
+
+/* IIT KGP: show all Ecosort photos, zoomed out */
+.iitkgp-photo-stack{min-width:0;display:grid;gap:10px;align-content:start}
+.iitkgp-photo-stack>h4{margin:0;font:400 clamp(25px,2.5vw,32px)/1.1 var(--serif);letter-spacing:-.03em;text-align:center}
+.iitkgp-photo-row{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(10px,1.4vw,16px);
+  align-items:stretch;
+}
+.iitkgp-photo-row .iitkgp-showcase-photo{
+  margin:0;
+  min-width:0;
+  display:grid;
+  gap:7px;
+  justify-items:stretch;
+}
+.iitkgp-photo-row .iitkgp-showcase-photo img{
+  width:100%;
+  height:clamp(160px,28vh,280px)!important;
+  object-fit:contain!important;
+  object-position:center;
+  background:transparent!important;
+  border:0;
+  padding:0;
+}
+.iitkgp-photo-row .iitkgp-showcase-photo figcaption{
+  text-align:center;
+  color:var(--muted);
+  font:9px/1.45 var(--mono);
+  letter-spacing:.035em;
+}
+.iitkgp-showcase-grid{
+  grid-template-columns:minmax(0,1.55fr) minmax(200px,.45fr)!important;
+  gap:clamp(16px,2.5vw,32px);
+  align-items:start;
+}
+@media(max-width:900px){
+  .iitkgp-photo-row{grid-template-columns:1fr;gap:12px}
+  .iitkgp-photo-row .iitkgp-showcase-photo img{height:clamp(180px,48vw,260px)!important}
+  .iitkgp-showcase-grid{grid-template-columns:1fr!important}
+}
+
+.iitkgp-showcase-grid--photos-only{grid-template-columns:1fr!important}
+.iitkgp-photo-row--pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+.iitkgp-photo-stack>.text-link{justify-self:start;margin-top:4px}
+@media(min-width:761px){
+  .iitkgp-photo-row--pair .iitkgp-showcase-photo img{height:clamp(220px,38vh,420px)!important}
+}
+
+.iitkgp-photo-row .iitkgp-showcase-photo h4{
+  margin:0 0 8px;
+  font:400 clamp(22px,2.2vw,30px)/1.1 var(--serif);
+  letter-spacing:-.03em;
+  text-align:center;
+}
+
+/* IIT KGP: certificate + research grant beside photos */
+.iitkgp-showcase-grid{
+  grid-template-columns:minmax(0,1.45fr) minmax(220px,.55fr)!important;
+  align-items:start;
+}
+.iitkgp-showcase-details{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:14px;
+  min-width:0;
+}
+.iitkgp-grant{
+  display:grid;
+  gap:6px;
+  padding:14px 16px;
+  border:1px solid var(--rule);
+  border-top:3px solid var(--blue);
+  background:rgba(255,255,255,.55);
+}
+.iitkgp-grant .eyebrow{margin:0;color:var(--blue)}
+.iitkgp-grant strong{
+  font:500 clamp(22px,2vw,28px)/1.1 var(--serif);
+  letter-spacing:-.03em;
+  color:var(--ink);
+}
+.iitkgp-grant span{
+  color:var(--muted);
+  font:400 13px/1.45 var(--serif);
+}
+.iitkgp-certificate{
+  width:100%;
+  max-width:none;
+  opacity:1;
+}
+.iitkgp-certificate img{
+  max-height:min(28vh,260px);
+  background:transparent;
+  border:0;
+}
+@media(max-width:900px){
+  .iitkgp-showcase-grid{grid-template-columns:1fr!important}
+}
+
+.iitkgp-grant{
+  background:transparent!important;
+  border-color:transparent;
+  border-top:3px solid var(--blue);
+  padding:10px 0 4px;
+}
+.iitkgp-grant strong{
+  font-size:clamp(36px,3.4vw,52px);
+  letter-spacing:-.045em;
+  color:var(--blue);
+}
+.iitkgp-grant span{
+  font:500 clamp(18px,1.6vw,24px)/1.2 var(--serif);
+  color:var(--ink);
+}
+
+#zenith .project-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:4px}
+#zenith .project-gallery figure:last-child{grid-column:auto}
+#zenith .project-gallery img{height:auto;aspect-ratio:3/4;object-fit:cover}
+#zenith .project-gallery figure:first-child img{object-position:center 62%}
+#zenith .project-gallery figure:last-child img{object-position:center center}
