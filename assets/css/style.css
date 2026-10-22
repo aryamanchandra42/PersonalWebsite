@@ -920,3 +920,138 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 .blog-archive .publication:hover .publication-arrow{transform:translate(2px,-2px);color:var(--red)}
 @media(max-width:760px){.writing-page>.page-heading{padding-bottom:20px}.writing-collection{padding-top:12px}.blog-archive.publication-list{grid-template-columns:minmax(0,1fr);gap:10px;padding:0 2% 55px}.blog-archive .publication{min-height:0;padding:19px 18px}.blog-archive .publication h3{font-size:23px}}
 @media(prefers-reduced-motion:reduce){.blog-archive .publication,.blog-archive .publication-arrow{transition:none}.blog-archive .publication:hover{transform:none}}
+
+/* Compact honours, transparent Zee cards, quieter home intro. */
+.home-intro-panel{
+  height:auto;
+  min-height:0;
+  overflow:visible;
+  background-image:linear-gradient(rgba(65,92,110,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(65,92,110,.02) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.home-intro-panel .home-hero{
+  flex:none;
+  gap:clamp(28px,4vw,64px);
+  padding:clamp(28px,4.5vh,56px) clamp(20px,4vw,70px) clamp(18px,3vh,32px);
+  align-content:start;
+}
+.home-intro-panel .hero-kicker{margin-bottom:clamp(12px,2vh,22px)}
+.home-intro-panel .hero-copy h1{margin-bottom:clamp(14px,2vh,24px)}
+.home-intro-panel .hero-actions{margin-top:clamp(16px,2.2vh,26px)}
+.home-intro-panel .hero-button{min-height:42px;padding:10px 18px}
+.home-intro-panel .hero-portrait{
+  width:min(100%,clamp(220px,20vw,320px));
+  padding:0;
+  background:transparent;
+  box-shadow:none;
+}
+.home-intro-panel .hero-portrait:before{display:none}
+.home-intro-panel .hero-portrait img{aspect-ratio:4/5;filter:saturate(.92)}
+.home-intro-panel .hero-portrait figcaption{padding:10px 2px 0;letter-spacing:.14em;color:var(--muted)}
+.home-math-marks{opacity:.07;font-size:clamp(28px,4.2vw,52px)}
+.math-mark-infinity{bottom:22%}
+.recognition-index{
+  min-height:0;
+  padding:14px clamp(22px,5vw,80px) 18px;
+  gap:10px;
+  border-top:1px solid var(--rule);
+  border-bottom:0;
+  background:transparent;
+}
+.recognition-partners>.eyebrow{margin-bottom:8px}
+.recognition-partner{min-height:58px;padding:7px 9px;background:transparent;border-color:transparent}
+.honours-section{padding:36px 0 48px}
+.honours-heading{margin-bottom:8px}
+.honours-carousel-controls{padding:8px 0}
+.honour-slide{padding:12px 14px;gap:18px}
+.honour-art{min-height:0}
+.honour-art>img.sigma-award-asset{max-height:min(32vh,320px)}
+.sigma-award-slide{padding:10px 12px;gap:clamp(12px,2vw,24px)}
+.sigma-proof{margin:0 0 10px;padding:8px 0}
+.honour-slide.zee-honour-slide{gap:10px;padding:12px}
+.zee-feature-grid{min-height:0;gap:12px;align-items:end}
+.zee-cover-card,.zee-heyarya-card,.zee-ltl-card,.zee-workshop-card{background:transparent;border:0}
+.zee-news-card{padding:0 0 22px}
+.zee-workshop-card,.zee-ltl-card{padding:0 0 22px;height:auto;place-items:end center}
+.zee-workshop-card img{width:100%;height:100%!important;max-height:220px;min-height:0!important;object-fit:cover}
+.zee-ltl-card img{max-height:220px;mix-blend-mode:multiply}
+.zee-cover-card figcaption{background:transparent;padding:6px 2px}
+.patent-honour-slide{gap:10px;padding:12px}
+.patent-honour-heading{padding:0 0 8px;text-align:center}
+.patent-honour-heading h3{margin:4px 0 0}
+.patent-device-card .patent-figure-trigger img{height:clamp(72px,9vw,108px);background:transparent}
+.iitkgp-showcase-slide{gap:14px;padding:12px}
+.iitkgp-showcase-header{min-height:0;padding:4px 70px 10px}
+.iitkgp-showcase-photo img{height:min(32vh,280px);background:transparent}
+@media(max-width:760px){
+  .home-intro-panel .home-hero{padding:36px 0 28px}
+  .home-intro-panel .hero-portrait{width:min(58vw,240px)}
+  .honours-section{padding:32px 0 42px}
+  .zee-workshop-card,.zee-ltl-card{height:auto}
+  .zee-workshop-card img,.zee-ltl-card img{max-height:200px}
+}
+
+/* ===== Responsive fill pass: hero fills viewport, honours section uses full width ===== */
+@media(min-width:761px){
+  .home-intro-panel{min-height:calc(100svh - var(--nav))}
+  .home-intro-panel .home-hero{width:min(1700px,calc(100% - 8vw));gap:clamp(24px,5vw,110px);padding:clamp(24px,5vh,80px) 0;align-items:center;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+  .home-intro-panel .hero-copy{max-width:none;padding:0}
+  .home-intro-panel .hero-kicker{font-size:clamp(10px,.85vw,14px);margin-bottom:clamp(16px,3vh,36px)}
+  .home-intro-panel .hero-copy h1{font-size:clamp(44px,min(6.2vw,11vh),128px);margin-bottom:clamp(20px,3.5vh,48px)}
+  .home-intro-panel .hero-actions{margin-top:clamp(20px,3.5vh,44px);gap:14px;flex-wrap:wrap}
+  .home-intro-panel .hero-button{min-height:clamp(44px,6vh,60px);padding:10px clamp(18px,1.8vw,30px);font-size:clamp(13px,1vw,17px)}
+  .home-intro-panel .hero-portrait{width:min(100%,clamp(220px,28vw,520px),calc((100svh - var(--nav) - 300px)*.8));min-width:200px;justify-self:center}
+  .home-intro-panel .hero-portrait figcaption{font-size:clamp(9px,.75vw,12px)}
+  .home-math-marks{font-size:clamp(36px,6vw,96px)}
+  .home-intro-panel .recognition-index{padding-block:clamp(16px,2.5vh,30px)}
+  .recognition-partner strong{font-size:clamp(12px,.95vw,16px)}
+  .recognition-partner small{font-size:clamp(10px,.75vw,13px)}
+}
+@media(min-width:761px) and (max-width:1000px){
+  .home-intro-panel .home-hero{width:calc(100% - 48px);grid-template-columns:1fr minmax(0,.75fr)}
+  .home-intro-panel .hero-copy h1{font-size:clamp(40px,7.2vw,72px)}
+}
+/* Honours / work: fill the viewport width and height instead of floating in empty space */
+.honours-section.container{width:min(1560px,calc(100% - clamp(32px,8vw,160px)));padding:clamp(40px,7vh,88px) 0 clamp(48px,8vh,100px)}
+.honours-heading h2{font-size:clamp(30px,3.4vw,60px)}
+.honours-carousel{align-items:stretch}
+.honour-slide{padding:clamp(16px,2.2vw,36px);gap:clamp(20px,4vw,72px);align-items:center}
+@media(min-width:761px){
+  .honour-slide{min-height:clamp(420px,calc(100svh - var(--nav) - 200px),820px)}
+  .sigma-award-slide{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+  .honour-art>img.sigma-award-asset{max-height:min(62vh,640px)}
+  .sigma-award-slide .honour-copy{max-width:620px}
+  .sigma-award-title,.honour-copy h3{font-size:clamp(30px,3.2vw,56px)}
+  .honour-copy p{font-size:clamp(14px,1.1vw,18px)}
+  .sigma-proof strong{font-size:clamp(30px,3.4vw,56px)}
+  .sigma-proof span{font-size:clamp(10px,.8vw,13px)}
+  .zee-feature-grid{flex:1;align-items:center}
+  .zee-workshop-card img,.zee-ltl-card img{max-height:min(40vh,380px)}
+  .patent-device-card .patent-figure-trigger img{height:clamp(120px,22vh,260px)}
+  .iitkgp-showcase-photo img{height:min(44vh,440px)}
+  .honour-slide.zee-honour-slide,.patent-honour-slide,.iitkgp-showcase-slide{align-content:center}
+}
+@media(max-width:760px){
+  .honours-section.container{width:calc(100% - 28px)}
+  .honour-slide{min-height:0}
+}
+
+/* ===== Projects page layout: wider grid, filters, reusable tile ===== */
+main.container:has(.project-list){width:min(1520px,calc(100% - clamp(24px,5vw,96px)))}
+.projects-intro{margin:10px 0 0;color:var(--muted);font:400 clamp(16px,1.4vw,20px)/1.5 var(--serif)}
+.projects-page-heading{padding-bottom:20px}
+.project-filters{display:flex;flex-wrap:wrap;gap:8px;padding:6px clamp(20px,6vw,72px) 14px}
+.project-filter{font:500 12px/1 var(--sans);letter-spacing:.04em;padding:9px 16px;border:1px solid var(--rule);border-radius:999px;background:transparent;color:var(--ink);transition:background .2s,color .2s,border-color .2s}
+.project-filter:hover{border-color:var(--blue)}
+.project-filter.is-active{background:var(--blue);border-color:var(--blue);color:#fff}
+.project-list>[hidden]{display:none!important}
+.project-list>.project-row{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.project-list>.project-row:not(.implementation-partners):hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 14px 30px rgba(36,39,34,.08)}
+@media(min-width:1180px){.project-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}}
+.project-tile{display:flex!important;flex-direction:column;gap:10px}
+.project-tile h2{margin:0}
+.project-tile .text-link{margin-top:auto;padding-top:10px}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px}
+.project-tags span{font:500 10px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--rule);color:var(--blue)}
+@media(max-width:760px){.project-filters{padding-inline:2%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.project-filter{flex:0 0 auto}}
+@media(prefers-reduced-motion:reduce){.project-list>.project-row{transition:none}.project-list>.project-row:hover{transform:none!important}}
