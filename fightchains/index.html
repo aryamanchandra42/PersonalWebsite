@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -29,6 +30,7 @@
       <a href="#last-fight">Last fight</a>
       <a href="#matchmaker">Matchmaker</a>
       <a href="#record">Track record</a>
+      <a href="#math">The math</a>
     </nav>
   </header>
 
@@ -205,6 +207,123 @@
         </div>
       </div>
     </section>
+
+    <section class="math" id="math">
+      <div class="section-head">
+        <p class="kicker">The model</p>
+        <h2>The mathematics</h2>
+        <p>Every fighter is a vector of per-minute rates, shrunk toward the league. A matchup is a continuous-time Markov chain on eight states, stepped every five seconds. What follows is the model that is actually running above, not a sketch of a later one.</p>
+      </div>
+
+      <article class="math-block">
+        <h3>1. States</h3>
+        <p>The chain lives on eight states. The first four are transient; the last four are absorbing finishes.</p>
+        \[
+          \mathcal{S} = \{\mathrm{DIST},\;\mathrm{CLINCH},\;A_{\mathrm{top}},\;B_{\mathrm{top}},\;A_{\mathrm{KO}},\;A_{\mathrm{SUB}},\;B_{\mathrm{KO}},\;B_{\mathrm{SUB}}\}.
+        \]
+        <p>A fight that lasts the distance is the event that the chain is still in a transient state after the scheduled rounds. Each new round restarts the remaining probability mass at distance: fatigue is not a separate clock, because durability already shows up in who gets finished late.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>2. Estimating a fighter</h3>
+        <p>From UFCStats round rows we accumulate counts \(c\) and exposure \(t\) (minutes in the relevant position). The league rate is the pooled ratio \(\lambda = C/T\). Each fighter’s rate is an empirical-Bayes shrink toward that league value, with prior weight \(m_0\) minutes:</p>
+        \[
+          \hat\lambda = \frac{c + \lambda\, m_0}{t + m_0}.
+        \]
+        <p>Standing actions use \(m_0 = 15\) minutes (\(30\) for knockouts). Top and bottom use \(m_0 = 6\) (\(12\) for ground finishes). Every rate comes in an offensive version (what the fighter does) and a vulnerability version (what they concede).</p>
+        <p>The rates on each fighter are: takedowns, clinch share, top exit, bottom exit, sweeps, standing KO, ground-and-pound KO, submissions, and strikes landed or absorbed standing and on the ground.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>3. Combining two fighters</h3>
+        <p>A matchup is not the average of two careers. If \(A\) takes people down at \(\lambda^{\mathrm{off}}\) and \(B\) is taken down at \(\lambda^{\mathrm{vuln}}\), against a league base \(\lambda\), the pairing uses a log5-style product:</p>
+        \[
+          \lambda_{A\to B} = \frac{\lambda^{\mathrm{off}}_A \cdot \lambda^{\mathrm{vuln}}_B}{\lambda}.
+        \]
+        <p>A wrestler against someone who never wrestles stays a wrestler. A puncher against a glass jaw is more dangerous than either rate alone.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>4. The rate matrix</h3>
+        <p>\(Q\) is an \(8\times 8\) matrix of per-minute transition rates. Standing (distance and clinch) share the same takedown and standing-KO rates. The clinch is a two-state exchange with a fixed exit of \(2.4\) per minute &mdash; about twenty-five seconds &mdash; and an entry rate that matches the pair’s clinch share \(s\):</p>
+        \[
+          Q_{\mathrm{DIST},\mathrm{CLINCH}} = 2.4\cdot\frac{s}{1-s},\qquad
+          Q_{\mathrm{CLINCH},\mathrm{DIST}} = 2.4,\qquad
+          s = \min\bigl(0.9,\;\tfrac12(s_A+s_B)\bigr).
+        \]
+        <p>On the ground the exit rate is the product of the top man’s escape-allowing rate and the bottom man’s stand-up rate. A sweep is that exit, capped at \(80\%\) of it; the rest is a return to distance. Ground KO and top-side submission are scaled by a global calibration \(c_{\mathrm{g}}\). Submissions off the bottom are a small constant, \(0.004\) per minute.</p>
+        <p>Standing and ground KO rates are multiplied by fitted scales \(c_{\mathrm{KO}}\) and \(c_{\mathrm{g}}\) so that predicted finish rates match the last \(1{,}500\) training fights.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>5. Competing hazards, five seconds at a time</h3>
+        <p>From state \(i\), the holding time is exponential with hazard \(h_i = \sum_j Q_{ij}\). In a step of \(\Delta t = 5/60\) minutes the exact transition probabilities are</p>
+        \[
+          P_{ii} = e^{-h_i\Delta t},\qquad
+          P_{ij} = \bigl(1-e^{-h_i\Delta t}\bigr)\frac{Q_{ij}}{h_i}\quad(j\neq i).
+        \]
+        <p>Absorbing rows are the identity. This is not an Euler discretisation of \(Q\); it is the one-step law of competing exponential clocks.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>6. Forward propagation</h3>
+        <p>Let \(p^{(0)} = e_{\mathrm{DIST}}\). Each five-second step is \(p \leftarrow pP\). After \(60\) steps a round ends. Any mass still in the transient block is lifted back to distance for the next round. Occupancy in position \(k\) is the expected minutes there:</p>
+        \[
+          \mathrm{occ}_k = \sum_{\text{steps } t} p_t(k)\,\Delta t.
+        \]
+        <p>The finish vector \(f = (f_{A_{\mathrm{KO}}}, f_{A_{\mathrm{SUB}}}, f_{B_{\mathrm{KO}}}, f_{B_{\mathrm{SUB}}})\) is the absorbing mass at the final horn. The decision probability is \(d = 1-\sum f\).</p>
+      </article>
+
+      <article class="math-block">
+        <h3>7. Who wins a decision</h3>
+        <p>If the fight reaches the judges, the winner is a logistic in two differentials: expected strikes per minute and expected control (top minutes minus bottom minutes), both using the same product combination as the chain:</p>
+        \[
+          z = \beta_1\cdot\frac{\mathbb{E}[\mathrm{land}_A-\mathrm{land}_B]}{\mathrm{occ}}
+            + \beta_2\cdot\frac{\mathrm{occ}_{A_{\mathrm{top}}}-\mathrm{occ}_{B_{\mathrm{top}}}}{\mathrm{occ}},
+          \qquad
+          \mathbb{P}(A\text{ wins the cards}) = \sigma(z) = \frac{1}{1+e^{-z}}.
+        \]
+        <p>\(\beta\) is fitted by Newton’s method on real decision bouts: recorded strike and control differentials against who actually got the nod. The raw chain win chance is then</p>
+        \[
+          p_{\mathrm{raw}} = f_{A_{\mathrm{KO}}} + f_{A_{\mathrm{SUB}}} + d\cdot\sigma(z).
+        \]
+      </article>
+
+      <article class="math-block">
+        <h3>8. Calibration on unseen fights</h3>
+        <p>The chain alone is slightly overconfident. On a validation window the profiles never saw (2023&ndash;2024, built only from fights before 2023) we fit a single shrink \(\alpha\) on the logit:</p>
+        \[
+          p = \sigma\bigl(\alpha\cdot\mathrm{logit}(p_{\mathrm{raw}})\bigr),
+          \qquad
+          \mathrm{logit}(p)=\log\frac{p}{1-p}.
+        \]
+        <p>The fitted \(\alpha\) is about \(0.49\): the shape of the chain is kept, the certainty is pulled toward a coin. Profiles for the public model are then rebuilt on all history. The published track record freezes those profiles at 1 January 2025 and scores every later fight blind.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>9. Chances from here</h3>
+        <p>The live bar is not a restatement of \(p\). It is the probability, from the current state \(x\) at step \(t\), that \(A\) (resp. \(B\)) absorbs before the final horn. If \(V^{(T)}_y = 1\) on \(A\)’s finishes and \(0\) elsewhere, then</p>
+        \[
+          V^{(t)}_x = \sum_y P_{xy}\,V^{(t+1)}_y,
+        \]
+        <p>with the same round-restart at distance. That is why a takedown moves the bar even when the clock has barely run.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>10. Matchmaking</h3>
+        <p>Inside each division we take the top fifteen fighters by Elo (\(K=32\)). Every pair that has not met in two years is scored</p>
+        \[
+          \mathrm{score} = (\text{closeness})^{3/2}\,(0.45+\text{finish})\,(0.55+0.45\cdot\text{stakes}),
+        \]
+        <p>where closeness is \(1-|2p-1|\), finish is \(\sum f\), and stakes is how high the pair sits in that division’s Elo range. No name is used more than twice on the published card.</p>
+      </article>
+
+      <article class="math-block">
+        <h3>This matchup, as numbers</h3>
+        <p>The matrices and rates below are the live chain for the two fighters in the arena. Change the corners and this block updates.</p>
+        <div id="math-live"></div>
+      </article>
+    </section>
   </main>
 
   <footer class="foot">
@@ -215,5 +334,8 @@
   <script src="js/chain.js"></script>
   <script src="js/figures.js"></script>
   <script src="js/app.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+    onload="renderMathInElement(document.getElementById('math'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
 </body>
 </html>

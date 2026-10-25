@@ -104,6 +104,7 @@
     ui.live = C.liveChances(ui.pred.P, ui.rounds, data.league.steps_per_round);
     renderBreakdown(A, B, ui.pred);
     renderTape(A, B);
+    renderMathLive(A, B, ui.pred);
     resetSim();
     hideLastFight();
   }
@@ -184,6 +185,50 @@
         '<span class="bf-label">' + s[1] + '</span>' +
         '<div class="bf-b"><div style="width:' + (b * 100) + '%" class="' + (b > a ? 'lead' : '') + '"></div></div></div>';
     }).join('') + '<p class="bf-note">Compared with every active fighter in the UFC</p>';
+  }
+
+  function fmt(x, d) { return Number(x).toFixed(d == null ? 3 : d); }
+  function mtx(headers, rows) {
+    return '<table class="mtx"><thead><tr>' + headers.map(function (h) { return '<th>' + h + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      rows.map(function (r) {
+        return '<tr>' + r.map(function (c, i) {
+          var v = typeof c === 'number' ? fmt(c, i === 0 ? 3 : 3) : c;
+          var cls = typeof c === 'number' && Math.abs(c) >= 0.02 && i ? ' hi' : '';
+          return '<td class="' + cls + '">' + (typeof c === 'number' ? fmt(c) : c) + '</td>';
+        }).join('') + '</tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  function renderMathLive(A, B, o) {
+    var box = $('math-live');
+    if (!box) return;
+    var L = data.league, names = ['DIST', 'CLINCH', 'A top', 'B top', 'A KO', 'A SUB', 'B KO', 'B SUB'];
+    var Q = C.rateMatrix(A.rates, B.rates, L);
+    var keys = [['td', 'Takedowns / min'], ['td_vuln', 'Takedown vulnerability'], ['clinch_share', 'Clinch share'],
+      ['ko_stand', 'Standing KO'], ['ko_stand_vuln', 'KO vulnerability'], ['gnp', 'Ground KO'], ['sub', 'Submissions'],
+      ['land_stand', 'Strikes landed, standing'], ['absorb_stand', 'Strikes absorbed, standing'],
+      ['top_exit', 'Leave top'], ['rev', 'Sweeps']];
+    var rateRows = keys.map(function (k) { return [k[1], A.rates[k[0]], B.rates[k[0]], L.rates[k[0]] || '']; });
+    var qRows = Q.map(function (row, i) { return [names[i]].concat(row); });
+    var s = o.split;
+    box.innerHTML =
+      '<p><strong>' + esc(A.name) + '</strong> vs <strong>' + esc(B.name) + '</strong> &middot; ' + ui.rounds + ' rounds. ' +
+      'Raw chain \\(p_A=' + fmt(o.raw, 3) + '\\); after the logit shrink \\(\\alpha=' + fmt(L.stack[0], 3) + '\\), \\(p_A=' + fmt(o.pA, 3) + '\\). ' +
+      'Decision share \\(\\sigma(z)=' + fmt(o.judgesA, 3) + '\\). Finish mass \\(1-d=' + fmt(1 - o.dec, 3) + '\\).</p>' +
+      '<div class="math-split"><div><p class="mini-h">Rates (per minute)</p>' +
+      mtx(['', esc(last(A.name)), esc(last(B.name)), 'League'], rateRows) +
+      '</div><div><p class="mini-h">Expected minutes in position</p>' +
+      mtx(['State', 'Minutes'], [['Distance', o.occupancy[0]], ['Clinch', o.occupancy[1]], [last(A.name) + ' on top', o.occupancy[2]], [last(B.name) + ' on top', o.occupancy[3]]]) +
+      '<p class="mini-h">Outcome split</p>' +
+      mtx(['', 'Probability'], [['A by KO', s.aKo], ['A by submission', s.aSub], ['A on the cards', s.aDec], ['B on the cards', s.bDec], ['B by submission', s.bSub], ['B by KO', s.bKo]]) +
+      '</div></div>' +
+      '<p class="mini-h">Rate matrix \\(Q\\) (per minute)</p>' +
+      mtx(['from \\ to'].concat(names), qRows) +
+      '<p class="note">Highlighted cells are rates of at least 0.02 per minute. \\(\\beta=(' +
+      fmt(L.beta[0], 3) + ', ' + fmt(L.beta[1], 3) + ')\\), \\(c_{\\mathrm{KO}}=' + fmt(L.cal.ko_stand, 3) + '\\), \\(c_{\\mathrm{g}}=' + fmt(L.cal.ground, 3) + '\\).</p>';
+    if (window.renderMathInElement) {
+      window.renderMathInElement(box, { delimiters: [{ left: '\\(', right: '\\)', display: false }], throwOnError: false });
+    }
   }
 
   // ---------- arena ----------
