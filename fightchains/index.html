@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FightChains · Real UFC fighters, simulated</title>
+  <meta name="description" content="Every active UFC fighter rebuilt from how they actually fight. Pick a matchup, watch it play out, and see the fights worth making.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>FightChains</a>
+    <nav>
+      <a href="#arena">Arena</a>
+      <a href="#matchmaker">Matchmaker</a>
+      <a href="#record">Track record</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="kicker">Real fighters &middot; real fights &middot; simulated</p>
+      <h1>Every UFC fighter, rebuilt from the way they actually fight.</h1>
+      <p class="hero-lede">Pick two fighters and watch their styles collide. Every exchange, takedown and scramble is driven by what each fighter has done in the cage, so no two replays are the same.</p>
+      <div class="hero-stats" id="hero-stats"></div>
+    </section>
+
+    <section class="arena-section" id="arena" aria-label="Fight simulator">
+      <div class="picker">
+        <label class="pick">
+          <span>Division</span>
+          <select id="pick-division"></select>
+        </label>
+        <label class="pick pick-a">
+          <span>Blue corner</span>
+          <select id="pick-a"></select>
+        </label>
+        <span class="pick-vs">vs</span>
+        <label class="pick pick-b">
+          <span>Red corner</span>
+          <select id="pick-b"></select>
+        </label>
+        <div class="pick rounds" role="group" aria-label="Rounds">
+          <span>Rounds</span>
+          <div class="seg">
+            <button type="button" data-rounds="3" class="is-on">3</button>
+            <button type="button" data-rounds="5">5</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <div class="hud">
+          <div class="hud-corner hud-a"><span class="hud-name" id="hud-a"></span><span class="hud-rec" id="hud-a-rec"></span></div>
+          <div class="hud-clock"><span id="hud-round">Round 1</span><strong id="hud-time">5:00</strong></div>
+          <div class="hud-corner hud-b"><span class="hud-name" id="hud-b"></span><span class="hud-rec" id="hud-b-rec"></span></div>
+        </div>
+        <div class="hud-phase" id="hud-phase">Feeling each other out</div>
+        <svg id="arena-svg" viewBox="-300 -175 600 215" role="img" aria-label="Animated fight between the two selected fighters">
+          <defs>
+            <radialGradient id="mat" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="#2a2f3a"/>
+              <stop offset="100%" stop-color="#14171d"/>
+            </radialGradient>
+            <linearGradient id="spot" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.10"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="-90,-175 90,-175 230,40 -230,40" fill="url(#spot)"/>
+          <g class="fence" id="fence"></g>
+          <ellipse cx="0" cy="8" rx="270" ry="26" fill="url(#mat)"/>
+          <text class="mat-logo" x="0" y="17" text-anchor="middle">FIGHTCHAINS</text>
+          <g transform="scale(1.4)">
+            <g id="fighters"></g>
+            <text class="fig-label fig-label-a" id="label-a" text-anchor="middle"></text>
+            <text class="fig-label fig-label-b" id="label-b" text-anchor="middle"></text>
+          </g>
+        </svg>
+        <div class="flash" id="flash"></div>
+        <ol class="ticker" id="ticker" aria-live="polite"></ol>
+        <div class="result" id="result" hidden>
+          <p class="result-kicker" id="result-kicker"></p>
+          <h3 id="result-title"></h3>
+          <p id="result-detail"></p>
+          <button type="button" class="btn" id="result-again">Run it back</button>
+        </div>
+        <div class="live">
+          <div class="live-head"><span>Chances from here</span><span class="live-hint">updates every exchange</span></div>
+          <div class="live-bar" id="live-bar">
+            <div class="seg-a" id="live-a"><span></span></div>
+            <div class="seg-j" id="live-j"><span></span></div>
+            <div class="seg-b" id="live-b"><span></span></div>
+          </div>
+          <div class="live-legend"><span id="live-a-label"></span><span>Goes to the judges</span><span id="live-b-label"></span></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button type="button" class="btn btn-primary" id="btn-play">Fight</button>
+        <button type="button" class="btn" id="btn-restart">Restart</button>
+        <div class="seg speed" role="group" aria-label="Speed">
+          <button type="button" data-speed="1" class="is-on">1&times;</button>
+          <button type="button" data-speed="2">2&times;</button>
+          <button type="button" data-speed="5">5&times;</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="breakdown" aria-label="Matchup breakdown">
+      <div class="card odds-card">
+        <h2>Who wins</h2>
+        <div class="odds">
+          <div class="odds-side odds-a"><span class="odds-name" id="odds-a-name"></span><strong id="odds-a"></strong></div>
+          <div class="odds-side odds-b"><span class="odds-name" id="odds-b-name"></span><strong id="odds-b"></strong></div>
+        </div>
+        <div class="odds-bar"><div id="odds-bar-a"></div><div id="odds-bar-b"></div></div>
+        <p class="note" id="odds-note"></p>
+      </div>
+
+      <div class="card ends-card">
+        <h2>How it ends</h2>
+        <p class="sub">If they fought 100 times</p>
+        <div class="dots" id="dots"></div>
+        <ul class="legend" id="ends-legend"></ul>
+      </div>
+
+      <div class="card when-card">
+        <h2>When it ends</h2>
+        <div class="rounds-chart" id="rounds-chart"></div>
+      </div>
+
+      <div class="card where-card">
+        <h2>Where the fight happens</h2>
+        <div class="where-bar" id="where-bar"></div>
+        <ul class="legend" id="where-legend"></ul>
+      </div>
+    </section>
+
+    <section class="tape" aria-label="Tale of the tape">
+      <div class="tape-side tape-a" id="tape-a"></div>
+      <div class="tape-mid">
+        <h2>Tale of the tape</h2>
+        <div class="butterfly" id="butterfly"></div>
+      </div>
+      <div class="tape-side tape-b" id="tape-b"></div>
+    </section>
+
+    <section class="matchmaker" id="matchmaker">
+      <div class="section-head">
+        <p class="kicker">Matchmaker</p>
+        <h2>Fights worth making</h2>
+        <p>Among each division's top contenders, these pairings are the closest calls with the most action, skipping anyone who has met in the last two years.</p>
+      </div>
+      <div class="chips" id="mm-divisions"></div>
+      <div class="mm-grid" id="mm-grid"></div>
+    </section>
+
+    <section class="record" id="record">
+      <div class="section-head">
+        <p class="kicker">Track record</p>
+        <h2>Tested on fights it never saw</h2>
+        <p id="record-lede"></p>
+      </div>
+      <div class="record-grid">
+        <div class="card stat-tiles" id="record-tiles"></div>
+        <div class="card">
+          <h3>When it says 60%, does it mean 60%?</h3>
+          <div id="calib"></div>
+        </div>
+        <div class="card titles-card">
+          <h3>Recent title fights</h3>
+          <ul class="titles" id="titles"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Fight data from UFCStats, collected by the open <a href="https://github.com/Greco1899/scrape_ufc_stats">scrape_ufc_stats</a> project. <span id="foot-through"></span></p>
+    <p>A FightChains project by <a href="https://aryamanchandra.in">Aryaman Chandra</a>.</p>
+  </footer>
+
+  <script src="js/chain.js"></script>
+  <script src="js/figures.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

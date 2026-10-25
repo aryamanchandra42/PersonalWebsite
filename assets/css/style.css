@@ -1390,6 +1390,11 @@ main.container:has(.project-list){width:min(1520px,calc(100% - clamp(24px,5vw,96
 .elsewhere-project-logo span{font:700 clamp(26px,2.8vw,34px)/1 var(--serif);letter-spacing:-.04em}
 .elsewhere-project-card .eyebrow{margin-bottom:6px}
 @media(max-width:760px){.elsewhere-project-logo img{width:42px;height:42px}.elsewhere-project-logo span{font-size:28px}}
+.fightchains-mini{display:block;max-width:300px;margin-bottom:4px}
+.fightchains-mini svg{width:100%;height:auto;display:block}
+.fc-mini-edges path{fill:none;stroke:#4d5a62;stroke-opacity:.45;stroke-width:2;stroke-dasharray:5 5;animation:fc-mini-flow 2.4s linear infinite}
+@keyframes fc-mini-flow{to{stroke-dashoffset:-20}}
+@media(prefers-reduced-motion:reduce){.fc-mini-edges path{animation:none}}
 
 /* Patent honour slide: fill the tall carousel frame */
 @media(min-width:761px){
