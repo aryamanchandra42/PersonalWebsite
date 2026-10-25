@@ -6,7 +6,7 @@
     'Bantamweight', 'Flyweight', "Women's Bantamweight", "Women's Flyweight", "Women's Strawweight"];
   var STRENGTHS = [['striking', 'Striking'], ['power', 'Power'], ['wrestling', 'Wrestling'], ['control', 'Top control'], ['submissions', 'Submissions'], ['durability', 'Durability']];
   var STEP_MS = 340;
-  var X_DIST = 52, X_CLINCH = 19, X_GROUND = 15, X_CORNER = 120;
+  var X_DIST = 48, X_CLINCH = 20, X_GROUND = 10, X_CORNER = 128;
 
   var data = {}, byName = {};
   var ui = {
@@ -30,9 +30,34 @@
   }
 
   function load() {
-    return Promise.all(['fighters', 'matchups', 'league', 'backtest'].map(function (k) {
-      return fetch(new URL('data/' + k + '.json', document.baseURI)).then(function (r) { return r.json(); }).then(function (j) { data[k] = j; });
+    return Promise.all(['fighters', 'matchups', 'league', 'backtest', 'photos'].map(function (k) {
+      return fetch(new URL('data/' + k + '.json', document.baseURI)).then(function (r) {
+        if (!r.ok) throw new Error(k);
+        return r.json();
+      }).then(function (j) { data[k] = j; }).catch(function (err) {
+        if (k === 'photos') { data.photos = {}; return; }
+        throw err;
+      });
     }));
+  }
+
+  function photoOf(f) {
+    if (!f) return '';
+    if (f.photo) return f.photo;
+    var p = data.photos && data.photos[f.name];
+    return (p && p.url) || '';
+  }
+  function face(f, cls) {
+    var src = photoOf(f);
+    if (!src) return '<span class="face face-empty ' + (cls || '') + '" aria-hidden="true"></span>';
+    return '<img class="face ' + (cls || '') + '" src="' + esc(src) + '" alt="" referrerpolicy="no-referrer" loading="lazy">';
+  }
+  function setFace(id, f) {
+    var el = $(id);
+    if (!el) return;
+    var src = photoOf(f);
+    if (src) { el.src = src; el.hidden = false; }
+    else { el.removeAttribute('src'); el.hidden = true; }
   }
 
   // ---------- pickers ----------
@@ -110,8 +135,8 @@
   }
 
   function renderBreakdown(A, B, o) {
-    $('odds-a-name').textContent = A.name;
-    $('odds-b-name').textContent = B.name;
+    $('odds-a-name').innerHTML = face(A, 'face-sm') + ' ' + esc(A.name);
+    $('odds-b-name').innerHTML = esc(B.name) + ' ' + face(B, 'face-sm');
     $('odds-a').textContent = pct(o.pA);
     $('odds-b').textContent = pct(1 - o.pA);
     $('odds-bar-a').style.width = (o.pA * 100) + '%';
@@ -165,7 +190,8 @@
     }).join('');
     var st = f.style;
     var bits = [f.height && ('Height ' + f.height), f.reach && ('Reach ' + f.reach), f.stance].filter(Boolean).join(' · ');
-    return '<p class="corner-tag">' + corner + ' corner</p>' +
+    return face(f, 'face-lg') +
+      '<p class="corner-tag">' + corner + ' corner</p>' +
       '<h3>' + esc(f.name) + '</h3>' +
       (f.nickname ? '<p class="nick">&ldquo;' + esc(f.nickname) + '&rdquo;</p>' : '') +
       '<p class="rec"><strong>' + f.record[0] + '-' + f.record[1] + '</strong> in the UFC &middot; ' + esc(f.division) + '</p>' +
@@ -233,20 +259,9 @@
 
   // ---------- arena ----------
   function buildArena() {
-    var fence = $('fence');
-    for (var i = -6; i <= 6; i++) {
-      var x = i * 40;
-      F.el('line', { x1: x * 0.62, y1: -150, x2: x, y2: -6, class: 'post' + (i % 3 === 0 ? ' post-major' : '') }, fence);
-    }
-    F.el('line', { x1: -6 * 40 * 0.62, y1: -150, x2: 6 * 40 * 0.62, y2: -150, class: 'post-rail' }, fence);
-    F.el('line', { x1: -240, y1: -6, x2: 240, y2: -6, class: 'post-rail' }, fence);
-    for (var r = 1; r < 6; r++) {
-      var y = -150 + r * 24, k = 0.62 + (0.38 * r / 6);
-      F.el('line', { x1: -240 * k, y1: y, x2: 240 * k, y2: y, class: 'mesh' }, fence);
-    }
     var g = $('fighters');
-    figA = new F.Figure(g, { face: 1, color: '#4f8fe6', dark: '#2a5aa3', x: -X_DIST, label: $('label-a') });
-    figB = new F.Figure(g, { face: -1, color: '#e5534b', dark: '#a8312b', x: X_DIST, label: $('label-b') });
+    figA = new F.Figure(g, { face: 1, color: '#2f6fd4', dark: '#163a8c', glove: '#c41e3a', x: -X_DIST });
+    figB = new F.Figure(g, { face: -1, color: '#d62828', dark: '#8b1515', glove: '#c41e3a', x: X_DIST });
   }
 
   function now() { return performance.now(); }
@@ -265,13 +280,14 @@
   function resetSim() {
     clearTimeout(timer);
     queue = [];
-    sim = { state: C.DIST, t: 0, playing: false, done: false, log: [] };
+    sim = { state: C.DIST, t: 0, playing: false, done: false, log: [], hp: { A: 100, B: 100 } };
     var A = byName[ui.a], B = byName[ui.b];
+    setHp('A', 100, { snap: true });
+    setHp('B', 100, { snap: true });
+    setFace('face-a', A); setFace('face-b', B);
     $('hud-a').textContent = A.name; $('hud-b').textContent = B.name;
     $('hud-a-rec').textContent = A.record[0] + '-' + A.record[1];
     $('hud-b-rec').textContent = B.record[0] + '-' + B.record[1];
-    $('label-a').textContent = last(A.name).toUpperCase();
-    $('label-b').textContent = last(B.name).toUpperCase();
     $('live-a-label').textContent = last(A.name) + ' finishes';
     $('live-b-label').textContent = last(B.name) + ' finishes';
     $('ticker').innerHTML = '';
@@ -339,6 +355,45 @@
   }
 
   function setPhase(text) { $('hud-phase').textContent = text; }
+
+  function hitDamage(atk, def, kind) {
+    var base = { jab: 0.62, cross: 1.15, hook: 1.05, overhand: 1.28, kick: 1.45, knee: 0.95, ground: 0.88 }[kind] || 0.9;
+    var power = (atk.strengths && atk.strengths.power) || 0.5;
+    var dura = (def.strengths && def.strengths.durability) || 0.5;
+    return base * (0.65 + power * 0.75) / (0.55 + dura * 0.9) * (0.72 + rand() * 0.5);
+  }
+
+  function setHp(who, value, opts) {
+    opts = opts || {};
+    if (!sim || !sim.hp) return;
+    var next = Math.max(opts.floor != null ? opts.floor : 0, Math.min(100, value));
+    sim.hp[who] = next;
+    var id = who.toLowerCase();
+    var fill = $('hp-' + id), ghost = $('hp-ghost-' + id), wrap = $('hp-wrap-' + id);
+    if (!fill) return;
+    fill.style.width = next + '%';
+    fill.classList.toggle('mid', next <= 60 && next > 30);
+    fill.classList.toggle('low', next <= 30);
+    $('hp-val-' + id).textContent = String(Math.round(next));
+    wrap.setAttribute('aria-valuenow', String(Math.round(next)));
+    if (opts.hit) {
+      wrap.classList.add('hit');
+      clearTimeout(setHp['h' + who]);
+      setHp['h' + who] = setTimeout(function () { wrap.classList.remove('hit'); }, 180);
+    }
+    clearTimeout(setHp['g' + who]);
+    if (opts.snap) {
+      ghost.style.width = next + '%';
+    } else {
+      setHp['g' + who] = setTimeout(function () {
+        if (sim) ghost.style.width = sim.hp[who] + '%';
+      }, 420 / Math.sqrt(ui.speed));
+    }
+  }
+
+  function hurt(who, amount) {
+    setHp(who, sim.hp[who] - amount, { floor: sim.done ? 0 : 8, hit: true });
+  }
 
   function flash(text, cls) {
     var f = $('flash');
@@ -412,8 +467,9 @@
   function placeFor(state, ms) {
     var t = now(), d = dur(ms);
     if (state === C.DIST) {
-      var drift = (rand() - 0.5) * 18;
-      figA.set('stance', d, -X_DIST + drift, t); figB.set('stance', d, X_DIST + drift, t);
+      var drift = (rand() - 0.5) * 24;
+      figA.set(rand() < 0.45 ? 'bounce' : 'stance', d, -X_DIST + drift, t);
+      figB.set(rand() < 0.45 ? 'bounce' : 'stance', d, X_DIST + drift, t);
     } else if (state === C.CLINCH) {
       figA.set('clinch', d, -X_CLINCH, t); figB.set('clinch', d, X_CLINCH, t);
     } else if (state === C.A_TOP) {
@@ -449,6 +505,7 @@
       var T = top === 'A' ? A : B, Bt = top === 'A' ? B : A;
       var p = strikeRate(T.rates, Bt.rates, 'ground');
       if (rand() < p * 1.6) groundStrike(top);
+      else if (rand() < 0.55) groundWork(top);
       setPhase(last(T.name) + ' in control on top');
     }
   }
@@ -458,23 +515,80 @@
     var t = now(), base = state === C.CLINCH ? 'clinch' : 'stance';
     var move;
     if (state === C.CLINCH) move = rand() < 0.6 ? 'knee' : 'cross';
-    else { var u = rand(); move = u < 0.5 ? 'jab' : u < 0.82 ? 'cross' : 'kick'; }
+    else {
+      var u = rand();
+      move = u < 0.38 ? 'jab' : u < 0.64 ? 'cross' : u < 0.78 ? 'hook' : u < 0.9 ? 'overhand' : 'kick';
+    }
     var dir = who === 'A' ? 1 : -1;
-    var meX = state === C.CLINCH ? -dir * X_CLINCH : -dir * X_DIST + dir * 14;
-    me.set(move, dur(110), meX, t);
-    later(150, function () { me.set(base, dur(170), undefined, now()); });
+    var lunge = state === C.CLINCH ? 0 : ({ jab: 22, cross: 28, hook: 18, overhand: 24, kick: 12 }[move] || 22);
+    var meX = state === C.CLINCH ? -dir * X_CLINCH : -dir * X_DIST + dir * lunge;
+    var punchMs = { jab: 130, cross: 160, hook: 140, overhand: 155, kick: 190, knee: 140 }[move] || 130;
+    me.set(move, dur(punchMs), meX, t);
+    later(punchMs + 30, function () {
+      me.set(base, dur(180), state === C.DIST ? -dir * X_DIST : undefined, now());
+    });
     if (landed) {
-      later(90, function () { them.set(state === C.CLINCH ? 'clinchHit' : 'hit', dur(90), undefined, now()); });
-      later(230, function () { them.set(base, dur(200), undefined, now()); });
+      var atk = byName[who === 'A' ? ui.a : ui.b], def = byName[who === 'A' ? ui.b : ui.a];
+      hurt(who === 'A' ? 'B' : 'A', hitDamage(atk, def, move));
+      later(Math.round(punchMs * 0.7), function () {
+        them.set(state === C.CLINCH ? 'clinchHit' : 'hit', dur(90), state === C.DIST ? dir * (X_DIST + 10) : undefined, now());
+      });
+      later(punchMs + 120, function () { them.set(base, dur(200), state === C.DIST ? dir * X_DIST : undefined, now()); });
       if (state === C.DIST && rand() < 0.08) tick(last(byName[who === 'A' ? ui.a : ui.b].name) + (move === 'kick' ? ' lands a big kick' : ' cracks him clean'));
     }
   }
 
   function groundStrike(top) {
     var me = top === 'A' ? figA : figB, them = top === 'A' ? figB : figA;
-    me.set('topRaise', dur(110), undefined, now());
-    later(120, function () { me.set('topPunch', dur(80), undefined, now()); them.set('bottomHit', dur(80), undefined, now()); });
-    later(240, function () { me.set('top', dur(160), undefined, now()); them.set('bottom', dur(160), undefined, now()); });
+    var atk = byName[top === 'A' ? ui.a : ui.b], def = byName[top === 'A' ? ui.b : ui.a];
+    var d = top === 'A' ? 1 : -1;
+    var shift = (rand() - 0.5) * 10;
+    hurt(top === 'A' ? 'B' : 'A', hitDamage(atk, def, 'ground'));
+    me.set('topRaise', dur(120), -d * X_GROUND + shift, now());
+    them.set('bottomFrame', dur(100), d * X_GROUND + shift, now());
+    later(130, function () {
+      me.set('topPunch', dur(90), -d * (X_GROUND - 2) + shift, now());
+      them.set('bottomHit', dur(90), d * X_GROUND + shift, now());
+    });
+    later(260, function () {
+      if (rand() < 0.45) {
+        me.set('topRaise', dur(90), undefined, now());
+        later(100, function () {
+          me.set('topPunch', dur(80), undefined, now());
+          them.set('bottomHit', dur(80), undefined, now());
+          hurt(top === 'A' ? 'B' : 'A', hitDamage(atk, def, 'ground') * 0.55);
+        });
+        later(220, function () { me.set('top', dur(160), -d * X_GROUND, now()); them.set('bottom', dur(160), d * X_GROUND, now()); });
+      } else {
+        me.set('top', dur(160), -d * X_GROUND, now());
+        them.set('bottom', dur(160), d * X_GROUND, now());
+      }
+    });
+  }
+
+  function groundWork(top) {
+    var me = top === 'A' ? figA : figB, them = top === 'A' ? figB : figA;
+    var d = top === 'A' ? 1 : -1;
+    var u = rand();
+    if (u < 0.34) {
+      them.set('bottomShrimp', dur(200), d * (X_GROUND + 10), now());
+      me.set('topPosture', dur(200), -d * (X_GROUND + 4), now());
+      later(240, function () {
+        them.set('bottom', dur(220), d * X_GROUND, now());
+        me.set('top', dur(220), -d * X_GROUND, now());
+      });
+    } else if (u < 0.68) {
+      me.set('topPosture', dur(200), -d * (X_GROUND + 6), now());
+      them.set('bottomFrame', dur(200), d * X_GROUND, now());
+      later(240, function () {
+        me.set('top', dur(200), -d * X_GROUND, now());
+        them.set('bottom', dur(200), d * X_GROUND, now());
+      });
+    } else {
+      var shift = (rand() - 0.5) * 18;
+      me.set('top', dur(240), -d * X_GROUND + shift, now());
+      them.set('bottom', dur(240), d * X_GROUND + shift, now());
+    }
   }
 
   function transition(prev, next) {
@@ -521,38 +635,42 @@
     var how;
     queue = [];
     sim.done = true; sim.playing = false; sim.winner = aWins ? 'A' : 'B'; sim.method = ko ? 'KO' : 'SUB';
+    var loser = aWins ? 'B' : 'A';
     if (ko && !ground) {
       how = 'KO';
-      W.set(rand() < 0.3 ? 'kick' : 'cross', dur(110), -dir * 30, now());
+      hurt(loser, 22);
+      W.set(rand() < 0.3 ? 'kick' : 'cross', dur(150), -dir * 22, now());
       later(110, function () { Lf.set('hit', dur(90), undefined, now()); });
-      later(220, function () { Lf.set('down', dur(420), dir * 64, now()); W.set('stance', dur(200), -dir * 10, now()); });
+      later(220, function () { Lf.set('down', dur(420), dir * 64, now()); W.set('stance', dur(200), -dir * 10, now()); setHp(loser, 0); });
       later(520, function () { flash('KNOCKOUT', 'fk'); });
       tick(last(wn.name) + ' drops ' + last(ln.name) + '. It is all over!', 'end');
     } else if (ko) {
       how = 'TKO';
       for (var i = 0; i < 4; i++) (function (k) {
-        later(k * 210, function () { W.set('topRaise', dur(90), undefined, now()); });
+        later(k * 210, function () { W.set('topRaise', dur(90), undefined, now()); hurt(loser, 8); });
         later(k * 210 + 100, function () { W.set('topPunch', dur(70), undefined, now()); Lf.set('bottomHit', dur(70), undefined, now()); });
       })(i);
-      later(900, function () { flash('TKO', 'fk'); Lf.set('down', dur(300), undefined, now()); });
+      later(900, function () { flash('TKO', 'fk'); Lf.set('down', dur(300), undefined, now()); setHp(loser, 0); });
       tick('Ground strikes! The referee waves it off', 'end');
     } else {
       how = 'Submission';
+      var drain = Math.max(18, sim.hp[loser] * 0.35);
       if (winnerTop) {
         W.set('topSub', dur(260), undefined, now());
         for (var j = 0; j < 3; j++) (function (k) {
-          later(320 + k * 200, function () { Lf.set('bottomTap', dur(90), undefined, now()); });
+          later(320 + k * 200, function () { Lf.set('bottomTap', dur(90), undefined, now()); hurt(loser, drain / 3); });
           later(420 + k * 200, function () { Lf.set('bottom', dur(90), undefined, now()); });
         })(j);
       } else if (ground) {
         Lf.set('topSub', dur(260), undefined, now());
+        later(260, function () { hurt(loser, drain); });
         tick(last(wn.name) + ' locks it up from the bottom');
       } else {
         W.set('shot', dur(160), -dir * 20, now());
-        later(200, function () { W.set('topSub', dur(240), -dir * X_GROUND, now()); Lf.set('bottom', dur(240), dir * X_GROUND, now()); });
-        later(560, function () { Lf.set('bottomTap', dur(90), undefined, now()); });
+        later(200, function () { W.set('topSub', dur(240), -dir * X_GROUND, now()); Lf.set('bottom', dur(240), dir * X_GROUND, now()); hurt(loser, drain * 0.5); });
+        later(560, function () { Lf.set('bottomTap', dur(90), undefined, now()); hurt(loser, drain * 0.5); });
       }
-      later(900, function () { flash('TAP!', 'fk'); });
+      later(900, function () { flash('TAP!', 'fk'); setHp(loser, 0); });
       tick(last(ln.name) + ' taps!', 'end');
     }
     var round = Math.floor((sim.t - 1) / data.league.steps_per_round) + 1;
@@ -591,6 +709,8 @@
     figA.set('rest', dur(500), -X_CORNER, t); figB.set('rest', dur(500), X_CORNER, t);
     setPhase('Between rounds');
     tick('End of round ' + (nextRound - 1));
+    setHp('A', sim.hp.A + 4 + rand() * 4, { snap: true });
+    setHp('B', sim.hp.B + 4 + rand() * 4, { snap: true });
     flash('ROUND ' + nextRound);
     sim.state = C.DIST;
     updateLive();
@@ -607,14 +727,26 @@
   function showResult(wn, how, when) {
     updateLive();
     $('result-kicker').textContent = 'Winner';
+    setFace('result-face', wn);
     $('result-title').textContent = wn.name;
     $('result-detail').textContent = how + ' · ' + when;
     $('result').className = 'result ' + (wn.name === ui.a ? 'win-a' : 'win-b');
     $('result').hidden = false;
     if (lastFight) {
-      lastFight.result = { winner: wn.name, how: how, when: when, side: wn.name === ui.a ? 'a' : 'b' };
+      lastFight.result = { winner: wn.name, how: how, when: when, side: wn.name === ui.a ? 'a' : 'b', hp: { a: sim.hp.A, b: sim.hp.B } };
       showLastFight();
     }
+  }
+
+  function lastHpHtml(A, B, hp) {
+    if (!hp) return '';
+    function row(name, v, side) {
+      var cls = v <= 30 ? ' low' : v <= 60 ? ' mid' : '';
+      return '<div class="last-hp-row side-' + side + '"><span>' + esc(name) + '</span>' +
+        '<div class="hp"><div class="hp-track"><div class="hp-fill' + cls + '" style="width:' + Math.max(0, v) + '%"></div><div class="hp-ticks"></div></div>' +
+        '<span class="hp-val">' + Math.round(v) + '</span></div></div>';
+    }
+    return '<div class="last-hp">' + row(A.name, hp.a, 'a') + row(B.name, hp.b, 'b') + '</div>';
   }
 
   function hideLastFight() { $('last-fight').hidden = true; }
@@ -625,7 +757,7 @@
     $('last-title').textContent = A.name + ' vs ' + B.name;
     $('last-lede').textContent = r.how + ' · ' + r.when + '. The same night, play by play.';
     $('last-card').className = 'last-card win-' + r.side;
-    $('last-card').innerHTML = '<p class="kicker">Winner</p><h3>' + esc(r.winner) + '</h3><p>' + esc(r.how) + ' · ' + esc(r.when) + '</p>';
+    $('last-card').innerHTML = face(byName[r.winner], 'face-lg') + '<p class="kicker">Winner</p><h3>' + esc(r.winner) + '</h3><p>' + esc(r.how) + ' · ' + esc(r.when) + '</p>' + lastHpHtml(A, B, r.hp);
     renderLastLog();
   }
 
@@ -669,6 +801,7 @@
       if (m.rematch) tags.push('<span class="tag tag-quiet">Rematch</span>');
       return '<button type="button" class="mm-card" data-a="' + esc(m.a) + '" data-b="' + esc(m.b) + '">' +
         '<div class="mm-tags">' + tags.join('') + '</div>' +
+        '<div class="mm-faces">' + face(A) + face(B) + '</div>' +
         '<div class="mm-names"><span class="mm-a">' + esc(m.a) + '<small>' + A.record[0] + '-' + A.record[1] + '</small></span><em>vs</em><span class="mm-b">' + esc(m.b) + '<small>' + B.record[0] + '-' + B.record[1] + '</small></span></div>' +
         '<div class="mm-split"><div style="width:' + (m.p_a * 100) + '%"></div></div>' +
         '<div class="mm-meters">' +
@@ -740,7 +873,11 @@
   }
 
   load().then(function () {
-    data.fighters.forEach(function (f) { byName[f.name] = f; });
+    data.photos = data.photos || {};
+    data.fighters.forEach(function (f) {
+      if (!f.photo && data.photos[f.name] && data.photos[f.name].url) f.photo = data.photos[f.name].url;
+      byName[f.name] = f;
+    });
     renderHero();
     buildArena();
     initPickers();

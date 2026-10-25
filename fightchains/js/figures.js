@@ -4,7 +4,7 @@
   'use strict';
 
   var SVGNS = 'http://www.w3.org/2000/svg';
-  var LEN = { torso: 30, neck: 6, head: 8.5, upper: 16, fore: 15, thigh: 20, shin: 20 };
+  var LEN = { torso: 33, neck: 6.5, head: 8.6, upper: 22, fore: 21, thigh: 24, shin: 23 };
   var KEYS = ['y', 'lean', 'head', 'aFu', 'aFf', 'aBu', 'aBf', 'lFt', 'lFs', 'lBt', 'lBs'];
 
   function P(y, lean, head, armF, armB, legF, legB) {
@@ -12,28 +12,33 @@
   }
 
   var POSES = {
-    stance:   P(-38.5, 8, 0, [35, 160], [15, 170], [22, 0], [-22, -8]),
-    bounce:   P(-37.5, 10, 0, [38, 158], [18, 168], [24, 2], [-20, -6]),
-    jab:      P(-38, 14, 0, [88, 90], [15, 170], [26, 0], [-24, -10]),
-    cross:    P(-37, 22, 0, [25, 165], [86, 88], [28, 4], [-30, -14]),
-    kick:     P(-40, -18, -6, [40, 150], [-20, 40], [4, 0], [82, 100]),
-    hit:      P(-37, -12, -18, [30, 165], [10, 172], [20, -4], [-26, -12]),
-    shot:     P(-24, 65, 10, [60, 70], [55, 65], [80, -5], [-48, -62]),
-    sprawl:   P(-26, 70, 15, [100, 60], [90, 50], [-40, -80], [-60, -90]),
-    clinch:   P(-37, 24, 4, [112, 82], [80, 58], [18, 0], [-28, -10]),
-    knee:     P(-38, 18, 4, [112, 90], [84, 66], [6, 0], [70, -20]),
-    clinchHit:P(-36, 8, -12, [100, 80], [70, 60], [16, -4], [-30, -14]),
-    top:      P(-18, 46, 6, [62, 32], [50, 20], [24, -90], [12, -90]),
-    topRaise: P(-20, 26, 0, [150, 175], [50, 20], [24, -90], [12, -90]),
-    topPunch: P(-17, 58, 10, [62, 55], [50, 20], [24, -90], [12, -90]),
-    topSub:   P(-12, 80, 20, [100, 15], [86, 8], [30, -85], [10, -88]),
-    bottom:   P(-8, -90, -30, [150, 128], [140, 118], [128, 62], [118, 52]),
-    bottomHit:P(-7, -92, -50, [165, 150], [158, 140], [122, 60], [112, 50]),
-    bottomTap:P(-8, -90, -30, [95, 70], [140, 118], [128, 62], [118, 52]),
-    down:     P(-6, -90, -40, [-70, -95], [-50, -80], [84, 90], [76, 92]),
-    rise:     P(-24, 28, 0, [40, 140], [20, 160], [70, -10], [-10, -90]),
-    win:      P(-39, -4, -10, [150, 160], [200, 190], [16, 0], [-16, -4]),
-    rest:     P(-39, 2, 4, [10, 20], [6, 14], [14, 0], [-14, -2])
+    stance:    P(-45, 12, 2, [44, 150], [24, 160], [30, 6], [-28, -12]),
+    bounce:    P(-43, 16, 2, [50, 142], [28, 154], [36, 10], [-22, -8]),
+    jab:       P(-43, 24, -4, [98, 88], [20, 164], [44, 4], [-36, -18]),
+    cross:     P(-41, 36, 2, [30, 156], [104, 86], [48, 8], [-42, -22]),
+    hook:      P(-42, 28, 0, [82, 22], [22, 158], [40, 4], [-34, -16]),
+    overhand:  P(-40, 42, 8, [24, 148], [122, 46], [46, 6], [-40, -20]),
+    kick:      P(-48, -16, -8, [52, 138], [-18, 38], [10, 4], [94, 98]),
+    hit:       P(-43, -18, -24, [40, 152], [14, 166], [26, -8], [-34, -16]),
+    shot:      P(-26, 68, 10, [64, 68], [58, 62], [86, -6], [-52, -66]),
+    sprawl:    P(-28, 74, 16, [108, 58], [96, 48], [-44, -84], [-64, -94]),
+    clinch:    P(-44, 26, 4, [118, 78], [86, 54], [22, 2], [-32, -12]),
+    knee:      P(-44, 20, 4, [118, 86], [90, 62], [8, 2], [76, -18]),
+    clinchHit: P(-42, 8, -14, [106, 76], [74, 56], [18, -6], [-34, -16]),
+    top:       P(-20, 62, 8, [74, 36], [52, 18], [16, -78], [6, -84]),
+    topPosture:P(-26, 34, 2, [96, 78], [44, 16], [20, -80], [8, -86]),
+    topRaise:  P(-24, 40, 0, [162, 172], [48, 16], [16, -78], [6, -84]),
+    topPunch:  P(-15, 78, 16, [96, 8], [44, 14], [14, -74], [4, -80]),
+    topSub:    P(-12, 88, 18, [112, 6], [96, 2], [26, -80], [6, -86]),
+    bottom:    P(-9, -86, -16, [128, 88], [114, 80], [112, 38], [100, 32]),
+    bottomHit: P(-7, -96, -40, [158, 128], [150, 120], [98, 48], [88, 40]),
+    bottomFrame:P(-10, -78, -6, [102, 70], [94, 64], [118, 34], [108, 28]),
+    bottomShrimp:P(-12, -66, -10, [120, 96], [78, 50], [64, -24], [132, 46]),
+    bottomTap: P(-8, -90, -26, [86, 50], [122, 96], [110, 38], [100, 32]),
+    down:      P(-6, -92, -42, [-74, -98], [-54, -84], [88, 94], [80, 96]),
+    rise:      P(-28, 30, 0, [44, 138], [22, 158], [76, -12], [-12, -92]),
+    win:       P(-46, -6, -10, [158, 164], [208, 194], [18, 0], [-18, -4]),
+    rest:      P(-46, 4, 4, [12, 22], [8, 16], [16, 0], [-16, -2])
   };
 
   function dir(deg) { var r = deg * Math.PI / 180; return [Math.sin(r), Math.cos(r)]; }
@@ -58,15 +63,15 @@
     this.shadow = el('ellipse', { rx: 22, ry: 4, class: 'fig-shadow' }, this.g);
     var body = this.body = el('g', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', fill: 'none' }, this.g);
     var back = this.dark;
-    this.lB = el('polyline', { stroke: back, 'stroke-width': 8.5 }, body);
-    this.aB = el('polyline', { stroke: back, 'stroke-width': 6.5 }, body);
-    this.gB = el('circle', { r: 4.6, fill: back }, body);
-    this.trunk = el('line', { stroke: this.color, 'stroke-width': 13 }, body);
-    this.shorts = el('line', { stroke: this.dark, 'stroke-width': 14 }, body);
-    this.headEl = el('circle', { r: LEN.head, fill: this.color }, body);
-    this.lF = el('polyline', { stroke: this.color, 'stroke-width': 8.5 }, body);
-    this.aF = el('polyline', { stroke: this.color, 'stroke-width': 6.5 }, body);
-    this.gF = el('circle', { r: 4.8, fill: '#f4efe6', stroke: this.dark, 'stroke-width': 1.6 }, body);
+    this.lB = el('polyline', { stroke: back, 'stroke-width': 7.2 }, body);
+    this.aB = el('polyline', { stroke: back, 'stroke-width': 5.4 }, body);
+    this.gB = el('circle', { r: 4.5, fill: opts.glove || '#c41e3a' }, body);
+    this.trunk = el('line', { stroke: this.color, 'stroke-width': 10.6 }, body);
+    this.shorts = el('line', { stroke: this.dark, 'stroke-width': 12 }, body);
+    this.headEl = el('circle', { r: LEN.head - 0.5, fill: opts.skin || '#d4b896' }, body);
+    this.lF = el('polyline', { stroke: this.color, 'stroke-width': 7.2 }, body);
+    this.aF = el('polyline', { stroke: this.color, 'stroke-width': 5.4 }, body);
+    this.gF = el('circle', { r: 4.6, fill: opts.glove || '#c41e3a', stroke: this.dark, 'stroke-width': 1.1 }, body);
     this.label = opts.label;
   }
 
@@ -77,7 +82,7 @@
     this.xFrom = this.x;
     if (x !== undefined) this.xTo = x;
     this.t0 = now; this.dur = Math.max(1, ms);
-    this.idle = name === 'stance' || name === 'clinch';
+    this.idle = name === 'stance' || name === 'bounce' || name === 'clinch';
   };
 
   Figure.prototype.update = function (now) {
@@ -87,7 +92,7 @@
       this.pose[k] = this.from[k] + (this.to[k] - this.from[k]) * e;
     }
     this.x = this.xFrom + (this.xTo - this.xFrom) * e;
-    var bob = this.idle && t >= 1 ? Math.sin(now / 160 + this.face) * 0.9 : 0;
+    var bob = this.idle && t >= 1 ? Math.sin(now / 140 + this.face) * 1.7 : 0;
     this.draw(bob);
   };
 
@@ -128,7 +133,7 @@
     if (this.label) {
       var top = Math.min(head[1], sh[1], hip[1]) - LEN.head - 10;
       this.label.setAttribute('x', (ox + f * head[0]).toFixed(1));
-      this.label.setAttribute('y', Math.max(-150, top).toFixed(1));
+      this.label.setAttribute('y', Math.max(-175, top).toFixed(1));
     }
   };
 
