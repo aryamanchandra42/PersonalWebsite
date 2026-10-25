@@ -13,12 +13,21 @@
     division: null, a: null, b: null, rounds: 3, speed: 1, pred: null, live: null
   };
   var sim = null, figA, figB, queue = [], rafOn = false, timer = null;
+  var rng = { seed: 1 }, lastFight = null, watchingAgain = false;
 
   function $(id) { return document.getElementById(id); }
   function last(name) { var p = name.split(' '); return p.length > 1 ? p.slice(1).join(' ') : name; }
   function pct(x) { return Math.round(x * 100) + '%'; }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  function rand() { return Math.random(); }
+  function newSeed() { return ((Math.random() * 0xffffffff) | 1) >>> 0; }
+  function rand() {
+    var s = rng.seed | 0;
+    s = s + 0x6D2B79F5 | 0;
+    rng.seed = s;
+    var t = Math.imul(s ^ s >>> 15, 1 | s);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
 
   function load() {
     return Promise.all(['fighters', 'matchups', 'league', 'backtest'].map(function (k) {
@@ -82,8 +91,10 @@
       });
     });
     $('btn-play').addEventListener('click', togglePlay);
-    $('btn-restart').addEventListener('click', function () { resetSim(); play(); });
-    $('result-again').addEventListener('click', function () { resetSim(); play(); });
+    $('btn-restart').addEventListener('click', startNewFight);
+    $('result-again').addEventListener('click', startNewFight);
+    $('result-watch').addEventListener('click', watchAgain);
+    $('btn-watch-again').addEventListener('click', watchAgain);
   }
 
   // ---------- prediction and panels ----------
@@ -94,6 +105,7 @@
     renderBreakdown(A, B, ui.pred);
     renderTape(A, B);
     resetSim();
+    hideLastFight();
   }
 
   function renderBreakdown(A, B, o) {
@@ -228,11 +240,32 @@
   }
 
   function togglePlay() {
-    if (!sim || sim.done) { resetSim(); play(); return; }
+    if (!sim || sim.done) { startNewFight(); return; }
     if (sim.playing) pause(); else play();
+  }
+  function startNewFight() {
+    watchingAgain = false;
+    lastFight = { seed: newSeed(), a: ui.a, b: ui.b, rounds: ui.rounds, events: [], result: null };
+    rng.seed = lastFight.seed;
+    hideLastFight();
+    resetSim();
+    play();
+  }
+  function watchAgain() {
+    if (!lastFight || !lastFight.result) return;
+    watchingAgain = true;
+    rng.seed = lastFight.seed;
+    lastFight.events = [];
+    resetSim();
+    play();
+    document.getElementById('arena').scrollIntoView({ behavior: 'smooth' });
   }
   function play() {
     if (sim.done) return;
+    if (!watchingAgain && (!lastFight || lastFight.result || lastFight.a !== ui.a || lastFight.b !== ui.b || lastFight.rounds !== ui.rounds)) {
+      lastFight = { seed: newSeed(), a: ui.a, b: ui.b, rounds: ui.rounds, events: [], result: null };
+      rng.seed = lastFight.seed;
+    }
     sim.playing = true;
     $('btn-play').textContent = 'Pause';
     if (sim.t === 0 && !sim.log.length) {
@@ -282,7 +315,12 @@
     var list = $('ticker');
     list.insertBefore(li, list.firstChild);
     while (list.children.length > 4) list.removeChild(list.lastChild);
-    sim.log.push(text);
+    var entry = { stamp: stamp, text: text, cls: cls || '' };
+    sim.log.push(entry);
+    if (lastFight) {
+      lastFight.events.push(entry);
+      renderLastLog();
+    }
   }
 
   function updateLive() {
@@ -528,6 +566,31 @@
     $('result-detail').textContent = how + ' · ' + when;
     $('result').className = 'result ' + (wn.name === ui.a ? 'win-a' : 'win-b');
     $('result').hidden = false;
+    if (lastFight) {
+      lastFight.result = { winner: wn.name, how: how, when: when, side: wn.name === ui.a ? 'a' : 'b' };
+      showLastFight();
+    }
+  }
+
+  function hideLastFight() { $('last-fight').hidden = true; }
+
+  function showLastFight() {
+    var A = byName[lastFight.a], B = byName[lastFight.b], r = lastFight.result;
+    $('last-fight').hidden = false;
+    $('last-title').textContent = A.name + ' vs ' + B.name;
+    $('last-lede').textContent = r.how + ' · ' + r.when + '. The same night, play by play.';
+    $('last-card').className = 'last-card win-' + r.side;
+    $('last-card').innerHTML = '<p class="kicker">Winner</p><h3>' + esc(r.winner) + '</h3><p>' + esc(r.how) + ' · ' + esc(r.when) + '</p>';
+    renderLastLog();
+  }
+
+  function renderLastLog() {
+    if (!lastFight) return;
+    $('last-log').innerHTML = lastFight.events.map(function (e) {
+      return '<li class="' + e.cls + '"><time>' + esc(e.stamp) + '</time><span>' + esc(e.text) + '</span></li>';
+    }).join('');
+    var box = $('last-log');
+    box.scrollTop = box.scrollHeight;
   }
 
   // ---------- matchmaker ----------

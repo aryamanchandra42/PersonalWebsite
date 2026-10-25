@@ -140,6 +140,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
 .result.win-a h3 { color: var(--a-2); }
 .result.win-b h3 { color: var(--b-2); }
 .result p { margin: 0 0 12px; color: var(--muted); }
+.result .btn { margin-right: 8px; margin-top: 4px; }
 
 .live { padding: 12px 16px 16px; border-top: 1px solid var(--line); background: #0f1217; }
 .live-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
@@ -245,7 +246,23 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
 .section-head { max-width: 680px; margin-bottom: 18px; }
 .section-head h2 { font-size: clamp(32px, 4.5vw, 48px); text-transform: uppercase; font-weight: 800; }
 .section-head p:not(.kicker) { color: var(--muted); margin: 10px 0 0; }
-.matchmaker, .record { padding: 48px 0 16px; border-top: 1px solid var(--line); }
+.matchmaker, .record, .last-fight { padding: 48px 0 16px; border-top: 1px solid var(--line); }
+.last-body { display: grid; grid-template-columns: minmax(220px, 0.7fr) 1fr; gap: 16px; align-items: start; }
+.last-card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.last-card.win-a { border-color: var(--a); }
+.last-card.win-b { border-color: var(--b); }
+.last-card .kicker { margin-bottom: 6px; }
+.last-card h3 { font-size: clamp(32px, 4vw, 44px); text-transform: uppercase; margin: 0 0 6px; }
+.last-card.win-a h3 { color: var(--a-2); }
+.last-card.win-b h3 { color: var(--b-2); }
+.last-card p { margin: 0; color: var(--muted); }
+.last-log { list-style: none; margin: 0; padding: 4px 4px 4px 0; max-height: 320px; overflow: auto; display: grid; gap: 2px; }
+.last-log li { display: grid; grid-template-columns: 72px 1fr; gap: 10px; padding: 7px 10px; border-radius: 8px; font-size: 14px; color: var(--muted); }
+.last-log li:nth-child(odd) { background: var(--panel); }
+.last-log time { color: #5f6676; font-variant-numeric: tabular-nums; font-size: 12px; padding-top: 2px; }
+.last-log li.hot { color: var(--gold); }
+.last-log li.end { color: var(--text); font-weight: 600; }
+@media (max-width: 720px) { .last-body { grid-template-columns: 1fr; } }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .chip { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; color: var(--muted); }
 .chip.is-on { background: var(--text); color: var(--bg); border-color: var(--text); }

@@ -26,6 +26,7 @@
     <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>FightChains</a>
     <nav>
       <a href="#arena">Arena</a>
+      <a href="#last-fight">Last fight</a>
       <a href="#matchmaker">Matchmaker</a>
       <a href="#record">Track record</a>
     </nav>
@@ -97,7 +98,8 @@
           <p class="result-kicker" id="result-kicker"></p>
           <h3 id="result-title"></h3>
           <p id="result-detail"></p>
-          <button type="button" class="btn" id="result-again">Run it back</button>
+          <button type="button" class="btn" id="result-watch">Watch it again</button>
+          <button type="button" class="btn" id="result-again">New fight</button>
         </div>
         <div class="live">
           <div class="live-head"><span>Chances from here</span><span class="live-hint">updates every exchange</span></div>
@@ -118,6 +120,21 @@
           <button type="button" data-speed="2">2&times;</button>
           <button type="button" data-speed="5">5&times;</button>
         </div>
+      </div>
+    </section>
+
+    <section class="last-fight" id="last-fight" hidden>
+      <div class="section-head">
+        <p class="kicker">Last fight</p>
+        <h2 id="last-title">Watch it again</h2>
+        <p id="last-lede"></p>
+      </div>
+      <div class="last-body">
+        <div class="last-card" id="last-card"></div>
+        <ol class="last-log" id="last-log"></ol>
+      </div>
+      <div class="controls">
+        <button type="button" class="btn btn-primary" id="btn-watch-again">Watch it again</button>
       </div>
     </section>
 
