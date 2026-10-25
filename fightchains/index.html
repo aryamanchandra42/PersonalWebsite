@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script>
+    (function () {
+      var path = location.pathname;
+      if (path === '/fightchains' || path.indexOf('/fightchains/') === 0) {
+        document.write('<base href="/fightchains/">');
+      }
+      if (path === '/fightchains') {
+        location.replace('/fightchains/' + location.search + location.hash);
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FightChains · Real UFC fighters, simulated</title>
   <meta name="description" content="Every active UFC fighter rebuilt from how they actually fight. Pick a matchup, watch it play out, and see the fights worth making.">

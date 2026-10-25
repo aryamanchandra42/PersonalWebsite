@@ -22,7 +22,7 @@
 
   function load() {
     return Promise.all(['fighters', 'matchups', 'league', 'backtest'].map(function (k) {
-      return fetch('data/' + k + '.json').then(function (r) { return r.json(); }).then(function (j) { data[k] = j; });
+      return fetch(new URL('data/' + k + '.json', document.baseURI)).then(function (r) { return r.json(); }).then(function (j) { data[k] = j; });
     }));
   }
 
