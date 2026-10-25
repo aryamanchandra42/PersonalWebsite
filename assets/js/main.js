@@ -37,15 +37,40 @@ document.addEventListener('DOMContentLoaded', function () {
   var homePanel = document.querySelector('.home-intro-panel');
   var homeGrid = homePanel && homePanel.querySelector('.home-grid-hover');
   if (homePanel && homeGrid) {
-    var homeGridCellSize = 32;
+    var homeGridCellSize = parseFloat(getComputedStyle(document.body).backgroundSize) || 42;
     var activeHomeGridCell = null;
+    function homeGridMod(value, size) {
+      return ((value % size) + size) % size;
+    }
+    function homeGridMetrics() {
+      var panelRect = homePanel.getBoundingClientRect();
+      var bodyRect = document.body.getBoundingClientRect();
+      var startX = -homeGridMod(panelRect.left - bodyRect.left, homeGridCellSize);
+      var startY = -homeGridMod(panelRect.top - bodyRect.top, homeGridCellSize);
+      return {
+        panelRect: panelRect,
+        startX: startX,
+        startY: startY,
+        columns: Math.ceil((homePanel.clientWidth - startX) / homeGridCellSize),
+        rows: Math.ceil((homePanel.clientHeight - startY) / homeGridCellSize)
+      };
+    }
     function buildHomeGrid() {
-      var columns = Math.ceil(homePanel.clientWidth / homeGridCellSize);
-      var rows = Math.ceil(homePanel.clientHeight / homeGridCellSize);
-      homeGrid.style.setProperty('--home-grid-columns', columns);
-      homeGrid.replaceChildren();
-      for (var index = 0; index < columns * rows; index += 1) {
-        homeGrid.appendChild(document.createElement('span'));
+      var metrics = homeGridMetrics();
+      homeGrid.style.setProperty('--home-grid-cell', homeGridCellSize + 'px');
+      homeGrid.style.setProperty('--home-grid-columns', metrics.columns);
+      homeGrid.style.left = metrics.startX + 'px';
+      homeGrid.style.top = metrics.startY + 'px';
+      homeGrid.style.right = 'auto';
+      homeGrid.style.bottom = 'auto';
+      homeGrid.style.width = (homePanel.clientWidth - metrics.startX) + 'px';
+      homeGrid.style.height = (homePanel.clientHeight - metrics.startY) + 'px';
+      var count = metrics.columns * metrics.rows;
+      if (homeGrid.childElementCount !== count) {
+        homeGrid.replaceChildren();
+        for (var index = 0; index < count; index += 1) {
+          homeGrid.appendChild(document.createElement('span'));
+        }
       }
       activeHomeGridCell = null;
     }
@@ -55,11 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     homePanel.addEventListener('pointermove', function (event) {
       if (event.pointerType === 'touch') return;
-      var bounds = homePanel.getBoundingClientRect();
-      var column = Math.floor((event.clientX - bounds.left) / homeGridCellSize);
-      var row = Math.floor((event.clientY - bounds.top) / homeGridCellSize);
-      var columns = Math.ceil(homePanel.clientWidth / homeGridCellSize);
-      var cell = homeGrid.children[row * columns + column];
+      var metrics = homeGridMetrics();
+      var column = Math.floor((event.clientX - metrics.panelRect.left - metrics.startX) / homeGridCellSize);
+      var row = Math.floor((event.clientY - metrics.panelRect.top - metrics.startY) / homeGridCellSize);
+      if (column < 0 || row < 0 || column >= metrics.columns || row >= metrics.rows) {
+        clearHomeGridHover();
+        return;
+      }
+      var cell = homeGrid.children[row * metrics.columns + column];
       if (cell === activeHomeGridCell) return;
       clearHomeGridHover();
       if (cell) {

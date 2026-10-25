@@ -812,9 +812,9 @@ button,input,select,textarea,code,pre,kbd,samp{font-family:var(--sans)}
 
 /* Let the landing-page grid respond to the pointer without blocking its links. */
 .home-intro-panel{position:relative}
-.home-intro-panel>.home-grid-hover{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:repeat(var(--home-grid-columns,1),32px);grid-auto-rows:32px;overflow:hidden;pointer-events:none}
-.home-grid-hover>span{width:32px;height:32px;background:transparent;transition:background-color .16s ease}
-.home-grid-hover>span.is-active{background:rgba(0,0,0,.38)}
+.home-intro-panel>.home-grid-hover{position:absolute;z-index:0;display:grid;grid-template-columns:repeat(var(--home-grid-columns,1),var(--home-grid-cell,42px));grid-auto-rows:var(--home-grid-cell,42px);overflow:hidden;pointer-events:none}
+.home-grid-hover>span{width:var(--home-grid-cell,42px);height:var(--home-grid-cell,42px);background:transparent;transition:background-color .16s ease}
+.home-grid-hover>span.is-active{background:rgba(71,108,137,.34)}
 .home-intro-panel>.home-hero,.home-intro-panel>.recognition-index{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){.home-grid-hover>span{transition:none}}
 .home-intro-panel .hero-button{border-radius:0}
@@ -1180,10 +1180,8 @@ main.container:has(.project-list){width:min(1520px,calc(100% - clamp(24px,5vw,96
   flex-direction:column;
   min-height:calc(100svh - var(--nav));
   overflow:hidden;
-  background-image:
-    linear-gradient(rgba(65,92,110,.028) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(65,92,110,.028) 1px,transparent 1px);
-  background-size:40px 40px;
+  background-color:transparent;
+  background-image:none;
 }
 .home-intro-panel .home-hero{
   flex:1;
@@ -1390,11 +1388,8 @@ main.container:has(.project-list){width:min(1520px,calc(100% - clamp(24px,5vw,96
 .elsewhere-project-logo span{font:700 clamp(26px,2.8vw,34px)/1 var(--serif);letter-spacing:-.04em}
 .elsewhere-project-card .eyebrow{margin-bottom:6px}
 @media(max-width:760px){.elsewhere-project-logo img{width:42px;height:42px}.elsewhere-project-logo span{font-size:28px}}
-.fightchains-mini{display:block;max-width:300px;margin-bottom:4px}
+.fightchains-mini{display:block;width:min(300px,100%);margin:0 0 10px;color:var(--ink)}
 .fightchains-mini svg{width:100%;height:auto;display:block}
-.fc-mini-edges path{fill:none;stroke:#4d5a62;stroke-opacity:.45;stroke-width:2;stroke-dasharray:5 5;animation:fc-mini-flow 2.4s linear infinite}
-@keyframes fc-mini-flow{to{stroke-dashoffset:-20}}
-@media(prefers-reduced-motion:reduce){.fc-mini-edges path{animation:none}}
 
 /* Patent honour slide: fill the tall carousel frame */
 @media(min-width:761px){
