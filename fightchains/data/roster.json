@@ -1,0 +1,215 @@
+{
+  "note": "Named athletes list only public facts. No win-loss records. Rates are never typed in here; they are inferred from UFC cohorts in archetypes.json.",
+  "disciplines": [
+    {
+      "id": "kushti",
+      "name": "Kushti / Pehlwani",
+      "group": "grappling",
+      "cohort": "wrestler",
+      "foundation": ["td", "top_exit", "bottom_exit", "rev"],
+      "pin": true,
+      "shrink": [],
+      "lock_step": false,
+      "blurb": "Akhara wrestling. Throws and pins map onto UFC takedowns and top control. The rest of the card is what wrestler-first UFC fighters already do after a camp: hands, ground strikes, submissions.",
+      "gap": "No gloves, no fence, no chokes. Standing striking and submission hunting are camp skills, not kushti."
+    },
+    {
+      "id": "freestyle",
+      "name": "Freestyle wrestling",
+      "group": "grappling",
+      "cohort": "wrestler",
+      "foundation": ["td", "td_vuln", "top_exit", "bottom_exit", "rev"],
+      "pin": false,
+      "shrink": [],
+      "lock_step": false,
+      "blurb": "Olympic freestyle. Takedowns and takedown defence are the foundation. Boxing, ground-and-pound, and submissions come from the same wrestler-first UFC cohort.",
+      "gap": "A pin is not a choke. Freestyle does not train striking."
+    },
+    {
+      "id": "judo",
+      "name": "Judo",
+      "group": "grappling",
+      "cohort": "judoka",
+      "foundation": ["td", "clinch_share", "top_exit", "rev"],
+      "pin": false,
+      "shrink": [],
+      "lock_step": false,
+      "blurb": "Throws and clinch. Mapped onto UFC fighters who actually take people down from the clinch. Hands and submissions on the card are those fighters' secondary tools.",
+      "gap": "The gi is gone. No-gi striking defence is inferred, not measured from Indian judo."
+    },
+    {
+      "id": "boxing",
+      "name": "Boxing",
+      "group": "striking",
+      "cohort": "striker",
+      "foundation": ["land_stand", "ko_stand", "absorb_stand", "ko_stand_vuln"],
+      "pin": false,
+      "shrink": [],
+      "lock_step": false,
+      "kicks": false,
+      "blurb": "Hands only. Standing volume and knockdowns come from striker-first UFC fighters. Their real takedowns and submissions fill the rest of the arsenal, the way a boxer who has learned to wrestle looks.",
+      "gap": "No kicks, no clinch throws, no ground game in the amateur record. Those rates are camp, not boxing."
+    },
+    {
+      "id": "kickboxing",
+      "name": "Kickboxing",
+      "group": "striking",
+      "cohort": "striker",
+      "foundation": ["land_stand", "ko_stand", "absorb_stand", "ko_stand_vuln"],
+      "pin": false,
+      "shrink": [],
+      "lock_step": false,
+      "kicks": true,
+      "blurb": "Hands and kicks. The full striker-first UFC card, including that cohort's wrestling and submissions.",
+      "gap": "Kickboxing does not train takedown defence the way MMA does. Wrestling on this card is inferred from UFC strikers, not from Indian kickboxing results."
+    },
+    {
+      "id": "kalaripayattu",
+      "name": "Kalaripayattu",
+      "group": "traditional",
+      "cohort": "striker",
+      "foundation": ["land_stand", "ko_stand"],
+      "pin": false,
+      "shrink": ["land_stand", "ko_stand", "absorb_stand"],
+      "lock_step": true,
+      "blurb": "Empty-hand kalari. Striking is a shrunk step toward UFC strikers, because those years were not in gloves. Locks add a small submission step, still inside the striker-first range. Weapons stay outside the cage.",
+      "gap": "No UFC-comparable kalari bout log. The shrink is the admission that this mapping is inferred."
+    },
+    {
+      "id": "silambam",
+      "name": "Silambam",
+      "group": "traditional",
+      "cohort": "range",
+      "foundation": ["clinch_share"],
+      "pin": false,
+      "shrink": ["land_stand", "ko_stand", "td", "clinch_share"],
+      "lock_step": false,
+      "range_bias": true,
+      "blurb": "The stick does not enter the octagon. What remains is distance and footwork, taken from range-first UFC fighters and then shrunk. Boxing, wrestling, and submissions on the card are that cohort's camp skills, not silambam.",
+      "gap": "A staff is not a jab. This card is expected to trail a typical UFC fighter until striking and wrestling are trained."
+    }
+  ],
+  "athletes": [
+    {
+      "id": "sushil-kumar",
+      "name": "Sushil Kumar",
+      "discipline": "kushti",
+      "sex": "men",
+      "weight_kg": 66,
+      "division": "Featherweight",
+      "born": 1983,
+      "source": "https://en.wikipedia.org/wiki/Sushil_Kumar_(wrestler)",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "bajrang-punia",
+      "name": "Bajrang Punia",
+      "discipline": "freestyle",
+      "sex": "men",
+      "weight_kg": 65,
+      "division": "Featherweight",
+      "born": 1994,
+      "source": "https://en.wikipedia.org/wiki/Bajrang_Punia",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "aman-sehrawat",
+      "name": "Aman Sehrawat",
+      "discipline": "freestyle",
+      "sex": "men",
+      "weight_kg": 57,
+      "division": "Flyweight",
+      "born": 2003,
+      "source": "https://en.wikipedia.org/wiki/Aman_Sehrawat",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "vinesh-phogat",
+      "name": "Vinesh Phogat",
+      "discipline": "freestyle",
+      "sex": "women",
+      "weight_kg": 50,
+      "division": "Women's Strawweight",
+      "born": 1994,
+      "source": "https://en.wikipedia.org/wiki/Vinesh_Phogat",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "sakshi-malik",
+      "name": "Sakshi Malik",
+      "discipline": "freestyle",
+      "sex": "women",
+      "weight_kg": 62,
+      "division": "Women's Bantamweight",
+      "born": 1992,
+      "source": "https://en.wikipedia.org/wiki/Sakshi_Malik",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "antim-panghal",
+      "name": "Antim Panghal",
+      "discipline": "freestyle",
+      "sex": "women",
+      "weight_kg": 53,
+      "division": "Women's Flyweight",
+      "born": 2004,
+      "source": "https://en.wikipedia.org/wiki/Antim_Panghal",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "amit-panghal",
+      "name": "Amit Panghal",
+      "discipline": "boxing",
+      "sex": "men",
+      "weight_kg": 52,
+      "division": "Flyweight",
+      "born": 1995,
+      "source": "https://en.wikipedia.org/wiki/Amit_Panghal",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "nikhat-zareen",
+      "name": "Nikhat Zareen",
+      "discipline": "boxing",
+      "sex": "women",
+      "weight_kg": 52,
+      "division": "Women's Strawweight",
+      "born": 1996,
+      "source": "https://en.wikipedia.org/wiki/Nikhat_Zareen",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "lovlina-borgohain",
+      "name": "Lovlina Borgohain",
+      "discipline": "boxing",
+      "sex": "women",
+      "weight_kg": 70,
+      "division": "Women's Bantamweight",
+      "born": 1997,
+      "source": "https://en.wikipedia.org/wiki/Lovlina_Borgohain",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "avtar-singh",
+      "name": "Avtar Singh",
+      "discipline": "judo",
+      "sex": "men",
+      "weight_kg": 90,
+      "division": "Light Heavyweight",
+      "born": 1992,
+      "source": "https://en.wikipedia.org/wiki/Avtar_Singh_(judoka)",
+      "source_label": "Wikipedia"
+    },
+    {
+      "id": "tulika-maan",
+      "name": "Tulika Maan",
+      "discipline": "judo",
+      "sex": "women",
+      "weight_kg": 78,
+      "division": "Women's Bantamweight",
+      "born": 1998,
+      "source": "https://en.wikipedia.org/wiki/Tulika_Maan",
+      "source_label": "Wikipedia"
+    }
+  ]
+}

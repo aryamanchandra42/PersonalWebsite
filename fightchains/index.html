@@ -14,42 +14,139 @@
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FightChains · Real UFC fighters, simulated</title>
-  <meta name="description" content="Every active UFC fighter rebuilt from how they actually fight. Pick a matchup, watch it play out, and see the fights worth making.">
+  <title>Akhara to Octagon · Indian combat talent, scored for MMA</title>
+  <meta name="description" content="A Moneyball scouting board for Indian wrestlers, boxers, judoka and martial artists. Map a discipline onto UFC rates, see the gaps, and run the fight.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>FightChains</a>
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Akhara to Octagon</a>
     <nav>
-      <a href="#arena">Arena</a>
-      <a href="#last-fight">Last fight</a>
-      <a href="#matchmaker">Matchmaker</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#arena">Projection</a>
       <a href="#record">Track record</a>
-      <a href="#math">The math</a>
+      <a href="#assumptions">Assumptions</a>
     </nav>
   </header>
 
   <main id="top">
     <section class="hero">
-      <p class="kicker">Real fighters &middot; real fights &middot; simulated</p>
-      <h1>Every UFC fighter, rebuilt from the way they actually fight.</h1>
-      <p class="hero-lede">Pick two fighters and watch their styles collide. Every exchange, takedown and scramble is driven by what each fighter has done in the cage, so no two replays are the same.</p>
+      <p class="kicker">Moneyball for the akhara</p>
+      <h1>Overlooked Indian combat talent, scored for the octagon.</h1>
+      <p class="hero-lede">Kushti, freestyle, boxing, judo, kickboxing, kalaripayattu, silambam. Each style is a foundation. The rest of the arsenal is what UFC fighters from that same kind of base actually learned in camp. A seven-point edge is seventy extra wins in a thousand fights: small on a card, the whole scouting case at volume. Win chances are model estimates, not promises.</p>
       <div class="hero-stats" id="hero-stats"></div>
     </section>
 
-    <section class="arena-section" id="arena" aria-label="Fight simulator">
+    <section class="scorecard-section" id="scorecard">
+      <div class="sheet">
+        <div class="board-top">
+          <aside class="board-rail">
+            <div class="sheet-pick">
+              <p class="kicker">Discipline</p>
+              <div class="chips" id="sc-disciplines"></div>
+              <div class="sheet-row">
+                <label class="pick">
+                  <span>Weight class</span>
+                  <select id="sc-division"></select>
+                </label>
+                <label class="pick">
+                  <span>Named athlete</span>
+                  <select id="sc-athlete"></select>
+                </label>
+              </div>
+            </div>
+            <div id="sc-who"></div>
+          </aside>
+          <div class="board-readout">
+            <div class="stamp stamp-win">
+              <span>Vs typical UFC</span>
+              <strong id="sc-p-med">—</strong>
+              <small id="sc-p-label">model estimate from UFC rates</small>
+            </div>
+            <p class="sc-slate" id="sc-slate"></p>
+            <div class="sheet-stamps">
+              <div class="stamp">
+                <span>Readiness index</span>
+                <strong id="sc-ready-val">—</strong>
+                <small id="sc-ready-note"></small>
+              </div>
+              <div class="stamp">
+                <span>Vs novice</span>
+                <strong id="sc-p-nov">—</strong>
+                <small id="sc-p-nov-note">same size, no camp</small>
+              </div>
+              <div class="stamp">
+                <span>Pathway</span>
+                <strong class="stamp-path" id="sc-path">—</strong>
+                <small>heaviest opponent the estimate still favours</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-grid">
+          <div>
+            <h3>Strengths and gaps</h3>
+            <p class="sub">Each bar is an inferred rate against the measured UFC division distribution. Gold is a strength.</p>
+            <ul class="sc-skills" id="sc-skills"></ul>
+          </div>
+          <div>
+            <h3>How a typical fight ends</h3>
+            <p class="sub">Share of the prospect’s estimated wins, from the chain. Model estimate.</p>
+            <ul class="sc-method" id="sc-method"></ul>
+            <h3>Priority training</h3>
+            <p id="sc-priority"></p>
+            <ul class="sc-lifts" id="sc-lifts"></ul>
+          </div>
+        </div>
+
+        <div class="sheet-train">
+          <h3>What if they train</h3>
+          <p class="sub">Hypothetical. Each slider moves a rate from the inferred card toward a competent UFC level. 0% is the mapped athlete. 100% is the better of the cohort and the division median.</p>
+          <div id="sc-sliders"></div>
+          <div class="sheet-train-row">
+            <div class="seg" role="group" aria-label="Opponent">
+              <button type="button" data-opp="median" class="is-on">Typical UFC</button>
+              <button type="button" data-opp="novice">Novice</button>
+            </div>
+            <button type="button" class="btn" id="sc-reset">Reset sliders</button>
+          </div>
+        </div>
+
+        <div class="sheet-notes">
+          <div>
+            <h3>What this style is</h3>
+            <p id="sc-blurb"></p>
+          </div>
+          <div>
+            <h3>What it is not</h3>
+            <p id="sc-gap"></p>
+          </div>
+          <div>
+            <h3>Assumptions on this card</h3>
+            <div id="sc-assumptions"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="arena-section" id="arena" aria-label="Projection">
+      <div class="section-head">
+        <p class="kicker">Projection</p>
+        <h2>Watch the estimate play out</h2>
+        <p>The same chain that scores UFC fights, now running the scorecard matchup. Blue is the prospect. Red is the opponent you picked above.</p>
+      </div>
       <div class="picker">
         <label class="pick">
           <span>Division</span>
           <select id="pick-division"></select>
         </label>
         <label class="pick pick-a">
-          <span>Blue corner</span>
+          <span>Prospect</span>
           <select id="pick-a"></select>
         </label>
         <span class="pick-vs">vs</span>
@@ -182,7 +279,7 @@
       <div class="tape-side tape-b" id="tape-b"></div>
     </section>
 
-    <section class="matchmaker" id="matchmaker">
+    <section class="matchmaker" id="matchmaker" hidden>
       <div class="section-head">
         <p class="kicker">Matchmaker</p>
         <h2>Fights worth making</h2>
@@ -195,8 +292,9 @@
     <section class="record" id="record">
       <div class="section-head">
         <p class="kicker">Track record</p>
-        <h2>Tested on fights it never saw</h2>
+        <h2>The chain, tested on UFC fights it never saw</h2>
         <p id="record-lede"></p>
+        <p class="note">This holdout is about UFC fighters. It is not a test of the Indian scouting map.</p>
       </div>
       <div class="record-grid">
         <div class="card stat-tiles" id="record-tiles"></div>
@@ -209,6 +307,36 @@
           <ul class="titles" id="titles"></ul>
         </div>
       </div>
+      <div class="card metrics-card" id="metrics"></div>
+    </section>
+
+    <section class="math" id="assumptions">
+      <div class="section-head">
+        <p class="kicker">Assumptions</p>
+        <h2>How a style becomes rates</h2>
+        <p>There is no kushti, kalari, or silambam bout file in this project. The measured numbers are UFCStats, frozen before 1 January 2025. A discipline contributes a foundation. The rest of the card is the full rate vector of UFC fighters who started in that same kind of base and then learned the other arts. Jon Jones was a wrestler first; he also had boxing and jiu-jitsu. That is the pattern. He is not the template.</p>
+      </div>
+      <article class="math-block">
+        <h3>Three kinds of number</h3>
+        <p><strong>Measured.</strong> UFC per-minute rates and the holdout on this page. Computed from fights before 2025.</p>
+        <p><strong>Inferred.</strong> A discipline mapped onto a UFC cohort. Written in the roster file, not fitted to Indian results.</p>
+        <p><strong>Hypothetical.</strong> A slider. The chain is re-run with one rate edited. That is a what-if, not a claim the athlete will gain the skill.</p>
+      </article>
+      <article class="math-block">
+        <h3>The four UFC cohorts</h3>
+        <p>Inside each division, with at least eight minutes of cage time:</p>
+        <ul>
+          <li>Wrestler-first: top quarter of takedowns and of time on top. The card keeps their striking and submissions.</li>
+          <li>Striker-first: top quarter of standing strikes and knockdowns, with their real wrestling attached.</li>
+          <li>Judoka-like: top quarter of clinch share and takedowns.</li>
+          <li>Range-first: top quarter of time at distance and a low clinch share.</li>
+        </ul>
+        <p>If a division cohort has fewer than four fighters, the model falls back to the men’s or women’s pool.</p>
+      </article>
+      <article class="math-block">
+        <h3>The map</h3>
+        <p>Kushti and freestyle use the wrestler-first card. Kushti pins set top-exit to that cohort’s low end. Judo uses the throw-first card. Boxing uses striker-first hands and that cohort’s grappling as camp. Kickboxing uses the full striker-first card. Kalaripayattu empty hand is a shrunk striker card plus a small lock step for submissions. Silambam keeps only distance; the stick is not a jab. Named athletes contribute weight, sex, age, and a source URL. No medals are typed in as rates.</p>
+      </article>
     </section>
 
     <section class="math" id="math">
@@ -331,11 +459,12 @@
 
   <footer class="foot">
     <p>Fight data from UFCStats, collected by the open <a href="https://github.com/Greco1899/scrape_ufc_stats">scrape_ufc_stats</a> project. <span id="foot-through"></span></p>
-    <p>A FightChains project by <a href="https://aryamanchandra.in">Aryaman Chandra</a>.</p>
+    <p>Akhara to Octagon is a scouting layer on that chain. Indian results are not in the fit. A project by <a href="https://aryamanchandra.in">Aryaman Chandra</a>.</p>
   </footer>
 
   <script src="js/chain.js"></script>
   <script src="js/figures.js"></script>
+  <script src="js/scout.js"></script>
   <script src="js/app.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"

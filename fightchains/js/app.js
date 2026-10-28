@@ -16,7 +16,12 @@
   var rng = { seed: 1 }, lastFight = null, watchingAgain = false;
 
   function $(id) { return document.getElementById(id); }
-  function last(name) { var p = name.split(' '); return p.length > 1 ? p.slice(1).join(' ') : name; }
+  function last(name) {
+    var f = byName[name];
+    if (f && (f.prospect || f.synthetic)) return name.replace(/ archetype$/, '').replace(/^Typical /, '');
+    var p = name.split(' ');
+    return p.length > 1 ? p.slice(1).join(' ') : name;
+  }
   function pct(x) { return Math.round(x * 100) + '%'; }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function newSeed() { return ((Math.random() * 0xffffffff) | 1) >>> 0; }
@@ -30,7 +35,7 @@
   }
 
   function load() {
-    return Promise.all(['fighters', 'matchups', 'league', 'backtest', 'photos'].map(function (k) {
+    return Promise.all(['fighters', 'matchups', 'league', 'backtest', 'photos', 'archetypes', 'roster'].map(function (k) {
       return fetch(new URL('data/' + k + '.json', document.baseURI)).then(function (r) {
         if (!r.ok) throw new Error(k);
         return r.json();
@@ -71,7 +76,8 @@
 
   function fillSelect(sel, roster, chosen) {
     sel.innerHTML = roster.map(function (f) {
-      return '<option value="' + esc(f.name) + '"' + (f.name === chosen ? ' selected' : '') + '>' + esc(f.name) + ' (' + f.record[0] + '-' + f.record[1] + ')</option>';
+      var tag = f.prospect ? 'inferred' : f.synthetic ? f.synthetic : (f.record[0] + '-' + f.record[1]);
+      return '<option value="' + esc(f.name) + '"' + (f.name === chosen ? ' selected' : '') + '>' + esc(f.name) + ' (' + tag + ')</option>';
     }).join('');
   }
 
@@ -89,12 +95,14 @@
     var divs = divisionList();
     $('pick-division').innerHTML = divs.map(function (d) { return '<option>' + esc(d) + '</option>'; }).join('');
     $('pick-division').addEventListener('change', function (e) {
+      if (window.Akhara) return;
       var card = (data.matchups[e.target.value] || [])[0];
       var roster = rosterOf(e.target.value);
       if (card) setMatchup(card.a, card.b, e.target.value);
       else setMatchup(roster[0].name, roster[1].name, e.target.value);
     });
     $('pick-a').addEventListener('change', function (e) {
+      if (window.Akhara) return;
       if (e.target.value === ui.b) { ui.b = ui.a; }
       setMatchup(e.target.value, ui.b, ui.division);
     });
@@ -185,16 +193,23 @@
   }
 
   function tapeSide(f, corner) {
-    var form = f.form.map(function (x) {
+    var form = (f.form && f.form.length ? f.form : []).map(function (x) {
       return '<li class="form-' + x.r.toLowerCase() + '" title="' + esc(x.r + ' vs ' + x.vs + ' · ' + x.kind + ' · ' + x.date) + '">' + x.r + '<small>' + (x.kind === 'OTHER' ? '' : x.kind) + '</small></li>';
-    }).join('');
+    }).join('') || '<li class="form-d">No UFC record on this card</li>';
     var st = f.style;
     var bits = [f.height && ('Height ' + f.height), f.reach && ('Reach ' + f.reach), f.stance].filter(Boolean).join(' · ');
+    var rec = f.prospect
+      ? '<p class="rec"><strong>Prospect</strong> · inferred · ' + esc(f.division) + '</p>'
+      : f.synthetic === 'median'
+        ? '<p class="rec"><strong>Measured median</strong> of UFC ' + esc(f.division) + '</p>'
+        : f.synthetic === 'novice'
+          ? '<p class="rec"><strong>Novice</strong> · league rates · ' + esc(f.division) + '</p>'
+          : '<p class="rec"><strong>' + f.record[0] + '-' + f.record[1] + '</strong> in the UFC &middot; ' + esc(f.division) + '</p>';
     return face(f, 'face-lg') +
       '<p class="corner-tag">' + corner + ' corner</p>' +
       '<h3>' + esc(f.name) + '</h3>' +
       (f.nickname ? '<p class="nick">&ldquo;' + esc(f.nickname) + '&rdquo;</p>' : '') +
-      '<p class="rec"><strong>' + f.record[0] + '-' + f.record[1] + '</strong> in the UFC &middot; ' + esc(f.division) + '</p>' +
+      rec +
       (bits ? '<p class="meta">' + esc(bits) + '</p>' : '') +
       '<p class="mini-h">Last five</p><ol class="form">' + form + '</ol>' +
       '<p class="mini-h">Where they spend their fights</p>' +
@@ -825,6 +840,7 @@
     ];
     $('record-tiles').innerHTML = tiles.map(function (t) { return '<div class="tile"><strong>' + t[0] + '</strong><span>' + t[1] + '</span><small>' + t[2] + '</small></div>'; }).join('');
     renderCalibration(bt.calibration);
+    renderMetrics(bt);
     $('titles').innerHTML = bt.title_fights.map(function (f) {
       var favA = f.p_model >= 0.5, fav = favA ? f.a : f.b, p = favA ? f.p_model : 1 - f.p_model;
       var winner = f.won ? f.a : f.b;
@@ -835,6 +851,93 @@
   }
 
   function called(f) { return (f.p_model >= 0.5) === f.won; }
+
+  function renderMetrics(bt) {
+    var host = $('metrics');
+    if (!host || !bt.model || bt.model.r2 == null) return;
+    var cols = [
+      ['model', 'FightChains'],
+      ['chain_only', 'Unshrunk chain'],
+      ['elo', 'Elo'],
+      ['coin', 'Coin flip']
+    ];
+    var rows = [
+      ['Accuracy', 'accuracy', 'pct', true],
+      ['R\u00b2', 'r2', 'num', true],
+      ['McFadden R\u00b2', 'mcfadden_r2', 'num', true],
+      ['AUC', 'auc', 'num', true],
+      ['Log loss', 'log_loss', 'num', false],
+      ['Brier score', 'brier', 'num', false],
+      ['Brier skill', 'brier_skill', 'num', true],
+      ['RMSE', 'rmse', 'num', false],
+      ['MAE', 'mae', 'num', false],
+      ['Calibration error', 'ece', 'num', false]
+    ];
+    function num(v) {
+      var n = Math.round(v * 1000) / 1000;
+      return (n < 0 ? '\u2212' : '') + Math.abs(n).toFixed(3);
+    }
+    function show(v, kind) {
+      return kind === 'pct' ? (v * 100).toFixed(1) + '%' : num(v);
+    }
+    function bestMask(key, higher) {
+      var vals = cols.map(function (c) { return bt[c[0]][key]; });
+      var best = higher ? Math.max.apply(null, vals) : Math.min.apply(null, vals);
+      return vals.map(function (v) { return Math.abs(v - best) < 5e-4; });
+    }
+    var head = '<tr><th>Picking the winner</th>' + cols.map(function (c) { return '<th>' + c[1] + '</th>'; }).join('') + '</tr>';
+    var body = rows.map(function (row) {
+      var mask = bestMask(row[1], row[3]);
+      return '<tr><th>' + row[0] + '</th>' + cols.map(function (c, i) {
+        return '<td' + (mask[i] ? ' class="is-best"' : '') + '>' + show(bt[c[0]][row[1]], row[2]) + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+
+    function shareTable(caption, names, pred, act) {
+      return '<h3>' + caption + '</h3><div class="metrics-wrap"><table class="metrics"><thead><tr><th></th><th>Predicted</th><th>Real bouts</th></tr></thead><tbody>' +
+        names.map(function (name, i) {
+          return '<tr><th>' + name + '</th><td>' + (pred[i] * 100).toFixed(1) + '%</td><td>' + (act[i] * 100).toFixed(1) + '%</td></tr>';
+        }).join('') + '</tbody></table></div>';
+    }
+
+    var fin = bt.finish_model, meth = bt.method, end = bt.ending || {};
+    var lines = [];
+    if (fin) {
+      lines.push(['Finish inside the distance', (fin.accuracy * 100).toFixed(1) + '%', 'R\u00b2 ' + num(fin.r2) + ' \u00b7 AUC ' + num(fin.auc) + ' \u00b7 log loss ' + num(fin.log_loss) + ' \u00b7 Brier ' + num(fin.brier)]);
+      lines.push(['Finish rate', (bt.finish_rate.predicted * 100).toFixed(1) + '%', 'Real bouts finished ' + (bt.finish_rate.actual * 100).toFixed(1) + '% of the time']);
+    }
+    if (meth) {
+      lines.push(['Method accuracy', (meth.accuracy * 100).toFixed(1) + '%', 'KO, submission, or decision \u00b7 R\u00b2 ' + num(meth.r2) + ' \u00b7 log loss ' + num(meth.log_loss) + ' \u00b7 Brier ' + num(meth.brier)]);
+    }
+    if (end.three) lines.push(['Three-round ending', (end.three.accuracy * 100).toFixed(1) + '%', end.three.n + ' bouts \u00b7 R\u00b2 ' + num(end.three.r2) + ' \u00b7 log loss ' + num(end.three.log_loss)]);
+    if (end.five) lines.push(['Five-round ending', (end.five.accuracy * 100).toFixed(1) + '%', end.five.n + ' bouts \u00b7 R\u00b2 ' + num(end.five.r2) + ' \u00b7 log loss ' + num(end.five.log_loss)]);
+    var outcome = lines.length ? (
+      '<h3>How the bout ended</h3>' +
+      '<p class="sub">Finish, method, and round, scored on the same ' + bt.n + ' bouts. Accuracy here is how often the most likely outcome was the one that happened.</p>' +
+      '<div class="metrics-wrap"><table class="metrics"><thead><tr><th></th><th>Score</th><th>Against the real bouts</th></tr></thead><tbody>' +
+      lines.map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + r[1] + '</td><td class="wrap">' + r[2] + '</td></tr>'; }).join('') +
+      '</tbody></table></div>' +
+      (meth ? shareTable('Method', ['KO / TKO', 'Submission', 'Decision'], meth.predicted, meth.actual) : '') +
+      (end.three ? shareTable('Three-round bouts, by round', ['Round 1', 'Round 2', 'Round 3', 'Decision'], end.three.predicted, end.three.actual) : '') +
+      (end.five ? shareTable('Five-round bouts, by round', ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Round 5', 'Decision'], end.five.predicted, end.five.actual) : '')
+    ) : '';
+
+    host.innerHTML =
+      '<h3>Accuracy, R\u00b2, and the other scores</h3>' +
+      '<p class="sub">Same ' + bt.n + ' bouts, called blind. The fighter listed first won ' + (bt.base_rate * 100).toFixed(1) + '% of them. Gold marks the best score on that row. FightChains and the unshrunk chain pick the same winners; the shrink is what makes R\u00b2 positive and beats a coin flip on log loss.</p>' +
+      '<div class="metrics-wrap"><table class="metrics"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' +
+      outcome +
+      '<dl class="metrics-defs">' +
+      '<div><dt>Accuracy</dt><dd>Share of bouts where the higher probability was the winner. An even 50% scores half a point.</dd></div>' +
+      '<div><dt>R\u00b2</dt><dd>Efron\u2019s R\u00b2. Zero means the probabilities explain nothing beyond always quoting the base rate.</dd></div>' +
+      '<div><dt>McFadden R\u00b2</dt><dd>One minus the model\u2019s log loss, divided by the log loss of the base rate.</dd></div>' +
+      '<div><dt>AUC</dt><dd>Chance that a bout the fighter won was given a higher probability than a bout they lost.</dd></div>' +
+      '<div><dt>Log loss and Brier</dt><dd>Penalties for confident misses. A coin flip scores 0.693 and 0.250. Lower is better.</dd></div>' +
+      '<div><dt>Brier skill</dt><dd>How far the Brier score sits below a coin flip\u2019s 0.250. Zero matches a coin.</dd></div>' +
+      '<div><dt>RMSE and MAE</dt><dd>Typical gap between the stated probability and the 0/1 result. Lower is better.</dd></div>' +
+      '<div><dt>Calibration error</dt><dd>Average gap between a stated probability and how often that probability won. Lower is better.</dd></div>' +
+      '</dl>';
+  }
 
   function niceDate(s) {
     var d = new Date(s + 'T00:00:00');
@@ -863,13 +966,34 @@
 
   // ---------- hero ----------
   function renderHero() {
-    var L = data.league;
-    $('hero-stats').innerHTML = [
+    var L = data.league, A = data.archetypes, R = data.roster;
+    var stats = A && R ? [
+      [A.n_fighters.toLocaleString(), 'UFC fighters in the frozen cohorts'],
+      [R.disciplines.length, 'Indian disciplines mapped'],
+      [R.athletes.length, 'named athletes, public facts only']
+    ] : [
       [L.fights.toLocaleString(), 'UFC fights studied'],
       [L.fighters_active, 'active fighters modelled'],
       [niceDate(L.through), 'latest event included']
-    ].map(function (s) { return '<div><strong>' + s[0] + '</strong><span>' + s[1] + '</span></div>'; }).join('');
-    $('foot-through').textContent = 'Includes events through ' + niceDate(L.through) + '.';
+    ];
+    $('hero-stats').innerHTML = stats.map(function (s) { return '<div><strong>' + s[0] + '</strong><span>' + s[1] + '</span></div>'; }).join('');
+    $('foot-through').textContent = 'UFC events through ' + niceDate(L.through) + '. Cohorts frozen at ' + (A && A.cutoff ? niceDate(A.cutoff) : '2025') + '.';
+  }
+
+  function attachScout(A, B, division) {
+    byName[A.name] = A;
+    byName[B.name] = B;
+    ui.division = division;
+    ui.a = A.name;
+    ui.b = B.name;
+    if ($('pick-division')) $('pick-division').value = division;
+    fillSelect($('pick-a'), [A], A.name);
+    var seen = {}, opp = [B];
+    rosterOf(division).forEach(function (f) {
+      if (!seen[f.name] && f.name !== A.name && f.name !== B.name) { seen[f.name] = 1; opp.push(f); }
+    });
+    fillSelect($('pick-b'), opp.slice(0, 16), B.name);
+    refresh();
   }
 
   load().then(function () {
@@ -881,13 +1005,17 @@
     renderHero();
     buildArena();
     initPickers();
-    initMatchmaker();
+    if ($('mm-grid') && !$('matchmaker').hidden) initMatchmaker();
     renderRecord();
-    var best = null;
-    Object.keys(data.matchups).forEach(function (d) {
-      (data.matchups[d] || []).slice(0, 1).forEach(function (m) { if (!best || m.score > best.score) best = m; });
-    });
-    setMatchup(best.a, best.b);
+    if (window.Akhara) {
+      window.Akhara.init(data, { setMatchup: attachScout });
+    } else {
+      var best = null;
+      Object.keys(data.matchups).forEach(function (d) {
+        (data.matchups[d] || []).slice(0, 1).forEach(function (m) { if (!best || m.score > best.score) best = m; });
+      });
+      setMatchup(best.a, best.b);
+    }
     requestAnimationFrame(loop);
   }).catch(function (err) {
     document.querySelector('.hero-lede').textContent = 'Could not load fight data. Serve this folder over http (for example, python -m http.server).';
