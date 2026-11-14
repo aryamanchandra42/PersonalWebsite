@@ -1655,3 +1655,5 @@ main.container:has(.project-list){width:min(1520px,calc(100% - clamp(24px,5vw,96
 #zenith .project-gallery img{height:auto;aspect-ratio:3/4;object-fit:cover}
 #zenith .project-gallery figure:first-child img{object-position:center 62%}
 #zenith .project-gallery figure:last-child img{object-position:center center}
+
+.recognition-partner img.recognition-logo-plain{filter:none;mix-blend-mode:normal;background:transparent}

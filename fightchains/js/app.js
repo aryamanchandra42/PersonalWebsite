@@ -16,7 +16,12 @@
   var rng = { seed: 1 }, lastFight = null, watchingAgain = false;
 
   function $(id) { return document.getElementById(id); }
-  function last(name) { var p = name.split(' '); return p.length > 1 ? p.slice(1).join(' ') : name; }
+  function last(name) {
+    var f = byName[name];
+    if (f && (f.prospect || f.synthetic)) return name.replace(/ archetype$/, '').replace(/^Typical /, '');
+    var p = name.split(' ');
+    return p.length > 1 ? p.slice(1).join(' ') : name;
+  }
   function pct(x) { return Math.round(x * 100) + '%'; }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function newSeed() { return ((Math.random() * 0xffffffff) | 1) >>> 0; }
@@ -30,7 +35,7 @@
   }
 
   function load() {
-    return Promise.all(['fighters', 'matchups', 'league', 'backtest', 'photos'].map(function (k) {
+    return Promise.all(['fighters', 'matchups', 'league', 'backtest', 'photos', 'archetypes', 'roster'].map(function (k) {
       return fetch(new URL('data/' + k + '.json', document.baseURI)).then(function (r) {
         if (!r.ok) throw new Error(k);
         return r.json();
@@ -71,7 +76,8 @@
 
   function fillSelect(sel, roster, chosen) {
     sel.innerHTML = roster.map(function (f) {
-      return '<option value="' + esc(f.name) + '"' + (f.name === chosen ? ' selected' : '') + '>' + esc(f.name) + ' (' + f.record[0] + '-' + f.record[1] + ')</option>';
+      var tag = f.prospect ? 'inferred' : f.synthetic ? f.synthetic : (f.record[0] + '-' + f.record[1]);
+      return '<option value="' + esc(f.name) + '"' + (f.name === chosen ? ' selected' : '') + '>' + esc(f.name) + ' (' + tag + ')</option>';
     }).join('');
   }
 
@@ -89,12 +95,14 @@
     var divs = divisionList();
     $('pick-division').innerHTML = divs.map(function (d) { return '<option>' + esc(d) + '</option>'; }).join('');
     $('pick-division').addEventListener('change', function (e) {
+      if (window.Akhara) return;
       var card = (data.matchups[e.target.value] || [])[0];
       var roster = rosterOf(e.target.value);
       if (card) setMatchup(card.a, card.b, e.target.value);
       else setMatchup(roster[0].name, roster[1].name, e.target.value);
     });
     $('pick-a').addEventListener('change', function (e) {
+      if (window.Akhara) return;
       if (e.target.value === ui.b) { ui.b = ui.a; }
       setMatchup(e.target.value, ui.b, ui.division);
     });
@@ -185,16 +193,23 @@
   }
 
   function tapeSide(f, corner) {
-    var form = f.form.map(function (x) {
+    var form = (f.form && f.form.length ? f.form : []).map(function (x) {
       return '<li class="form-' + x.r.toLowerCase() + '" title="' + esc(x.r + ' vs ' + x.vs + ' · ' + x.kind + ' · ' + x.date) + '">' + x.r + '<small>' + (x.kind === 'OTHER' ? '' : x.kind) + '</small></li>';
-    }).join('');
+    }).join('') || '<li class="form-d">No UFC record on this card</li>';
     var st = f.style;
     var bits = [f.height && ('Height ' + f.height), f.reach && ('Reach ' + f.reach), f.stance].filter(Boolean).join(' · ');
+    var rec = f.prospect
+      ? '<p class="rec"><strong>Prospect</strong> · inferred · ' + esc(f.division) + '</p>'
+      : f.synthetic === 'median'
+        ? '<p class="rec"><strong>Measured median</strong> of UFC ' + esc(f.division) + '</p>'
+        : f.synthetic === 'novice'
+          ? '<p class="rec"><strong>Novice</strong> · league rates · ' + esc(f.division) + '</p>'
+          : '<p class="rec"><strong>' + f.record[0] + '-' + f.record[1] + '</strong> in the UFC &middot; ' + esc(f.division) + '</p>';
     return face(f, 'face-lg') +
       '<p class="corner-tag">' + corner + ' corner</p>' +
       '<h3>' + esc(f.name) + '</h3>' +
       (f.nickname ? '<p class="nick">&ldquo;' + esc(f.nickname) + '&rdquo;</p>' : '') +
-      '<p class="rec"><strong>' + f.record[0] + '-' + f.record[1] + '</strong> in the UFC &middot; ' + esc(f.division) + '</p>' +
+      rec +
       (bits ? '<p class="meta">' + esc(bits) + '</p>' : '') +
       '<p class="mini-h">Last five</p><ol class="form">' + form + '</ol>' +
       '<p class="mini-h">Where they spend their fights</p>' +
@@ -357,7 +372,11 @@
   function setPhase(text) { $('hud-phase').textContent = text; }
 
   function hitDamage(atk, def, kind) {
-    var base = { jab: 0.62, cross: 1.15, hook: 1.05, overhand: 1.28, kick: 1.45, knee: 0.95, ground: 0.88 }[kind] || 0.9;
+    var base = {
+      jab: 0.62, cross: 1.15, hook: 1.05, overhand: 1.28, uppercut: 1.2, kick: 1.45,
+      teep: 0.42, lowkick: 0.72, bodykick: 1.05, calf: 0.48, elbow: 0.88, knee: 0.95,
+      throw: 0.28, trip: 0.22, level: 0, ground: 0.88
+    }[kind] || 0.9;
     var power = (atk.strengths && atk.strengths.power) || 0.5;
     var dura = (def.strengths && def.strengths.durability) || 0.5;
     return base * (0.65 + power * 0.75) / (0.55 + dura * 0.9) * (0.72 + rand() * 0.5);
@@ -464,12 +483,71 @@
   }
 
   // Fighter positions for each state.
+  function guardPose(f) {
+    var w = (f && f.strengths && f.strengths.wrestling) || 0;
+    var dist = (f && f.style && f.style.distance) || 0;
+    if (w >= 0.62 && dist < 0.5) return 'wrestleStance';
+    return 'stance';
+  }
+
+  function idlePose(f) {
+    if (guardPose(f) === 'wrestleStance') return rand() < 0.35 ? 'bounce' : 'wrestleStance';
+    return rand() < 0.45 ? 'bounce' : 'stance';
+  }
+
+  function weigh(bag, name, w) {
+    var n = Math.max(0, Math.round(w));
+    for (var i = 0; i < n; i++) bag.push(name);
+  }
+
+  function pickMove(fighter, state) {
+    var s = (fighter && fighter.strengths) || {};
+    var st = (fighter && fighter.style) || {};
+    var strike = s.striking || 0.5, power = s.power || 0.5, wrestle = s.wrestling || 0.5;
+    var sub = s.submissions || 0.5, dist = st.distance || 0.4, clinch = st.clinch || 0;
+    var bag = [];
+    if (state === C.CLINCH) {
+      weigh(bag, 'knee', 2 + strike * 3);
+      weigh(bag, 'elbow', 2 + power * 3);
+      weigh(bag, 'cross', 1 + strike * 2);
+      if (wrestle > 0.55 || clinch > 0.15) { weigh(bag, 'throw', 2 + wrestle * 3); weigh(bag, 'trip', 1 + wrestle * 2); }
+      if (sub > 0.6) weigh(bag, 'trip', 2);
+    } else {
+      weigh(bag, 'jab', 3 + strike * 4);
+      weigh(bag, 'cross', 1 + power * 3);
+      weigh(bag, 'hook', 1 + power * 2);
+      weigh(bag, 'uppercut', power * 3);
+      weigh(bag, 'overhand', power * 2);
+      var kicks = 1 + (dist + strike) * 2;
+      weigh(bag, 'teep', kicks);
+      weigh(bag, 'lowkick', kicks + 1);
+      weigh(bag, 'bodykick', Math.max(1, kicks - 0.5));
+      weigh(bag, 'calf', dist * 2);
+      weigh(bag, 'kick', power * 2);
+      if (wrestle > 0.62) weigh(bag, 'level', 2 + wrestle * 3);
+    }
+    return bag.length ? bag[Math.floor(rand() * bag.length)] : 'jab';
+  }
+
+  function isKick(move) {
+    return move === 'kick' || move === 'teep' || move === 'lowkick' || move === 'bodykick' || move === 'calf';
+  }
+
+  function moveName(move) {
+    return {
+      jab: 'jab', cross: 'cross', hook: 'hook', overhand: 'overhand', uppercut: 'uppercut',
+      kick: 'head kick', teep: 'teep', lowkick: 'low kick', bodykick: 'body kick', calf: 'calf kick',
+      elbow: 'elbow', knee: 'knee', throw: 'throw', trip: 'trip', level: 'level change'
+    }[move] || move;
+  }
+
   function placeFor(state, ms) {
     var t = now(), d = dur(ms);
     if (state === C.DIST) {
       var drift = (rand() - 0.5) * 24;
-      figA.set(rand() < 0.45 ? 'bounce' : 'stance', d, -X_DIST + drift, t);
-      figB.set(rand() < 0.45 ? 'bounce' : 'stance', d, X_DIST + drift, t);
+      var A = byName[ui.a], B = byName[ui.b];
+      figA.set(idlePose(A), d, -X_DIST + drift, t);
+      figB.set(idlePose(B), d, X_DIST + drift, t);
     } else if (state === C.CLINCH) {
       figA.set('clinch', d, -X_CLINCH, t); figB.set('clinch', d, X_CLINCH, t);
     } else if (state === C.A_TOP) {
@@ -512,30 +590,59 @@
 
   function strike(who, state, landed) {
     var me = who === 'A' ? figA : figB, them = who === 'A' ? figB : figA;
-    var t = now(), base = state === C.CLINCH ? 'clinch' : 'stance';
-    var move;
-    if (state === C.CLINCH) move = rand() < 0.6 ? 'knee' : 'cross';
-    else {
-      var u = rand();
-      move = u < 0.38 ? 'jab' : u < 0.64 ? 'cross' : u < 0.78 ? 'hook' : u < 0.9 ? 'overhand' : 'kick';
-    }
+    var atk = byName[who === 'A' ? ui.a : ui.b], def = byName[who === 'A' ? ui.b : ui.a];
+    var t = now();
+    var base = state === C.CLINCH ? 'clinch' : guardPose(atk);
+    var theirBase = state === C.CLINCH ? 'clinch' : guardPose(def);
+    var move = pickMove(atk, state);
     var dir = who === 'A' ? 1 : -1;
-    var lunge = state === C.CLINCH ? 0 : ({ jab: 22, cross: 28, hook: 18, overhand: 24, kick: 12 }[move] || 22);
+    var lunge = state === C.CLINCH ? 0 : ({
+      jab: 16, cross: 26, hook: 18, overhand: 22, uppercut: 20, kick: 10,
+      teep: 14, lowkick: 8, bodykick: 10, calf: 6, elbow: 4, level: 20, throw: 8, trip: 6
+    }[move] || 12);
     var meX = state === C.CLINCH ? -dir * X_CLINCH : -dir * X_DIST + dir * lunge;
-    var punchMs = { jab: 130, cross: 160, hook: 140, overhand: 155, kick: 190, knee: 140 }[move] || 130;
+    var punchMs = {
+      jab: 120, cross: 150, hook: 140, overhand: 160, uppercut: 150, kick: 200,
+      teep: 170, lowkick: 180, bodykick: 190, calf: 160, elbow: 110, knee: 140,
+      level: 180, throw: 200, trip: 180
+    }[move] || 140;
+    var homeX = state === C.DIST ? -dir * X_DIST : undefined;
+    var theirX = state === C.DIST ? dir * X_DIST : undefined;
     me.set(move, dur(punchMs), meX, t);
-    later(punchMs + 30, function () {
-      me.set(base, dur(180), state === C.DIST ? -dir * X_DIST : undefined, now());
+    var follow = landed && state === C.DIST && move === 'jab' && (atk.strengths && atk.strengths.striking || 0) > 0.55 && rand() < 0.4;
+    later(punchMs * 0.65, function () {
+      if (!sim || sim.done) return;
+      if (move === 'level') {
+        them.set(landed ? 'sprawl' : 'slip', dur(150), state === C.DIST ? dir * (X_DIST - (landed ? 4 : 0)) : undefined, now());
+      } else if (landed) {
+        them.set(state === C.CLINCH ? 'clinchHit' : 'hit', dur(90), state === C.DIST ? dir * (X_DIST + 8) : undefined, now());
+      } else if (state === C.DIST) {
+        them.set(isKick(move) && rand() < 0.7 ? 'check' : 'slip', dur(120), theirX, now());
+      }
     });
-    if (landed) {
-      var atk = byName[who === 'A' ? ui.a : ui.b], def = byName[who === 'A' ? ui.b : ui.a];
+    if (landed && move !== 'level') {
       hurt(who === 'A' ? 'B' : 'A', hitDamage(atk, def, move));
-      later(Math.round(punchMs * 0.7), function () {
-        them.set(state === C.CLINCH ? 'clinchHit' : 'hit', dur(90), state === C.DIST ? dir * (X_DIST + 10) : undefined, now());
-      });
-      later(punchMs + 120, function () { them.set(base, dur(200), state === C.DIST ? dir * X_DIST : undefined, now()); });
-      if (state === C.DIST && rand() < 0.08) tick(last(byName[who === 'A' ? ui.a : ui.b].name) + (move === 'kick' ? ' lands a big kick' : ' cracks him clean'));
+      if (rand() < 0.18) {
+        var called = moveName(move);
+        tick(last(atk.name) + ' lands ' + (/^[aeiou]/.test(called) ? 'an ' : 'a ') + called);
+      }
     }
+    later(punchMs + (follow ? 200 : 40), function () {
+      if (!sim || sim.done) return;
+      if (follow) {
+        me.set('cross', dur(140), meX + dir * 6, now());
+        them.set('hit', dur(80), dir * (X_DIST + 8), now());
+        hurt(who === 'A' ? 'B' : 'A', hitDamage(atk, def, 'cross') * 0.65);
+        later(160, function () {
+          if (!sim || sim.done) return;
+          me.set(base, dur(180), homeX, now());
+          them.set(theirBase, dur(180), theirX, now());
+        });
+        return;
+      }
+      me.set(base, dur(180), homeX, now());
+      them.set(theirBase, dur(180), theirX, now());
+    });
   }
 
   function groundStrike(top) {
@@ -543,18 +650,21 @@
     var atk = byName[top === 'A' ? ui.a : ui.b], def = byName[top === 'A' ? ui.b : ui.a];
     var d = top === 'A' ? 1 : -1;
     var shift = (rand() - 0.5) * 10;
+    var elbows = ((atk.strengths && atk.strengths.submissions) || 0) > ((atk.strengths && atk.strengths.striking) || 0);
+    var wind = elbows ? 'topElbow' : 'topRaise';
+    var smash = elbows ? 'topElbow' : 'topPunch';
     hurt(top === 'A' ? 'B' : 'A', hitDamage(atk, def, 'ground'));
-    me.set('topRaise', dur(120), -d * X_GROUND + shift, now());
+    me.set(wind, dur(120), -d * X_GROUND + shift, now());
     them.set('bottomFrame', dur(100), d * X_GROUND + shift, now());
     later(130, function () {
-      me.set('topPunch', dur(90), -d * (X_GROUND - 2) + shift, now());
+      me.set(smash, dur(90), -d * (X_GROUND - 2) + shift, now());
       them.set('bottomHit', dur(90), d * X_GROUND + shift, now());
     });
     later(260, function () {
       if (rand() < 0.45) {
-        me.set('topRaise', dur(90), undefined, now());
+        me.set(wind, dur(90), undefined, now());
         later(100, function () {
-          me.set('topPunch', dur(80), undefined, now());
+          me.set(smash, dur(80), undefined, now());
           them.set('bottomHit', dur(80), undefined, now());
           hurt(top === 'A' ? 'B' : 'A', hitDamage(atk, def, 'ground') * 0.55);
         });
@@ -825,6 +935,7 @@
     ];
     $('record-tiles').innerHTML = tiles.map(function (t) { return '<div class="tile"><strong>' + t[0] + '</strong><span>' + t[1] + '</span><small>' + t[2] + '</small></div>'; }).join('');
     renderCalibration(bt.calibration);
+    renderMetrics(bt);
     $('titles').innerHTML = bt.title_fights.map(function (f) {
       var favA = f.p_model >= 0.5, fav = favA ? f.a : f.b, p = favA ? f.p_model : 1 - f.p_model;
       var winner = f.won ? f.a : f.b;
@@ -835,6 +946,93 @@
   }
 
   function called(f) { return (f.p_model >= 0.5) === f.won; }
+
+  function renderMetrics(bt) {
+    var host = $('metrics');
+    if (!host || !bt.model || bt.model.r2 == null) return;
+    var cols = [
+      ['model', 'FightChains'],
+      ['chain_only', 'Unshrunk chain'],
+      ['elo', 'Elo'],
+      ['coin', 'Coin flip']
+    ];
+    var rows = [
+      ['Accuracy', 'accuracy', 'pct', true],
+      ['R\u00b2', 'r2', 'num', true],
+      ['McFadden R\u00b2', 'mcfadden_r2', 'num', true],
+      ['AUC', 'auc', 'num', true],
+      ['Log loss', 'log_loss', 'num', false],
+      ['Brier score', 'brier', 'num', false],
+      ['Brier skill', 'brier_skill', 'num', true],
+      ['RMSE', 'rmse', 'num', false],
+      ['MAE', 'mae', 'num', false],
+      ['Calibration error', 'ece', 'num', false]
+    ];
+    function num(v) {
+      var n = Math.round(v * 1000) / 1000;
+      return (n < 0 ? '\u2212' : '') + Math.abs(n).toFixed(3);
+    }
+    function show(v, kind) {
+      return kind === 'pct' ? (v * 100).toFixed(1) + '%' : num(v);
+    }
+    function bestMask(key, higher) {
+      var vals = cols.map(function (c) { return bt[c[0]][key]; });
+      var best = higher ? Math.max.apply(null, vals) : Math.min.apply(null, vals);
+      return vals.map(function (v) { return Math.abs(v - best) < 5e-4; });
+    }
+    var head = '<tr><th>Picking the winner</th>' + cols.map(function (c) { return '<th>' + c[1] + '</th>'; }).join('') + '</tr>';
+    var body = rows.map(function (row) {
+      var mask = bestMask(row[1], row[3]);
+      return '<tr><th>' + row[0] + '</th>' + cols.map(function (c, i) {
+        return '<td' + (mask[i] ? ' class="is-best"' : '') + '>' + show(bt[c[0]][row[1]], row[2]) + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+
+    function shareTable(caption, names, pred, act) {
+      return '<h3>' + caption + '</h3><div class="metrics-wrap"><table class="metrics"><thead><tr><th></th><th>Predicted</th><th>Real bouts</th></tr></thead><tbody>' +
+        names.map(function (name, i) {
+          return '<tr><th>' + name + '</th><td>' + (pred[i] * 100).toFixed(1) + '%</td><td>' + (act[i] * 100).toFixed(1) + '%</td></tr>';
+        }).join('') + '</tbody></table></div>';
+    }
+
+    var fin = bt.finish_model, meth = bt.method, end = bt.ending || {};
+    var lines = [];
+    if (fin) {
+      lines.push(['Finish inside the distance', (fin.accuracy * 100).toFixed(1) + '%', 'R\u00b2 ' + num(fin.r2) + ' \u00b7 AUC ' + num(fin.auc) + ' \u00b7 log loss ' + num(fin.log_loss) + ' \u00b7 Brier ' + num(fin.brier)]);
+      lines.push(['Finish rate', (bt.finish_rate.predicted * 100).toFixed(1) + '%', 'Real bouts finished ' + (bt.finish_rate.actual * 100).toFixed(1) + '% of the time']);
+    }
+    if (meth) {
+      lines.push(['Method accuracy', (meth.accuracy * 100).toFixed(1) + '%', 'KO, submission, or decision \u00b7 R\u00b2 ' + num(meth.r2) + ' \u00b7 log loss ' + num(meth.log_loss) + ' \u00b7 Brier ' + num(meth.brier)]);
+    }
+    if (end.three) lines.push(['Three-round ending', (end.three.accuracy * 100).toFixed(1) + '%', end.three.n + ' bouts \u00b7 R\u00b2 ' + num(end.three.r2) + ' \u00b7 log loss ' + num(end.three.log_loss)]);
+    if (end.five) lines.push(['Five-round ending', (end.five.accuracy * 100).toFixed(1) + '%', end.five.n + ' bouts \u00b7 R\u00b2 ' + num(end.five.r2) + ' \u00b7 log loss ' + num(end.five.log_loss)]);
+    var outcome = lines.length ? (
+      '<h3>How the bout ended</h3>' +
+      '<p class="sub">Finish, method, and round, scored on the same ' + bt.n + ' bouts. Accuracy here is how often the most likely outcome was the one that happened.</p>' +
+      '<div class="metrics-wrap"><table class="metrics"><thead><tr><th></th><th>Score</th><th>Against the real bouts</th></tr></thead><tbody>' +
+      lines.map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + r[1] + '</td><td class="wrap">' + r[2] + '</td></tr>'; }).join('') +
+      '</tbody></table></div>' +
+      (meth ? shareTable('Method', ['KO / TKO', 'Submission', 'Decision'], meth.predicted, meth.actual) : '') +
+      (end.three ? shareTable('Three-round bouts, by round', ['Round 1', 'Round 2', 'Round 3', 'Decision'], end.three.predicted, end.three.actual) : '') +
+      (end.five ? shareTable('Five-round bouts, by round', ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Round 5', 'Decision'], end.five.predicted, end.five.actual) : '')
+    ) : '';
+
+    host.innerHTML =
+      '<h3>Accuracy, R\u00b2, and the other scores</h3>' +
+      '<p class="sub">Same ' + bt.n + ' bouts, called blind. The fighter listed first won ' + (bt.base_rate * 100).toFixed(1) + '% of them. The darkest figure is the best score on that row. FightChains and the unshrunk chain pick the same winners; the shrink is what makes R\u00b2 positive and beats a coin flip on log loss.</p>' +
+      '<div class="metrics-wrap"><table class="metrics"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>' +
+      outcome +
+      '<dl class="metrics-defs">' +
+      '<div><dt>Accuracy</dt><dd>Share of bouts where the higher probability was the winner. An even 50% scores half a point.</dd></div>' +
+      '<div><dt>R\u00b2</dt><dd>Efron\u2019s R\u00b2. Zero means the probabilities explain nothing beyond always quoting the base rate.</dd></div>' +
+      '<div><dt>McFadden R\u00b2</dt><dd>One minus the model\u2019s log loss, divided by the log loss of the base rate.</dd></div>' +
+      '<div><dt>AUC</dt><dd>Chance that a bout the fighter won was given a higher probability than a bout they lost.</dd></div>' +
+      '<div><dt>Log loss and Brier</dt><dd>Penalties for confident misses. A coin flip scores 0.693 and 0.250. Lower is better.</dd></div>' +
+      '<div><dt>Brier skill</dt><dd>How far the Brier score sits below a coin flip\u2019s 0.250. Zero matches a coin.</dd></div>' +
+      '<div><dt>RMSE and MAE</dt><dd>Typical gap between the stated probability and the 0/1 result. Lower is better.</dd></div>' +
+      '<div><dt>Calibration error</dt><dd>Average gap between a stated probability and how often that probability won. Lower is better.</dd></div>' +
+      '</dl>';
+  }
 
   function niceDate(s) {
     var d = new Date(s + 'T00:00:00');
@@ -863,13 +1061,34 @@
 
   // ---------- hero ----------
   function renderHero() {
-    var L = data.league;
-    $('hero-stats').innerHTML = [
+    var L = data.league, A = data.archetypes, R = data.roster;
+    var stats = A && R ? [
+      [A.n_fighters.toLocaleString(), 'UFC fighters in the frozen cohorts'],
+      [R.disciplines.length, 'Indian disciplines mapped'],
+      [R.athletes.length, 'named athletes, public facts only']
+    ] : [
       [L.fights.toLocaleString(), 'UFC fights studied'],
       [L.fighters_active, 'active fighters modelled'],
       [niceDate(L.through), 'latest event included']
-    ].map(function (s) { return '<div><strong>' + s[0] + '</strong><span>' + s[1] + '</span></div>'; }).join('');
-    $('foot-through').textContent = 'Includes events through ' + niceDate(L.through) + '.';
+    ];
+    $('hero-stats').innerHTML = stats.map(function (s) { return '<div><strong>' + s[0] + '</strong><span>' + s[1] + '</span></div>'; }).join('');
+    $('foot-through').textContent = 'UFC events through ' + niceDate(L.through) + '. Cohorts frozen at ' + (A && A.cutoff ? niceDate(A.cutoff) : '2025') + '.';
+  }
+
+  function attachScout(A, B, division) {
+    byName[A.name] = A;
+    byName[B.name] = B;
+    ui.division = division;
+    ui.a = A.name;
+    ui.b = B.name;
+    if ($('pick-division')) $('pick-division').value = division;
+    fillSelect($('pick-a'), [A], A.name);
+    var seen = {}, opp = [B];
+    rosterOf(division).forEach(function (f) {
+      if (!seen[f.name] && f.name !== A.name && f.name !== B.name) { seen[f.name] = 1; opp.push(f); }
+    });
+    fillSelect($('pick-b'), opp.slice(0, 16), B.name);
+    refresh();
   }
 
   load().then(function () {
@@ -881,13 +1100,17 @@
     renderHero();
     buildArena();
     initPickers();
-    initMatchmaker();
+    if ($('mm-grid') && !$('matchmaker').hidden) initMatchmaker();
     renderRecord();
-    var best = null;
-    Object.keys(data.matchups).forEach(function (d) {
-      (data.matchups[d] || []).slice(0, 1).forEach(function (m) { if (!best || m.score > best.score) best = m; });
-    });
-    setMatchup(best.a, best.b);
+    if (window.Akhara) {
+      window.Akhara.init(data, { setMatchup: attachScout });
+    } else {
+      var best = null;
+      Object.keys(data.matchups).forEach(function (d) {
+        (data.matchups[d] || []).slice(0, 1).forEach(function (m) { if (!best || m.score > best.score) best = m; });
+      });
+      setMatchup(best.a, best.b);
+    }
     requestAnimationFrame(loop);
   }).catch(function (err) {
     document.querySelector('.hero-lede').textContent = 'Could not load fight data. Serve this folder over http (for example, python -m http.server).';
